@@ -2,6 +2,9 @@ package RecipeSharing.logic;
 
 import java.util.List;
 
+/**
+ * Class for recipes, contains all pertinent information.
+ */
 public class Recipe {
 
     private String title;
@@ -11,9 +14,15 @@ public class Recipe {
     private List<Person> readAccess;
     private List<Person> writeAccess;
     private List<Cuisine> cuisines;
+    private Meal meal;
     private List<Ingredient> ingredients;
     private double rating;
     private int numRatings;
+
+    //TODO decide what fields are needed for constructor
+    public Recipe() {
+
+    }
 
     public void updateRating(int userRating) {
         double total = (rating * numRatings) + userRating;
