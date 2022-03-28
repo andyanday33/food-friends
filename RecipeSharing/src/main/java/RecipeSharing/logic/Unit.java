@@ -1,4 +1,5 @@
 package RecipeSharing.logic;
 
-public class Unit {
+public enum Unit {
+
 }
