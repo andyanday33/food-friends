@@ -88,6 +88,22 @@ public class Person {
         this.readAccess = readAccess;
     }
 
+    /**
+     * Add an individual recipe to this person's write access list.
+     * @param recipe recipe to be added.
+     */
+    public void addWriteAccess(Recipe recipe) {
+        this.writeAccess.add(recipe);
+    }
+
+    /**
+     * Remove an individual recipe from this person's write access list.
+     * @param recipe recipe to remove.
+     */
+    public void removeWriteAccess(Recipe recipe) {
+        this.writeAccess.remove(recipe);
+    }
+
     public List<Recipe> getWriteAccess() {
         return writeAccess;
     }
