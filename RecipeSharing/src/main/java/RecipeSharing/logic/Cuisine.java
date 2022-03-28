@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Cuisine {
 
-    private String title;
+    private final String title;
     private List<Recipe> recipes = new ArrayList<>();
 
     /**
