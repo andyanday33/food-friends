@@ -35,6 +35,14 @@ public class Person {
     }
 
     /**
+     * Remove one recipe from this person's recipe list.
+     * @param recipe recipe to be removed.
+     */
+    public void removeRecipe(Recipe recipe) {
+        this.authoredRecipes.remove(recipe);
+    }
+
+    /**
      * Get the list of recipes that this person is the owner of.
      * @return list of recipes.
      */
@@ -49,10 +57,33 @@ public class Person {
         this.authoredRecipes = authoredRecipes;
     }
 
+    /**
+     * Get the list of recipes this Person has read access to.
+     * @return list of recipes.
+     */
     public List<Recipe> getReadAccess() {
         return readAccess;
     }
 
+    /**
+     * Add an individual recipe to the read access list.
+     * @param recipe recipe to be added.
+     */
+    public void addReadAccess(Recipe recipe) {
+        this.readAccess.add(recipe);
+    }
+
+    /**
+     * Remove an individual recipe from the read access list.
+     * @param recipe recipe to be removed.
+     */
+    public void removeReadAccess(Recipe recipe) {
+        this.readAccess.remove(recipe);
+    }
+
+    /**
+     * Set the list of recipes this Person has read access to.
+     */
     public void setReadAccess(List<Recipe> readAccess) {
         this.readAccess = readAccess;
     }
@@ -79,6 +110,14 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addLikedRecipe(Recipe recipe) {
+        this.likedRecipes.add(recipe);
+    }
+
+    public void removeLikedRecipe(Recipe recipe) {
+        this.likedRecipes.remove(recipe);
     }
 
     public List<Recipe> getLikedRecipes() {
