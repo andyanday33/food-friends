@@ -107,6 +107,22 @@ public class Recipe {
     }
 
     /**
+     * Individual person to be given read access for this recipe.
+     * @param person person to be added.
+     */
+    public void addReadAccess(Person person) {
+        this.readAccess.add(person);
+    }
+
+    /**
+     * Individual person to have read access removed for this recipe.
+     * @param person person to be removed.
+     */
+    public void removeReadAccess(Person person) {
+        this.readAccess.remove(person);
+    }
+
+    /**
      * Get the list of people who have can edit this recipe.
      * @return list of people.
      */
@@ -119,6 +135,22 @@ public class Recipe {
      */
     public void setWriteAccess(List<Person> writeAccess) {
         this.writeAccess = writeAccess;
+    }
+
+    /**
+     * Individual person to be given write access for this recipe.
+     * @param person person to be added.
+     */
+    public void addWriteAccess(Person person) {
+        this.writeAccess.add(person);
+    }
+
+    /**
+     * Individual person to have write access removed for this recipe.
+     * @param person person to be removed.
+     */
+    public void removeWriteAccess(Person person) {
+        this.writeAccess.remove(person);
     }
 
     /**
@@ -172,5 +204,21 @@ public class Recipe {
      */
     public void setPhotos(List<Byte[]> photos) {
         this.photos = photos;
+    }
+
+    /**
+     * Add an individual photo to this recipe.
+     * @param photo photo as a Byte[] to be added.
+     */
+    public void addPhoto(Byte[] photo) {
+        this.photos.add(photo);
+    }
+
+    /**
+     * Remove an individual photo from this recipe.
+     * @param photo to be removed from recipe.
+     */
+    public void removePhoto(Byte[] photo) {
+        this.photos.remove(photo);
     }
 }
