@@ -11,21 +11,42 @@ public class Person {
     //TODO add something to do with permissions.
     private String name;
     private String email;
-    private List<Recipe> recipes = new ArrayList<>();
+    private List<Recipe> authoredRecipes = new ArrayList<>();
+    private List<Recipe> likedRecipes = new ArrayList<>();
     private List<Recipe> readAccess = new ArrayList<>();
     private List<Recipe> writeAccess = new ArrayList<>();
 
+    /**
+     * Constructor for class.
+     * @param name person's name.
+     * @param email person's email address.
+     */
     public Person(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
+    /**
+     * Add one recipe to this person's recipe list.
+     * @param recipe recipe to be added.
+     */
+    public void addRecipe(Recipe recipe) {
+        this.authoredRecipes.add(recipe);
     }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
+    /**
+     * Get the list of recipes that this person is the owner of.
+     * @return list of recipes.
+     */
+    public List<Recipe> getAuthoredRecipes() {
+        return authoredRecipes;
+    }
+
+    /**
+     * Set the list of recipes that this person is the owner of.
+     */
+    public void setAuthoredRecipes(List<Recipe> authoredRecipes) {
+        this.authoredRecipes = authoredRecipes;
     }
 
     public List<Recipe> getReadAccess() {
@@ -58,5 +79,13 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Recipe> getLikedRecipes() {
+        return likedRecipes;
+    }
+
+    public void setLikedRecipes(List<Recipe> likedRecipes) {
+        this.likedRecipes = likedRecipes;
     }
 }
