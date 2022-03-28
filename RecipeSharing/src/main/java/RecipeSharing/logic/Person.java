@@ -15,6 +15,7 @@ public class Person {
     private List<Recipe> likedRecipes = new ArrayList<>();
     private List<Recipe> readAccess = new ArrayList<>();
     private List<Recipe> writeAccess = new ArrayList<>();
+    private List<Recipe> history = new ArrayList<>();
 
     /**
      * Constructor for class.
@@ -104,6 +105,10 @@ public class Person {
         this.writeAccess.remove(recipe);
     }
 
+    /**
+     * Get the recipes this individual is allowed to edit.
+     * @return
+     */
     public List<Recipe> getWriteAccess() {
         return writeAccess;
     }
@@ -142,5 +147,13 @@ public class Person {
 
     public void setLikedRecipes(List<Recipe> likedRecipes) {
         this.likedRecipes = likedRecipes;
+    }
+
+    public void addToHistory(Recipe recipe) {
+        this.history.add(recipe);
+    }
+
+    public List<Recipe> getHistory() {
+        return history;
     }
 }
