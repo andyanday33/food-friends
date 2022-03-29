@@ -3,7 +3,7 @@ package RecipeSharing.logic;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("Person")
+@Document("User")
 public class User extends Person{
     /**
      * Constructor for class.

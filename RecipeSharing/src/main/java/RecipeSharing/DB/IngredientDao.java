@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Data Access Object for Ingredient
  */
@@ -16,11 +18,22 @@ public class IngredientDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    String findIngredient() {
-        Query query = Query.query(Criteria.where("title").is("salt"));
-        mongoTemplate.find(query, Ingredient.class);
-        System.out.println(mongoTemplate.find(query, Ingredient.class));
-        return "success";
+    Ingredient findOIngredient(String title) {
+        Query query = Query.query(Criteria.where("title").is(title));
+        return mongoTemplate.findOne(query, Ingredient.class);
+    }
+
+    void addOneIngredient(Ingredient ingredient) {
+        mongoTemplate.save(ingredient, "Ingredient");
+    }
+
+    void deleteIngredientByTitle(String title) {
+        Query query = Query.query(Criteria.where("title").is(title));
+        Ingredient ingredient = mongoTemplate.findOne(query, Ingredient.class);
+        if (ingredient != null) {
+            mongoTemplate.remove(ingredient);
+            System.out.println("successfully delete: " + ingredient.getTitle());
+        }
     }
 
 }

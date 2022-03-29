@@ -22,11 +22,22 @@ class IngredientDaoTest {
     @Autowired
     MongoTemplate mongoTemplate;
     @Test
-    void findOneTest(){
-        ingredientDao.findIngredient();
+    void findOneTest(){;
         Query query = Query.query(Criteria.where("title").is("salt"));
         mongoTemplate.find(query, Ingredient.class);
         System.out.println(mongoTemplate.find(query, Ingredient.class));
     }
 
+    @Test
+    void findOIngredient() {
+        ingredientDao.findOIngredient("salt");
+    }
+
+    @Test
+    void addOneIngredient() {
+    }
+
+    @Test
+    void deleteIngredientByTitle() {
+    }
 }
