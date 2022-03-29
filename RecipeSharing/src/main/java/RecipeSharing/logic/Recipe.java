@@ -1,10 +1,15 @@
 package RecipeSharing.logic;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
 /**
  * Class for recipes, contains all pertinent information.
  */
+@Data
+@Document("Recipe")
 public class Recipe {
 
     private String title;

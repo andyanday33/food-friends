@@ -1,12 +1,15 @@
 package RecipeSharing.logic;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class for each person, parent class of admin and user
  */
-public class Person {
+@Document("Person")
+public abstract class Person {
 
     //TODO add something to do with permissions.
     private String name;
