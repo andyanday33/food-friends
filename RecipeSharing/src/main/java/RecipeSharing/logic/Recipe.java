@@ -3,8 +3,11 @@ package RecipeSharing.logic;
 import RecipeSharing.DB.RecipeDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,22 +19,44 @@ public class Recipe {
 
     @Autowired
     RecipeDao recipeDao;
+    @Id
+    private String id;
     private String title;
     private String description;
+    private String[] instructions;
     private Person owner;
-    private boolean shareable;
-    private List<Person> readAccess;
-    private List<Person> writeAccess;
-    private List<Cuisine> cuisines;
+    private boolean shareable = false;
+    private List<Person> readAccess = new ArrayList<>();
+    private List<Person> writeAccess = new ArrayList<>();
+    private List<Cuisine> cuisines = new ArrayList<>();
     private Meal meal;
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
     private double rating;
     private int numRatings;
     private List<Byte[]> photos;
 
-    //TODO decide what fields are needed for constructor
-    public Recipe() {
+    //TODO refactor and/or overload this.
+    public Recipe(String title,
+                  String description,
+                  Person owner,
+                  String[] instructions,
+                  Ingredient[] ingredients,
+                  Meal meal,
+                  Cuisine cuisine) {
 
+        this.title = title;
+        this.description = description;
+        this.instructions = instructions;
+        this.ingredients.addAll(Arrays.asList(ingredients));
+
+        this.owner = owner;
+        owner.addRecipe(this);
+
+        this.meal = meal;
+        meal.addRecipe(this);
+
+        this.cuisines.add(cuisine);
+        cuisine.addRecipe(this);
     }
 
     /**
