@@ -32,6 +32,7 @@ public class Recipe {
     private int numRatings;
     private List<Byte[]> photos;
 
+    //TODO refactor and/or overload this.
     public Recipe(String title,
                   String description,
                   Person owner,
