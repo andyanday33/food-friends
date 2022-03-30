@@ -1,6 +1,7 @@
 package RecipeSharing.DB;
 
 import RecipeSharing.logic.Ingredient;
+import RecipeSharing.logic.Meal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ class IngredientDaoTest {
         Query query = Query.query(Criteria.where("title").is("salt"));
         mongoTemplate.find(query, Ingredient.class);
         System.out.println(mongoTemplate.find(query, Ingredient.class));
+    }
+
+    @Test
+    void findAllTest(){
+        ingredientDao.findAllIngredients();
     }
 
     @Test
