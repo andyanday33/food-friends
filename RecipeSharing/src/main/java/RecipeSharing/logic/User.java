@@ -2,6 +2,7 @@ package RecipeSharing.logic;
 
 import RecipeSharing.DB.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("user")
@@ -9,6 +10,8 @@ public class User extends Person{
 
     @Autowired
     UserDao userDao;
+    @Id
+    private String id;
 
     /**
      * Constructor for class.
