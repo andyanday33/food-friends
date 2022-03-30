@@ -3,6 +3,7 @@ package RecipeSharing.logic;
 import RecipeSharing.DB.RecipeDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class Recipe {
 
     @Autowired
     RecipeDao recipeDao;
+    @Id
+    private String id;
     private String title;
     private String description;
     private String[] instructions;
