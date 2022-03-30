@@ -17,21 +17,9 @@ public class Ingredient {
     private String title;
     private Double quantity;
 
+    //TODO add unit enum
     public Ingredient(String title, Double quantity) {
         this.title = title;
         this.quantity = quantity;
     }
-
-    //ml
-    //litres
-    //fluid ounce
-    //pint
-    //quart
-
-    //grams
-    //kilograms
-    //milligrams
-    //ounce
-    //pound
-    //stone
 }
