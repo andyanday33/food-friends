@@ -37,14 +37,20 @@ public class Recipe {
                   Person owner,
                   String[] instructions,
                   Ingredient[] ingredients,
-                  Meal meal) {
+                  Meal meal,
+                  Cuisine cuisine) {
 
         this.title = title;
         this.description = description;
         this.owner = owner;
         this.instructions = instructions;
         this.ingredients.addAll(Arrays.asList(ingredients));
+
         this.meal = meal;
+        meal.addRecipe(this);
+
+        this.cuisines.add(cuisine);
+        cuisine.addRecipe(this);
     }
 
     /**
