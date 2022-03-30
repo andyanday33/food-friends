@@ -1,4 +1,4 @@
-package RecipeSharing.API;
+package RecipeSharing.api;
 
 import org.springframework.web.bind.annotation.*;
 
