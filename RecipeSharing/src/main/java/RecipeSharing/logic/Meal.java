@@ -1,11 +1,16 @@
 package RecipeSharing.logic;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class for meals. Contains list of associated recipes. This should probably be a table in the database.
  */
+@Document("Meal")
+@Data
 public class Meal {
 
     private String title;

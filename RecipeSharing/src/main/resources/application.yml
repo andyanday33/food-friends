@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://CS5031:CS5031.P3.GROUPD@cluster0.i2z3n.mongodb.net/RecipeSharing?retryWrites=true&w=majority
