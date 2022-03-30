@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Admin")
-public class Admin extends Person{
+public class Admin extends Person {
 
     @Autowired
     AdminDao adminDao;

@@ -18,8 +18,9 @@ dependencies {
 	implementation 'org.projectlombok:lombok'
 	implementation 'org.mockito:mockito-core'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'junit:junit:4.13.1'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

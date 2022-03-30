@@ -33,6 +33,10 @@ public class Recipe {
     public Recipe() {
 
     }
+    public Recipe(String title) {
+        this.title = title;
+    }
+
 
     /**
      * Updates average rating based on new rating input.

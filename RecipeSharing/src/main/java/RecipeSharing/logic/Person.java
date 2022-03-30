@@ -14,6 +14,7 @@ public abstract class Person {
     //TODO add something to do with permissions.
     private String name;
     private String email;
+    private String password;
     private List<Recipe> authoredRecipes = new ArrayList<>();
     private List<Recipe> likedRecipes = new ArrayList<>();
     private List<Recipe> readAccess = new ArrayList<>();
@@ -28,6 +29,10 @@ public abstract class Person {
     public Person(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public Person(){
+
     }
 
     /**

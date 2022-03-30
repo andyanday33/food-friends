@@ -15,8 +15,12 @@ public class UserDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    List<User> findAllUsers(){
+    public List<User> findAllUsers(){
         System.out.println(mongoTemplate.findAll(User.class));
         return mongoTemplate.findAll(User.class);
+    }
+
+    public void addOneUser(User user){
+        mongoTemplate.save(user, "user");
     }
 }
