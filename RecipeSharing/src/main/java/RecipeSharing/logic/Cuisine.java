@@ -1,6 +1,8 @@
 package RecipeSharing.logic;
 
+import RecipeSharing.DB.CuisineDao;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
 @Data
 public class Cuisine {
 
+    @Autowired
+    CuisineDao cuisineDao;
     private final String title;
     private List<Recipe> recipes = new ArrayList<>();
 

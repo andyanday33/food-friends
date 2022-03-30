@@ -1,6 +1,8 @@
 package RecipeSharing.logic;
 
+import RecipeSharing.DB.RecipeDao;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 @Document("Recipe")
 public class Recipe {
 
+    @Autowired
+    RecipeDao recipeDao;
     private String title;
     private String description;
     private Person owner;
