@@ -42,9 +42,11 @@ public class Recipe {
 
         this.title = title;
         this.description = description;
-        this.owner = owner;
         this.instructions = instructions;
         this.ingredients.addAll(Arrays.asList(ingredients));
+
+        this.owner = owner;
+        owner.addRecipe(this);
 
         this.meal = meal;
         meal.addRecipe(this);
