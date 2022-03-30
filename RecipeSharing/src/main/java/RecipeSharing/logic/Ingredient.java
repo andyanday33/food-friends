@@ -12,7 +12,12 @@ public class Ingredient {
     @Autowired
     IngredientDao ingredientDao;
     private String title;
-    private double quantity;
+    private Double quantity;
+
+    public Ingredient(String title, Double quantity) {
+        this.title = title;
+        this.quantity = quantity;
+    }
 
     //ml
     //litres

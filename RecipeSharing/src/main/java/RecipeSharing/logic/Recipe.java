@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,20 +20,31 @@ public class Recipe {
     RecipeDao recipeDao;
     private String title;
     private String description;
+    private String[] instructions;
     private Person owner;
-    private boolean shareable;
-    private List<Person> readAccess;
-    private List<Person> writeAccess;
-    private List<Cuisine> cuisines;
+    private boolean shareable = false;
+    private List<Person> readAccess = new ArrayList<>();
+    private List<Person> writeAccess = new ArrayList<>();
+    private List<Cuisine> cuisines = new ArrayList<>();
     private Meal meal;
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
     private double rating;
     private int numRatings;
     private List<Byte[]> photos;
 
-    //TODO decide what fields are needed for constructor
-    public Recipe() {
+    public Recipe(String title,
+                  String description,
+                  Person owner,
+                  String[] instructions,
+                  Ingredient[] ingredients,
+                  Meal meal) {
 
+        this.title = title;
+        this.description = description;
+        this.owner = owner;
+        this.instructions = instructions;
+        this.ingredients.addAll(Arrays.asList(ingredients));
+        this.meal = meal;
     }
 
     /**
