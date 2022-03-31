@@ -104,4 +104,36 @@ public enum Unit {
 
         return unitToUnitMapping;
     }
+
+    private HashMap<Map<Unit,Unit>, Double> getMassMap() {
+        HashMap<Map<Unit,Unit>, Double> unitToUnitMapping = new HashMap<>();
+
+        Map<Unit, Unit> g2kg = Map.of(GRAM, KILOGRAM);
+        Map<Unit, Unit> g2oz = Map.of(GRAM, OUNCE);
+        Map<Unit, Unit> g2lb = Map.of(GRAM, POUND);
+        Map<Unit, Unit> kg2g = Map.of(KILOGRAM, GRAM);
+        Map<Unit, Unit> kg2oz = Map.of(KILOGRAM, OUNCE);
+        Map<Unit, Unit> kg2lb = Map.of(KILOGRAM, POUND);
+        Map<Unit, Unit> oz2g = Map.of(OUNCE, GRAM);
+        Map<Unit, Unit> oz2kg = Map.of(OUNCE, KILOGRAM);
+        Map<Unit, Unit> oz2lb = Map.of(OUNCE, POUND);
+        Map<Unit, Unit> lb2g = Map.of(POUND, GRAM);
+        Map<Unit, Unit> lb2kg = Map.of(POUND, KILOGRAM);
+        Map<Unit, Unit> lb2oz = Map.of(POUND, OUNCE);
+
+        unitToUnitMapping.put(g2kg, 0.001);
+        unitToUnitMapping.put(g2oz, 0.033814);
+        unitToUnitMapping.put(g2lb, 0.00175975);
+        unitToUnitMapping.put(kg2g, 1000.0);
+        unitToUnitMapping.put(kg2oz, 33.814);
+        unitToUnitMapping.put(kg2lb, 2.11338);
+        unitToUnitMapping.put(oz2g, 29.5735);
+        unitToUnitMapping.put(oz2kg, 0.0295735);
+        unitToUnitMapping.put(oz2lb, 0.0520421);
+        unitToUnitMapping.put(lb2g, 568.261);
+        unitToUnitMapping.put(lb2kg, 0.568261);
+        unitToUnitMapping.put(lb2oz, 16.0);
+
+        return unitToUnitMapping;
+    }
 }
