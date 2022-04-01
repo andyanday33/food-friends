@@ -135,13 +135,21 @@ public class RecipeTest {
         assertEquals(soup.getReadAccess().size(), 0);
     }
 
+    /**
+     * Tests that read access can be set with a list of users.
+     */
     @Test
     void setReadAccess() {
         User jim = new User("Jim", "jim@jimmail.com");
-        soup.setReadAccess(new ArrayList<>(List.of(jim)));
+        User josephine = new User("Josephine", "epicsniper94@gmail.com");
+        soup.setReadAccess(new ArrayList<>(List.of(jim, josephine)));
         assertTrue(soup.getReadAccess().contains(jim));
+        assertTrue(soup.getReadAccess().contains(josephine));
     }
 
+    /**
+     * Tests an individual user can be given read access.
+     */
     @Test
     void addReadAccess() {
         User jim = new User("Jim", "jim@jimmail.com");
@@ -149,8 +157,16 @@ public class RecipeTest {
         assertTrue(soup.getReadAccess().contains(jim));
     }
 
+    /**
+     * Tests individual users can have read access removed.
+     */
     @Test
     void removeReadAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.addReadAccess(jim);
+        assertTrue(soup.getReadAccess().contains(jim));
+        soup.removeReadAccess(jim);
+        assertFalse(soup.getReadAccess().contains(jim));
     }
 
     /**
@@ -161,13 +177,21 @@ public class RecipeTest {
         assertEquals(soup.getWriteAccess().size(), 0);
     }
 
+    /**
+     * Tests that write access can be set with a list of users.
+     */
     @Test
     void setWriteAccess() {
         User jim = new User("Jim", "jim@jimmail.com");
-        soup.setWriteAccess(new ArrayList<>(List.of(jim)));
+        User josephine = new User("Josephine", "epicsniper94@gmail.com");
+        soup.setWriteAccess(new ArrayList<>(List.of(jim, josephine)));
         assertTrue(soup.getWriteAccess().contains(jim));
+        assertTrue(soup.getWriteAccess().contains(josephine));
     }
 
+    /**
+     * Tests an individual user can be given write access.
+     */
     @Test
     void addWriteAccess() {
         User jim = new User("Jim", "jim@jimmail.com");
@@ -175,8 +199,16 @@ public class RecipeTest {
         assertTrue(soup.getWriteAccess().contains(jim));
     }
 
+    /**
+     * Tests individual users can have read access removed.
+     */
     @Test
     void removeWriteAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.addWriteAccess(jim);
+        assertTrue(soup.getWriteAccess().contains(jim));
+        soup.removeWriteAccess(jim);
+        assertFalse(soup.getWriteAccess().contains(jim));
     }
 
     @Test
