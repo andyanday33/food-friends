@@ -23,6 +23,6 @@ public class User extends Person{
         super(name, email);
     }
 
-    public User(){
+    public User() {
     }
 }
