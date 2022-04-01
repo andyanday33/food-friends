@@ -26,11 +26,11 @@ class RecipeDaoTest {
         Recipe recipe = new Recipe("title");
         recipeDao.addOneRecipe(recipe);
     }
-    @Test
+/*    @Test
     void findRecipeTest() {
 //        recipeDao.findAllRecipes();
         mongoTemplate.findAll(Recipe.class);
-    }
+    }*/
 
     @Test
     void findOneRecipeByTitle() {
