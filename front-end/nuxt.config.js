@@ -47,4 +47,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  auth: {
+    strategies: {
+      auth0: {
+        domain: 'dev-tys5d4fu.us.auth0.com',
+        clientId: 'zynW9dJqT1m4TguKMexnpkulEuBDRCyK',
+        audience: 'https://dev-tys5d4fu.us.auth0.com/api/v2/',
+        logoutRedirectUri: 'http://localhost:3000'
+      }
+    },
+    redirect: {
+      login: '/Unauthorized'
+    }
+  }
 }

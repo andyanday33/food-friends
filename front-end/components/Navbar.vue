@@ -13,7 +13,7 @@
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Home
                 </NuxtLink>
-                <a href="#" v-if="$auth.loggedIn"
+                <a href="#" v-if="$auth.loggedIn" @click="printUserData"
                    class=" block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     My Recipes
                 </a>
@@ -37,14 +37,15 @@
             </div>
             <div class="flex ">
                 <a href="#" v-if="!$auth.loggedIn"
-                   class="block text-md px-4 py-2 rounded text-green-700 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Sign
-                    in</a>
-    
-                <a href="#" v-if="!$auth.loggedIn"
-                   class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Sign Up</a>
-                
+                   class="block text-md px-4 py-2 rounded text-green-700 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
+                   @click="userSignIn"
+                   >
+                   Login
+                   </a>
                 <a href="#" v-if="$auth.loggedIn"
-                   class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Log Out</a>
+                   class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
+                   @click="userLogOut"
+                   >Log Out</a>
             </div>
         </div>
     
@@ -53,9 +54,21 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
+export default {   
+    methods: {
+        async userLogOut() {
+            let data = await this.$auth.logout();
+            console.log(data);
+            this.$store.commit('updateUserData', data);
+        },
+        async userSignIn() {
+            let data = await this.$auth.loginWith('auth0');
+            console.log(data);
+            this.$store.commit('removeUserData');
+        },
+        printUserData(){
+            console.log("aaaaaa");
+            console.log(this.$auth.user);
         }
     }
 }
