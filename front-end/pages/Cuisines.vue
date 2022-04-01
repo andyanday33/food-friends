@@ -34,7 +34,8 @@
 
 <script>
 export default {
-    name: "CuisinesPage"
+    name: "CuisinesPage",
+    middleware: 'auth'
 }
 </script>
 

@@ -13,11 +13,11 @@
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Home
                 </NuxtLink>
-                <a href="#" v-if="signedIn"
+                <a href="#" v-if="$auth.loggedIn"
                    class=" block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     My Recipes
                 </a>
-                <a href="#" v-if="signedIn"
+                <a href="#" v-if="$auth.loggedIn"
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Saved Recipes
                 </a>
@@ -36,14 +36,14 @@
                 </button>
             </div>
             <div class="flex ">
-                <a href="#" v-if="!signedIn"
+                <a href="#" v-if="!$auth.loggedIn"
                    class="block text-md px-4 py-2 rounded text-green-700 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Sign
                     in</a>
     
-                <a href="#" v-if="!signedIn"
+                <a href="#" v-if="!$auth.loggedIn"
                    class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Sign Up</a>
                 
-                <a href="#" v-if="signedIn"
+                <a href="#" v-if="$auth.loggedIn"
                    class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0">Log Out</a>
             </div>
         </div>
@@ -56,7 +56,6 @@
 export default {
     data() {
         return {
-            signedIn : false
         }
     }
 }
