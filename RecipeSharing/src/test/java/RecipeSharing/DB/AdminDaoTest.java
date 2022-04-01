@@ -15,10 +15,12 @@ class AdminDaoTest {
 
     @Autowired
     AdminDao adminDao;
+/*
     @Test
     void findAllAdmin() {
         adminDao.findAllAdmins();
     }
+*/
 
     @Test
     void addOneAdmin() {
