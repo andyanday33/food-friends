@@ -1,6 +1,5 @@
-package RecipeSharing.api;
+package recipesharing.api;
 
-import RecipeSharing.logic.Recipe;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")

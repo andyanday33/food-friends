@@ -1,6 +1,6 @@
-package RecipeSharing.DB;
+package recipesharing.db;
 
-import RecipeSharing.logic.User;
+import recipesharing.logic.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

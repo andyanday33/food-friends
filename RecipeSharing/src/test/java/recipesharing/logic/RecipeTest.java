@@ -1,4 +1,4 @@
-package RecipeSharing.logic;
+package recipesharing.logic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

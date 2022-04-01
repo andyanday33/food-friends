@@ -1,6 +1,6 @@
-package RecipeSharing.DB;
+package recipesharing.db;
 
-import RecipeSharing.logic.Cuisine;
+import recipesharing.logic.Cuisine;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.internal.MongoClientImpl;
 import org.junit.jupiter.api.Test;

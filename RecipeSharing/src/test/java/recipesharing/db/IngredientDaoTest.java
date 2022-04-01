@@ -1,7 +1,6 @@
-package RecipeSharing.DB;
+package recipesharing.db;
 
-import RecipeSharing.logic.Ingredient;
-import RecipeSharing.logic.Meal;
+import recipesharing.logic.Ingredient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
