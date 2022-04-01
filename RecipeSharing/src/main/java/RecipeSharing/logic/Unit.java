@@ -1,8 +1,7 @@
 package RecipeSharing.logic;
 
-
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 
 public enum Unit {
 
@@ -41,39 +40,102 @@ public enum Unit {
         return (this.getName().equals(check.getName()));
     }
 
-    public Double getConversionQuotient(Unit from, Unit to) {
+    public Double getConversionQuotient(Unit to) {
 
         Double quotient = 0.0;
 
-        if (from.equals(to)) {
+        if (this.equals(to)) {
             return 1.0;
         }
 
-        if (from.isVolume() != to.isVolume()) {
+        if (this.isVolume() != to.isVolume()) {
             throw new RuntimeException("Attempting to convert incompatible units");
         }
 
-        if (from.isVolume()) {
-            quotient = 0.0;
+        if (this.isVolume()) {
+            quotient = volumeConversion(to);
         } else {
-            quotient = 0.0;
+            quotient = massConversion(to);
         }
 
         return quotient;
     }
 
-    private Double volumeConversion(Unit from, Unit to) {
+    private Double volumeConversion(Unit to) {
+        HashMap<Map<Unit,Unit>, Double> conversionMap = getVolumeMap();
+        Double quotient = conversionMap.get(Map.of(this, to));
 
-        return 0.0;
+        return quotient;
     }
 
-    private Double massConversion(Unit from, Unit to) {
+    private Double massConversion(Unit to) {
+        HashMap<Map<Unit,Unit>, Double> conversionMap = getMassMap();
+        Double quotient = conversionMap.get(Map.of(this, to));
 
-        return 0.0;
+        return quotient;
     }
 
-    private HashMap<HashSet<Unit>, Double> getConversionMap() {
+    private HashMap<Map<Unit,Unit>, Double> getVolumeMap() {
+        HashMap<Map<Unit,Unit>, Double> unitToUnitMapping = new HashMap<>();
 
-        return null;
+        Map<Unit, Unit> ml2l = Map.of(MILLILITRE, LITRE);
+        Map<Unit, Unit> ml2floz = Map.of(MILLILITRE, FLUIDOUNCE);
+        Map<Unit, Unit> ml2pint = Map.of(MILLILITRE, PINT);
+        Map<Unit, Unit> l2ml = Map.of(LITRE, MILLILITRE);
+        Map<Unit, Unit> l2floz = Map.of(LITRE, FLUIDOUNCE);
+        Map<Unit, Unit> l2pint = Map.of(LITRE, PINT);
+        Map<Unit, Unit> floz2ml = Map.of(FLUIDOUNCE, MILLILITRE);
+        Map<Unit, Unit> floz2l = Map.of(FLUIDOUNCE, LITRE);
+        Map<Unit, Unit> floz2pint = Map.of(FLUIDOUNCE, PINT);
+        Map<Unit, Unit> pint2ml = Map.of(PINT, MILLILITRE);
+        Map<Unit, Unit> pint2l = Map.of(PINT, LITRE);
+        Map<Unit, Unit> pint2floz = Map.of(PINT, FLUIDOUNCE);
+
+        unitToUnitMapping.put(ml2l, 0.001);
+        unitToUnitMapping.put(ml2floz, 0.033814);
+        unitToUnitMapping.put(ml2pint, 0.00175975);
+        unitToUnitMapping.put(l2ml, 1000.0);
+        unitToUnitMapping.put(l2floz, 33.814);
+        unitToUnitMapping.put(l2pint, 2.11338);
+        unitToUnitMapping.put(floz2ml, 29.5735);
+        unitToUnitMapping.put(floz2l, 0.0295735);
+        unitToUnitMapping.put(floz2pint, 0.0520421);
+        unitToUnitMapping.put(pint2ml, 568.261);
+        unitToUnitMapping.put(pint2l, 0.568261);
+        unitToUnitMapping.put(pint2floz, 16.0);
+
+        return unitToUnitMapping;
+    }
+
+    private HashMap<Map<Unit,Unit>, Double> getMassMap() {
+        HashMap<Map<Unit,Unit>, Double> unitToUnitMapping = new HashMap<>();
+
+        Map<Unit, Unit> g2kg = Map.of(GRAM, KILOGRAM);
+        Map<Unit, Unit> g2oz = Map.of(GRAM, OUNCE);
+        Map<Unit, Unit> g2lb = Map.of(GRAM, POUND);
+        Map<Unit, Unit> kg2g = Map.of(KILOGRAM, GRAM);
+        Map<Unit, Unit> kg2oz = Map.of(KILOGRAM, OUNCE);
+        Map<Unit, Unit> kg2lb = Map.of(KILOGRAM, POUND);
+        Map<Unit, Unit> oz2g = Map.of(OUNCE, GRAM);
+        Map<Unit, Unit> oz2kg = Map.of(OUNCE, KILOGRAM);
+        Map<Unit, Unit> oz2lb = Map.of(OUNCE, POUND);
+        Map<Unit, Unit> lb2g = Map.of(POUND, GRAM);
+        Map<Unit, Unit> lb2kg = Map.of(POUND, KILOGRAM);
+        Map<Unit, Unit> lb2oz = Map.of(POUND, OUNCE);
+
+        unitToUnitMapping.put(g2kg, 0.001);
+        unitToUnitMapping.put(g2oz, 0.035274);
+        unitToUnitMapping.put(g2lb, 0.0022);
+        unitToUnitMapping.put(kg2g, 1000.0);
+        unitToUnitMapping.put(kg2oz, 35.274);
+        unitToUnitMapping.put(kg2lb, 2.20462);
+        unitToUnitMapping.put(oz2g, 28.3495);
+        unitToUnitMapping.put(oz2kg, 0.02835);
+        unitToUnitMapping.put(oz2lb, 0.0625);
+        unitToUnitMapping.put(lb2g, 453.592);
+        unitToUnitMapping.put(lb2kg, 0.453592);
+        unitToUnitMapping.put(lb2oz, 16.0);
+
+        return unitToUnitMapping;
     }
 }

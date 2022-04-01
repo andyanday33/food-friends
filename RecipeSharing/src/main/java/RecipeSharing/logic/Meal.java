@@ -24,9 +24,8 @@ public class Meal {
     private String title;
     private List<Recipe> recipes = new ArrayList<>();
 
-    public Meal(String title, List<Recipe> recipes) {
+    public Meal(String title) {
         this.title = title;
-        this.recipes = recipes;
     }
 
     public void addRecipe(Recipe recipe) {

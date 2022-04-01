@@ -17,10 +17,15 @@ public class Ingredient {
     private String id;
     private String title;
     private Double quantity;
+    private Unit unit;
 
     //TODO add unit enum
     public Ingredient(String title, Double quantity) {
         this.title = title;
         this.quantity = quantity;
+    }
+
+    public void addUnit(Unit unit) {
+        this.unit = unit;
     }
 }
