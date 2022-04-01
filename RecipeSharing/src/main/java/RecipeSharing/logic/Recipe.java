@@ -35,6 +35,8 @@ public class Recipe {
     private int numRatings;
     private List<Byte[]> photos;
 
+    //TODO when users are given write access, automatically give them read access?
+
     //TODO refactor and/or overload this.
     public Recipe(String title,
                   String description,

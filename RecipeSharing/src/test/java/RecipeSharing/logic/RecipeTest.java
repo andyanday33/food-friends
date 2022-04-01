@@ -3,9 +3,10 @@ package RecipeSharing.logic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the logic in the Recipe class.
@@ -58,64 +59,120 @@ public class RecipeTest {
         assertTrue(mealRecipes.contains(soup));
     }
 
+    /**
+     * Checks rating update works.
+     */
     @Test
     void updateRating() {
+        soup.updateRating(5);
+        assertEquals(soup.getRating(), 5.0);
     }
 
+    /**
+     * Check correct title returned.
+     */
     @Test
     void getTitle() {
+        assertEquals(soup.getTitle(), "Grandma's lentil soup");
     }
 
+    /**
+     * Checks that title setting works.
+     */
     @Test
     void setTitle() {
+        soup.setTitle("Eye of newt");
+        assertEquals(soup.getTitle(), "Eye of newt");
     }
 
+    /**
+     * Check description returned.
+     */
     @Test
     void getDescription() {
+        assertEquals(soup.getDescription(), "The old family recipe");
     }
 
+    /**
+     * Check description can be set.
+     */
     @Test
     void setDescription() {
+        soup.setTitle("Double, double, toil, and trouble");
+        assertEquals(soup.getTitle(), "Double, double, toil, and trouble");
     }
 
+    /**
+     * Check owner returned.
+     */
     @Test
     void getOwner() {
+        assertEquals(soup.getOwner(), user);
     }
 
+    /**
+     * Check shareable is false.
+     */
     @Test
     void isShareable() {
+        assertFalse(soup.isShareable());
     }
 
+    /**
+     * Check shareable can be set.
+     */
     @Test
     void setShareable() {
+        soup.setShareable(true);
+        assertTrue(soup.isShareable());
     }
 
+    /**
+     * Check users with read access.
+     */
     @Test
     void getReadAccess() {
+        assertEquals(soup.getReadAccess().size(), 0);
     }
 
     @Test
     void setReadAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.setReadAccess(new ArrayList<>(List.of(jim)));
+        assertTrue(soup.getReadAccess().contains(jim));
     }
 
     @Test
     void addReadAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.addReadAccess(jim);
+        assertTrue(soup.getReadAccess().contains(jim));
     }
 
     @Test
     void removeReadAccess() {
     }
 
+    /**
+     * Check users with write access.
+     */
     @Test
     void getWriteAccess() {
+        assertEquals(soup.getWriteAccess().size(), 0);
     }
 
     @Test
     void setWriteAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.setWriteAccess(new ArrayList<>(List.of(jim)));
+        assertTrue(soup.getWriteAccess().contains(jim));
     }
 
     @Test
     void addWriteAccess() {
+        User jim = new User("Jim", "jim@jimmail.com");
+        soup.addWriteAccess(jim);
+        assertTrue(soup.getWriteAccess().contains(jim));
     }
 
     @Test
