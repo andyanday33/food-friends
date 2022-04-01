@@ -307,6 +307,7 @@ public class RecipeTest {
      */
     @Test
     void getInstructions() {
+        assertEquals(soup.getInstructions(), instructions);
     }
 
     /**
@@ -314,6 +315,7 @@ public class RecipeTest {
      */
     @Test
     void getMeal() {
+        assertEquals(soup.getMeal(), meal);
     }
 
     /**
@@ -321,6 +323,10 @@ public class RecipeTest {
      */
     @Test
     void getRating() {
+        assertEquals(soup.getRating(), 0.0);
+        soup.updateRating(3);
+        soup.updateRating(5);
+        assertEquals(soup.getRating(), 4.0);
     }
 
     /**
@@ -328,5 +334,10 @@ public class RecipeTest {
      */
     @Test
     void getNumRatings() {
+        assertEquals(soup.getNumRatings(), 0);
+        soup.updateRating(3);
+        soup.updateRating(5);
+        soup.updateRating(5);
+        assertEquals(soup.getNumRatings(), 3);
     }
 }
