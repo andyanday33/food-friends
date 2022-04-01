@@ -13,6 +13,9 @@ class UserDaoTest {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
+    @Autowired
+    UserDao userDao;
     @Test
     void findAllUsersTest(){
         System.out.println(mongoTemplate.findAll(User.class));
@@ -20,7 +23,12 @@ class UserDaoTest {
 
     @Test
     void addUserTest(){
-        User user = new User("test add","test@gamil.com");
-        mongoTemplate.save(user, "user");
+        User user = new User("test add1111","test1111@gamil.com");
+        userDao.addOneUser(user);
+    }
+
+    @Test
+    void findAllUserTest(){
+        userDao.findAllUsers();
     }
 }
