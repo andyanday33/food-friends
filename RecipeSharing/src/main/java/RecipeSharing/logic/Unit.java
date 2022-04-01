@@ -40,22 +40,22 @@ public enum Unit {
         return (this.getName().equals(check.getName()));
     }
 
-    public Double getConversionQuotient(Unit from, Unit to) {
+    public Double getConversionQuotient(Unit to) {
 
         Double quotient = 0.0;
 
-        if (from.equals(to)) {
+        if (this.equals(to)) {
             return 1.0;
         }
 
-        if (from.isVolume() != to.isVolume()) {
+        if (this.isVolume() != to.isVolume()) {
             throw new RuntimeException("Attempting to convert incompatible units");
         }
 
-        if (from.isVolume()) {
-            quotient = 0.0;
+        if (this.isVolume()) {
+            quotient = volumeConversion(to);
         } else {
-            quotient = 0.0;
+            quotient = massConversion(to);
         }
 
         return quotient;
@@ -69,8 +69,10 @@ public enum Unit {
     }
 
     private Double massConversion(Unit to) {
+        HashMap<Map<Unit,Unit>, Double> conversionMap = getMassMap();
+        Double quotient = conversionMap.get(Map.of(this, to));
 
-        return 0.0;
+        return quotient;
     }
 
     private HashMap<Map<Unit,Unit>, Double> getVolumeMap() {
@@ -122,16 +124,16 @@ public enum Unit {
         Map<Unit, Unit> lb2oz = Map.of(POUND, OUNCE);
 
         unitToUnitMapping.put(g2kg, 0.001);
-        unitToUnitMapping.put(g2oz, 0.033814);
-        unitToUnitMapping.put(g2lb, 0.00175975);
+        unitToUnitMapping.put(g2oz, 0.035274);
+        unitToUnitMapping.put(g2lb, 0.0022);
         unitToUnitMapping.put(kg2g, 1000.0);
-        unitToUnitMapping.put(kg2oz, 33.814);
-        unitToUnitMapping.put(kg2lb, 2.11338);
-        unitToUnitMapping.put(oz2g, 29.5735);
-        unitToUnitMapping.put(oz2kg, 0.0295735);
-        unitToUnitMapping.put(oz2lb, 0.0520421);
-        unitToUnitMapping.put(lb2g, 568.261);
-        unitToUnitMapping.put(lb2kg, 0.568261);
+        unitToUnitMapping.put(kg2oz, 35.274);
+        unitToUnitMapping.put(kg2lb, 2.20462);
+        unitToUnitMapping.put(oz2g, 28.3495);
+        unitToUnitMapping.put(oz2kg, 0.02835);
+        unitToUnitMapping.put(oz2lb, 0.0625);
+        unitToUnitMapping.put(lb2g, 453.592);
+        unitToUnitMapping.put(lb2kg, 0.453592);
         unitToUnitMapping.put(lb2oz, 16.0);
 
         return unitToUnitMapping;
