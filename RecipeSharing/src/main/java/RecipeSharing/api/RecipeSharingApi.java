@@ -1,5 +1,6 @@
 package RecipeSharing.api;
 
+import RecipeSharing.logic.Recipe;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -39,6 +40,9 @@ public class RecipeSharingApi {
             @RequestParam(name = "description") String description
     ) {
         // create new recipe. Store in DB?
+        //new Recipe
+        // recipe.set,,,,
+        //recipeDao.save....()
     }
 
     @GetMapping("/getRecipe/{user}")

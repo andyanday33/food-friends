@@ -58,6 +58,10 @@ public class Recipe {
         this.cuisines.add(cuisine);
         cuisine.addRecipe(this);
     }
+    public Recipe(String title) {
+        this.title = title;
+    }
+
 
     /**
      * Updates average rating based on new rating input.

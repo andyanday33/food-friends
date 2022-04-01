@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * Class for meals. Contains list of associated recipes. This should probably be a table in the database.
  */
-@Document("Meal")
 @Data
+@Document("Meal")
 public class Meal {
 
     @Autowired
@@ -23,8 +23,9 @@ public class Meal {
     private String title;
     private List<Recipe> recipes = new ArrayList<>();
 
-    public Meal(String title) {
+    public Meal(String title, List<Recipe> recipes) {
         this.title = title;
+        this.recipes = recipes;
     }
 
     public void addRecipe(Recipe recipe) {

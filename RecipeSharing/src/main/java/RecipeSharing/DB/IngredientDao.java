@@ -1,10 +1,12 @@
 package RecipeSharing.DB;
 
 import RecipeSharing.logic.Ingredient;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,22 +20,39 @@ public class IngredientDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    Ingredient findOIngredient(String title) {
+    public List<Ingredient> findAllIngredients(){
+        return mongoTemplate.findAll(Ingredient.class);
+    }
+    public Ingredient findOneIngredient(String title) {
         Query query = Query.query(Criteria.where("title").is(title));
         return mongoTemplate.findOne(query, Ingredient.class);
     }
 
-    void addOneIngredient(Ingredient ingredient) {
+    public void addOneIngredient(Ingredient ingredient) {
         mongoTemplate.save(ingredient, "Ingredient");
     }
 
-    void deleteIngredientByTitle(String title) {
+    public void deleteIngredientByTitle(String title) {
         Query query = Query.query(Criteria.where("title").is(title));
-        Ingredient ingredient = mongoTemplate.findOne(query, Ingredient.class);
-        if (ingredient != null) {
-            mongoTemplate.remove(ingredient);
-            System.out.println("successfully delete: " + ingredient.getTitle());
-        }
+//        Ingredient ingredient = mongoTemplate.findOne(query, Ingredient.class);
+//        if (ingredient != null) {
+//            mongoTemplate.remove(ingredient);
+            mongoTemplate.remove(query,Ingredient.class);
+
+//            System.out.println("successfully delete: " + ingredient.getTitle());
+//        }
     }
+
+    public void updateIngredientByTitle(Ingredient ingredient){
+        Query query = Query.query(Criteria.where("title").is(ingredient.getTitle()));
+        Update update = new Update();
+        update.set("title", ingredient.getTitle());
+        update.set("quantity", ingredient.getQuantity());
+
+        UpdateResult upsert = mongoTemplate.upsert(query, update, Ingredient.class);
+
+//        mongoTemplate.upsert(query, Ingredient.class);
+    }
+
 
 }

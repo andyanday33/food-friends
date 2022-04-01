@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Admin")
-public class Admin extends Person{
+public class Admin extends Person {
 
     @Autowired
     AdminDao adminDao;

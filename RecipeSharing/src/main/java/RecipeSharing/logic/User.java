@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("User")
+@Document("user")
 public class User extends Person{
 
     @Autowired
@@ -23,4 +23,6 @@ public class User extends Person{
         super(name, email);
     }
 
+    public User(){
+    }
 }
