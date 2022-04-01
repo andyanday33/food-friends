@@ -34,13 +34,9 @@ public class IngredientDao {
 
     public void deleteIngredientByTitle(String title) {
         Query query = Query.query(Criteria.where("title").is(title));
-//        Ingredient ingredient = mongoTemplate.findOne(query, Ingredient.class);
-//        if (ingredient != null) {
-//            mongoTemplate.remove(ingredient);
+
             mongoTemplate.remove(query,Ingredient.class);
 
-//            System.out.println("successfully delete: " + ingredient.getTitle());
-//        }
     }
 
     public void updateIngredientByTitle(Ingredient ingredient){
@@ -51,7 +47,6 @@ public class IngredientDao {
 
         UpdateResult upsert = mongoTemplate.upsert(query, update, Ingredient.class);
 
-//        mongoTemplate.upsert(query, Ingredient.class);
     }
 
 

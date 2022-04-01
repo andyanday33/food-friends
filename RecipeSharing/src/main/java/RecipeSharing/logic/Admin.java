@@ -4,8 +4,10 @@ import RecipeSharing.DB.AdminDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
 
 @Document("Admin")
+@Component
 public class Admin extends Person {
 
     @Autowired

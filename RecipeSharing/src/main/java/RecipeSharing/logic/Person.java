@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Class for each person, parent class of admin and user
  */
-@Document("Person")
+
 public abstract class Person {
 
     //TODO add something to do with permissions.

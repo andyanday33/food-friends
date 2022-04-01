@@ -21,7 +21,7 @@ public class RecipeDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public void addRecipe(Recipe recipe) {
+    public void addOneRecipe(Recipe recipe) {
         mongoTemplate.save(recipe, "Recipe");
     }
 
