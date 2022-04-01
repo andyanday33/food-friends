@@ -12,6 +12,9 @@ public class RecipeTest {
     Recipe simpleSoup;
     Person user;
     String[] instructions;
+    Ingredient tomatoes;
+    Ingredient lentils;
+    Ingredient secretSauce;
     Ingredient[] ingredients;
     Meal meal;
     Cuisine cuisine;
@@ -19,7 +22,7 @@ public class RecipeTest {
     @BeforeEach
     void setUp() {
         user = new User("John Caboodle", "jc@toucanmail.com");
-        instructions = null;
+        instructions = new String[]{"1. Chop tomatoes", "2. Add lentils", "3. Add the secret ingredient"};
         ingredients = null;
         meal = new Meal("Lunch");
         cuisine = new Cuisine("Generico");
