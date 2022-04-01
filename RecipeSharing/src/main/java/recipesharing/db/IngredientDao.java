@@ -1,6 +1,6 @@
-package RecipeSharing.DB;
+package recipesharing.db;
 
-import RecipeSharing.logic.Ingredient;
+import recipesharing.logic.Ingredient;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

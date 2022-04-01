@@ -1,4 +1,4 @@
-package RecipeSharing.logic;
+package recipesharing.logic;
 
 import java.util.HashMap;
 import java.util.Map;

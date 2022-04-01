@@ -1,6 +1,4 @@
-package RecipeSharing.logic;
-
-import org.springframework.data.mongodb.core.mapping.Document;
+package recipesharing.logic;
 
 import java.util.ArrayList;
 import java.util.List;

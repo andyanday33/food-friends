@@ -1,10 +1,9 @@
-package RecipeSharing.logic;
+package recipesharing.logic;
 
-import RecipeSharing.DB.UserDao;
+import recipesharing.db.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.stereotype.Component;
 
 @Document("user")
 public class User extends Person{
