@@ -2,6 +2,7 @@ package RecipeSharing.DB;
 
 import RecipeSharing.logic.Ingredient;
 import RecipeSharing.logic.Recipe;
+import RecipeSharing.logic.User;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -35,6 +36,13 @@ public class RecipeDao {
     }
 
     public void updateOneRecipe(Recipe recipe) {
+        Query query = Query.query(Criteria.where("_id").is(recipe.getId()));
+        Update update = new Update();
+        UpdateResult upsert = mongoTemplate.upsert(query, update, Recipe.class);
+    }
 
+    public void deleteOneRecipeById(Recipe recipe) {
+        Query query = Query.query(Criteria.where("_id").is(recipe.getId()));
+        mongoTemplate.remove(query, User.class);
     }
 }

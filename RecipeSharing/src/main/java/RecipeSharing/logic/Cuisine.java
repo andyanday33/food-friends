@@ -14,7 +14,6 @@ import java.util.List;
  * Cuisine class.
  */
 @Document("Cuisine")
-@Component
 @Data
 public class Cuisine {
 

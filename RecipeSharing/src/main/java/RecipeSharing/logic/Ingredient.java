@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Document("Ingredient")
-@Component
 public class Ingredient {
 
     @Autowired

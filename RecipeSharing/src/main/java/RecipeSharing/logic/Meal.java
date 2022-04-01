@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Data
 @Document("Meal")
-@Component
 public class Meal {
 
     @Autowired

@@ -49,6 +49,5 @@ public class UserDao {
         Query query = Query.query(Criteria.where("_id").is(user.getEmail()));
         Update update = new Update();
         UpdateResult upsert = mongoTemplate.upsert(query, update, User.class);
-
     }
 }

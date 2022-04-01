@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
 @Document("user")
-@Component
 public class User extends Person{
 
     @Autowired
