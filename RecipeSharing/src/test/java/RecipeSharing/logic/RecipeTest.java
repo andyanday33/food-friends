@@ -3,6 +3,10 @@ package RecipeSharing.logic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Tests for the logic in the Recipe class.
  */
@@ -23,7 +27,10 @@ public class RecipeTest {
     void setUp() {
         user = new User("John Caboodle", "jc@toucanmail.com");
         instructions = new String[]{"1. Chop tomatoes", "2. Add lentils", "3. Add the secret ingredient"};
-        ingredients = null;
+        tomatoes = new Ingredient("Tomato", 5.0);
+        lentils = new Ingredient("Lentil", 500.0);
+        secretSauce = new Ingredient("Secret Sauce", 50.0);
+        ingredients = new Ingredient[]{tomatoes, lentils, secretSauce};
         meal = new Meal("Lunch");
         cuisine = new Cuisine("Generico");
 
@@ -42,7 +49,13 @@ public class RecipeTest {
      */
     @Test
     void checkObjectsUpdated() {
+        List<Recipe> userAuthoredRecipes = user.getAuthoredRecipes();
+        List<Recipe> cuisineRecipes = cuisine.getRecipes();
+        List<Recipe> mealRecipes = meal.getRecipes();
 
+        assertTrue(userAuthoredRecipes.contains(soup));
+        assertTrue(cuisineRecipes.contains(soup));
+        assertTrue(mealRecipes.contains(soup));
     }
 
     @Test

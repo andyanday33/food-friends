@@ -68,7 +68,7 @@ class IngredientDaoTest {
 
     @Test
     void updateIngredientByTitle() {
-        ingredient.setQuantity(30330);
+        ingredient.setQuantity(30330.0);
         ingredientDao.updateIngredientByTitle(ingredient);
     }
 }
