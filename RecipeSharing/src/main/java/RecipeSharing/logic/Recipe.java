@@ -261,4 +261,36 @@ public class Recipe {
     public void removePhoto(Byte[] photo) {
         this.photos.remove(photo);
     }
+
+    /**
+     * Get recipe rating.
+     * @return rating as double.
+     */
+    public double getRating() {
+        return this.rating;
+    }
+
+    /**
+     * Get recipe meal.
+     * @return Meal object.
+     */
+    public Meal getMeal() {
+        return meal;
+    }
+
+    /**
+     * Get number of ratings of recipe.
+     * @return number of ratings.
+     */
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    /**
+     * Get recipe instructions.
+     * @return instructions String array.
+     */
+    public String[] getInstructions() {
+        return instructions;
+    }
 }

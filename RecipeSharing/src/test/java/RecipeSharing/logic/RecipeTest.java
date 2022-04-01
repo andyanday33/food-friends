@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +25,9 @@ public class RecipeTest {
     Meal meal;
     Cuisine cuisine;
 
+    /**
+     * Set up necessary objects for testing.
+     */
     @BeforeEach
     void setUp() {
         user = new User("John Caboodle", "jc@toucanmail.com");
@@ -211,103 +215,118 @@ public class RecipeTest {
         assertFalse(soup.getWriteAccess().contains(jim));
     }
 
+    /**
+     * Checks that the cuisine is added to the Recipe correctly.
+     */
     @Test
     void getCuisines() {
+        List<Cuisine> cuisines = soup.getCuisines();
+        assertTrue(cuisines.contains(cuisine));
     }
 
+    /**
+     * Set the cuisines associated with this recipe with a list.
+     */
     @Test
     void setCuisines() {
+        Cuisine antrim = new Cuisine("Antrim");
+        Cuisine chilean = new Cuisine("Chilean");
+        soup.setCuisines(Arrays.asList(antrim, chilean));
+        assertTrue(soup.getCuisines().contains(antrim));
+        assertTrue(soup.getCuisines().contains(chilean));
     }
 
+    /**
+     * Check that all ingredients are returned correctly.
+     */
     @Test
     void getIngredients() {
+        List<Ingredient> ingreds = soup.getIngredients();
+        assertTrue(ingreds.contains(tomatoes));
+        assertTrue(ingreds.contains(lentils));
+        assertTrue(ingreds.contains(secretSauce));
     }
 
+    /**
+     * Checks that ingredients can be set with a list.
+     */
     @Test
     void setIngredients() {
+        Ingredient tails = new Ingredient("Snails tails", 5.0);
+        Ingredient eyebrows = new Ingredient("Pigeons eyebrows", 10.0);
+        soup.setIngredients(Arrays.asList(tails, eyebrows));
+        assertTrue(soup.getIngredients().contains(tails));
+        assertTrue(soup.getIngredients().contains(eyebrows));
     }
 
+    /**
+     * Checks that the owner can be updated if necessary.
+     */
     @Test
     void setOwner() {
+        User sneakySamantha = new User("Sam", "irrational_orangutan423@hotmail.com");
+        soup.setOwner(sneakySamantha);
+        assertEquals(soup.getOwner(), sneakySamantha);
     }
 
+    /**
+     * Check initial photos field is null.
+     */
+    //TODO consider how to upload and implement photos
     @Test
     void getPhotos() {
+        assertNull(soup.getPhotos());
     }
 
+    /**
+     * Checks that a list of photos can be set correctly.
+     */
+    //TODO consider how to upload and implement photos
     @Test
     void setPhotos() {
     }
 
+    /**
+     * Checks that an individual photo can be added as a Byte[].
+     */
+    //TODO consider how to upload and implement photos
     @Test
     void addPhoto() {
     }
 
+    /**
+     * Checks that an individual photo can be removed.
+     */
+    //TODO consider how to upload and implement photos
     @Test
     void removePhoto() {
     }
 
-    @Test
-    void getRecipeDao() {
-    }
-
-    @Test
-    void getId() {
-    }
-
+    /**
+     * Checks that the instructions for the recipe can be returned correctly.
+     */
     @Test
     void getInstructions() {
     }
 
+    /**
+     * Checks that the correct meal associated with a recipe is returned.
+     */
     @Test
     void getMeal() {
     }
 
+    /**
+     * Checks correct rating of recipe is returned.
+     */
     @Test
     void getRating() {
     }
 
+    /**
+     * Checks that the number of rating associated with a recipe is updating correctly.
+     */
     @Test
     void getNumRatings() {
-    }
-
-    @Test
-    void setRecipeDao() {
-    }
-
-    @Test
-    void setId() {
-    }
-
-    @Test
-    void setInstructions() {
-    }
-
-    @Test
-    void setMeal() {
-    }
-
-    @Test
-    void setRating() {
-    }
-
-    @Test
-    void setNumRatings() {
-    }
-
-    @Test
-    void testEquals() {
-    }
-
-    @Test
-    void canEqual() {
-    }
-
-    @Test
-    void testHashCode() {
-    }
-
-    @Test
-    void testToString() {
     }
 }
