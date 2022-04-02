@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import recipesharing.db.CuisineDao;
-import recipesharing.db.IngredientDao;
+import recipesharing.db.*;
 import recipesharing.logic.*;
 
 import java.util.ArrayList;
@@ -18,6 +17,12 @@ public class RecipeSharingApi {
 
     @Autowired
     IngredientDao ingredientDao;
+    RecipeDao recipeDao;
+    CuisineDao cuisineDao;
+    UserDao userDao;
+    AdminDao adminDao;
+    MealDao mealdao;
+
     /**
      * If user is unsure of how to use the API then may access the base root.
      *
@@ -39,35 +44,16 @@ public class RecipeSharingApi {
     }
 
     /**
-     * Returns a recipe given a unique recipe ID
+     * Returns a recipe given a title.
+     * todo What if there are more than one with the same title?
+     * todo Doesn't currently work when testing title = title
      */
-    @GetMapping("/getRecipe/{recipeID}")
-    public void getRecipe() {
-
+    @GetMapping("/getRecipe")
+    public Recipe getRecipe(@RequestParam String title) {
+        Recipe recipe = recipeDao.findOneRecipeByTitle(title);
+        return recipe;
     }
 
-    /**
-     * For testing purposes to see if requestbody works as expected.
-     * Ignore this method.
-     * @param title
-     * @param ingredients
-     * @return
-     */
-    @PostMapping("/createIngredientsList")
-    public Ingredient[] createIngredientsList (
-            @RequestParam String title,
-            @RequestBody Ingredient[] ingredients
-    ) {
-        ArrayList<Ingredient> ingredientList = new ArrayList<>();
-        for (Ingredient i : ingredients) {
-            System.out.println(i.getTitle() + "," + i.getQuantity());
-            ingredientList.add(new Ingredient(i.getTitle(), i.getQuantity()));
-        }
-        for (Ingredient ingr : ingredientList) {
-            System.out.println(ingr);
-        }
-        return ingredients;
-    }
 
     /**
      * Create a new recipe.
@@ -83,7 +69,7 @@ public class RecipeSharingApi {
      * @return
      */
     @PostMapping("/createRecipe")
-    public Recipe createRecipe(
+    public String createRecipe(
             // Expects the following params! They can be null though.
             // title of the recipe
             @RequestParam String title,
@@ -127,10 +113,10 @@ public class RecipeSharingApi {
 
         // create new recipe.
         Recipe recipe = new Recipe(title, description, newOwner, instructions, ingredients, meal, cuisine);
-        return recipe;
-        //new Recipe
-        // recipe.set,,,,
-        //recipeDao.save....()
+        // Can't currently add recipe to db.
+        //recipeDao.addOneRecipe(recipe);
+        // Does this return an ID from the DB?
+        return recipe.getId();
     }
 
 
@@ -141,47 +127,81 @@ public class RecipeSharingApi {
 
     }
 
-    @GetMapping("/getRecipesByCuisine/{cuisine}")
-    public void getRecipesByCuisine() {
-
+    @GetMapping("/getRecipesByCuisine")
+    public void getRecipesByCuisine(@RequestParam String cuisineType) {
+        // Create new cuisine. TODO validate input.
+        Cuisine cuisine = new Cuisine(cuisineType);
+        //todo needs to be implemented in db
     }
 
-    @GetMapping("/getCuisines")
+    /**
+     * Find all cuisines in the database.
+     * TODO Does not currently work.
+     * @return
+     */
+    @GetMapping("/getAllCuisines")
     public List<Cuisine> getCuisines() {
         // attempting to find all cuisines. currently doesn't work
-        CuisineDao cuisineDao = new CuisineDao();
         List<Cuisine> allCuisines = cuisineDao.findAllCuisines();
         return allCuisines;
     }
 
+    /**
+     * Add a new cuisine to the database.
+     * TODO Doesn't work. Throws server error because it can't access addOneCuisine.
+     * @param cuisineTitle - the title of the cuisine.
+     */
+    @PostMapping("/addOneCuisine")
+    public void addOneCuisine(@RequestParam String cuisineTitle) {
+        // Create a new cuisine. TODO add validation checks.
+        Cuisine newCuisine = new Cuisine(cuisineTitle);
+        // Add to DB.
+        cuisineDao.addOneCuisine(newCuisine);
+    }
+
+    /**
+     * Returns a list containing all the ingredients stored in the database.
+     * @return A List of ingredients.
+     * TODO Does not work! Breaks at .findAllIngredients!
+     */
     @GetMapping("/findAllIngredients")
     public List<Ingredient> getAllIngredients() {
-        System.out.println("test 2");
         List<Ingredient> allIngredients = ingredientDao.findAllIngredients();
-        System.out.println("test 3");
         return allIngredients;
     }
 
     /**
-     *
-     * @return
+     * Returns an ingredient object based on the ingredient name given as a String.
+     * @return ingredient object.
      */
     @GetMapping("/findOneIngredient")
-    public Ingredient getOneIngredient() {
-        System.out.println("test 2");
-        Ingredient ingredient = ingredientDao.findOneIngredient("salt");
-        System.out.println("test 3");
+    public Ingredient getOneIngredient(@RequestParam String ingredientName) {
+        Ingredient ingredient = ingredientDao.findOneIngredient(ingredientName);
         return ingredient;
     }
 
-    @PostMapping("/changePermissionsOnRecipe/{user}/{recipeID}")
-    public void changeUserPermissionsOnRecipe() {
-
+    /**
+     *
+     * @param name
+     * @param email
+     * @param recipeID
+     */
+    @PostMapping("/changePermissionsOnRecipe")
+    public void changeUserPermissionsOnRecipe(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String recipeID
+    ) {
+        // need to implement
     }
 
-    @GetMapping("/getRecipesWithIngredient/{ingredient}")
-    public void getRecipesWithIngredient() {
-
+    /**
+     * Searches for all recipes with the given ingredient in them and returns a list of recipes.
+     * @param ingredientName
+     */
+    @GetMapping("/getRecipesWithIngredient")
+    public void getRecipesWithIngredient(@RequestParam String ingredientName) {
+        //TODO missing DB functionality
     }
 
 
