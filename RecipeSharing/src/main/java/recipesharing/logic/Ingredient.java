@@ -1,5 +1,7 @@
 package recipesharing.logic;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import recipesharing.db.IngredientDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
