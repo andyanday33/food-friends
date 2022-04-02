@@ -68,4 +68,7 @@ public class Cuisine {
     public String getTitle() {
         return title;
     }
+
+
+
 }

@@ -1,5 +1,7 @@
 package recipesharing.logic;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import recipesharing.db.RecipeDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,7 @@ public class Recipe {
         this.cuisines.add(cuisine);
         cuisine.addRecipe(this);
     }
+
     public Recipe(String title) {
         this.title = title;
     }

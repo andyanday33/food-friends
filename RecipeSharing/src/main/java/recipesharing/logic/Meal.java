@@ -1,5 +1,7 @@
 package recipesharing.logic;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import recipesharing.db.MealDao;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +40,9 @@ public class Meal {
     public List<Recipe> getRecipes() {
         return recipes;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
 }
