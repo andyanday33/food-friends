@@ -44,15 +44,14 @@ public class Recipe {
                   String description,
                   Person owner,
                   String[] instructions,
-                  Ingredient[] ingredients,
+                  List<Ingredient> ingredients,
                   Meal meal,
                   Cuisine cuisine) {
 
         this.title = title;
         this.description = description;
         this.instructions = instructions;
-        this.ingredients.addAll(Arrays.asList(ingredients));
-
+        this.ingredients = ingredients;
         this.owner = owner;
         owner.addRecipe(this);
 

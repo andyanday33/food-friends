@@ -21,7 +21,7 @@ public class RecipeTest {
     Ingredient tomatoes;
     Ingredient lentils;
     Ingredient secretSauce;
-    Ingredient[] ingredients;
+    List<Ingredient> ingredients;
     Meal meal;
     Cuisine cuisine;
 
@@ -35,7 +35,10 @@ public class RecipeTest {
         tomatoes = new Ingredient("Tomato", 5.0);
         lentils = new Ingredient("Lentil", 500.0);
         secretSauce = new Ingredient("Secret Sauce", 50.0);
-        ingredients = new Ingredient[]{tomatoes, lentils, secretSauce};
+        ingredients = new ArrayList<>();
+        ingredients.add(tomatoes);
+        ingredients.add(lentils);
+        ingredients.add(secretSauce);
         meal = new Meal("Lunch");
         cuisine = new Cuisine("Generico");
 
