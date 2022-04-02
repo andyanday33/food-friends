@@ -59,15 +59,15 @@ public class RecipeSharingApi {
 
     /**
      * Create a new recipe.
-     * @param title
-     * @param description
-     * @param ownerName
-     * @param ownerEmail
-     * @param instructions
-     * @param ingredientNames
-     * @param ingredientQuantities
-     * @param mealType
-     * @param cuisineTitle
+     * @param title - title of recipe
+     * @param description - description of recipe
+     * @param ownerName - the recipe owner's name
+     * @param ownerEmail - the owner's email
+     * @param instructions - a list of instructions
+     * @param ingredientNames - a list of ingredients
+     * @param ingredientQuantities - a list of quantities for each ingredient
+     * @param mealType - type of meal (lunch, dinner, etc)
+     * @param cuisineTitle - type of cuisine
      * @return
      */
     @PostMapping("/createRecipe")
@@ -153,11 +153,28 @@ public class RecipeSharingApi {
         //TODO missing DB functionality
     }
 
+    /**
+     * todo still to be implemented.
+     * @param cuisineType
+     */
     @GetMapping("/getRecipesByCuisine")
     public void getRecipesByCuisine(@RequestParam String cuisineType) {
         // Create new cuisine. TODO validate input.
         Cuisine cuisine = new Cuisine(cuisineType);
         //todo needs to be implemented in db
+    }
+
+    /**
+     * Delete a recipe
+     * todo what should we pass in here to delete a recipe?
+     * @param recipeID
+     */
+    @DeleteMapping("/deleteRecipe")
+    public void deleteRecipe(@RequestParam String recipeID) {
+        // First find the recipe associated with the recipeID
+        // todo think we need a method in RecipeDao for finding the recipe by ID
+        // then delete it
+        //recipeDao.deleteOneRecipeById(recipe);
     }
 
     // *** Cuisine related API endpoints *** //
@@ -185,6 +202,17 @@ public class RecipeSharingApi {
         Cuisine newCuisine = new Cuisine(cuisineTitle);
         // Add to DB.
         cuisineDao.addOneCuisine(newCuisine);
+    }
+
+    /**
+     * Delete cuisine by title.
+     * TODO Does this delete all cuisines that share the same title?
+     * @param title
+     */
+    @DeleteMapping("/deleteCuisineByTitle")
+    public void deleteCuisineByTitle(@RequestParam String title) {
+        //TODO check if exists first
+        cuisineDao.deleteCuisineByTitle(title);
     }
 
     // *** Ingredient  related API endpoints *** //
