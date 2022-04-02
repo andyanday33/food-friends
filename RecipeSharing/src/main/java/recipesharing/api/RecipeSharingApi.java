@@ -43,6 +43,8 @@ public class RecipeSharingApi {
         return "description of api";
     }
 
+    // *** Recipe related API endpoints *** //
+
     /**
      * Returns a recipe given a title.
      * todo What if there are more than one with the same title?
@@ -127,12 +129,38 @@ public class RecipeSharingApi {
 
     }
 
+    /**
+     * Change permissions for a recipe
+     * @param name
+     * @param email
+     * @param recipeID
+     */
+    @PostMapping("/changePermissionsOnRecipe")
+    public void changeUserPermissionsOnRecipe(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String recipeID
+    ) {
+        // need to implement
+    }
+
+    /**
+     * Searches for all recipes with the given ingredient in them and returns a list of recipes.
+     * @param ingredientName
+     */
+    @GetMapping("/getRecipesWithIngredient")
+    public void getRecipesWithIngredient(@RequestParam String ingredientName) {
+        //TODO missing DB functionality
+    }
+
     @GetMapping("/getRecipesByCuisine")
     public void getRecipesByCuisine(@RequestParam String cuisineType) {
         // Create new cuisine. TODO validate input.
         Cuisine cuisine = new Cuisine(cuisineType);
         //todo needs to be implemented in db
     }
+
+    // *** Cuisine related API endpoints *** //
 
     /**
      * Find all cuisines in the database.
@@ -159,6 +187,7 @@ public class RecipeSharingApi {
         cuisineDao.addOneCuisine(newCuisine);
     }
 
+    // *** Ingredient  related API endpoints *** //
     /**
      * Returns a list containing all the ingredients stored in the database.
      * @return A List of ingredients.
@@ -180,30 +209,20 @@ public class RecipeSharingApi {
         return ingredient;
     }
 
-    /**
-     *
-     * @param name
-     * @param email
-     * @param recipeID
-     */
-    @PostMapping("/changePermissionsOnRecipe")
-    public void changeUserPermissionsOnRecipe(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String recipeID
-    ) {
-        // need to implement
-    }
+
+
+    // *** Admin related API endpoints *** //
 
     /**
-     * Searches for all recipes with the given ingredient in them and returns a list of recipes.
-     * @param ingredientName
+     * Find all admins in the database and return them as a list.
+     * @return a list of admins.
      */
-    @GetMapping("/getRecipesWithIngredient")
-    public void getRecipesWithIngredient(@RequestParam String ingredientName) {
-        //TODO missing DB functionality
+    @GetMapping("/getAllAdmins")
+    public List<Admin> getAllAdmins() {
+        // TODO This should call the function in adminDao which prints out a system println statement but it doesn't reach that point
+        // Breaks before it can be called.
+        return adminDao.findAllAdmins();
     }
-
 
 
 }
