@@ -102,8 +102,16 @@ class UserTest {
         assertFalse(jorge.getReadAccess().contains(recipe));
     }
 
+    /**
+     * Tests that read access can be set with a list of recipes.
+     */
     @Test
     void setReadAccess() {
+        Recipe recipe = new Recipe("Soup");
+        Recipe recipe2 = new Recipe("Trifle");
+        List<Recipe> recipes = new ArrayList<>(Arrays.asList(recipe, recipe2));
+        jorge.setReadAccess(recipes);
+        assertEquals(jorge.getReadAccess().size(), 2);
     }
 
     /**
@@ -136,47 +144,115 @@ class UserTest {
         assertTrue(jorge.getWriteAccess().isEmpty());
     }
 
+    /**
+     * Tests that write access can be set with a list of recipes.
+     */
     @Test
     void setWriteAccess() {
+        Recipe recipe = new Recipe("Soup");
+        Recipe recipe2 = new Recipe("Trifle");
+        List<Recipe> recipes = new ArrayList<>(Arrays.asList(recipe, recipe2));
+        jorge.setWriteAccess(recipes);
+        assertEquals(jorge.getWriteAccess().size(), 2);
     }
 
+    /**
+     * Test that email is correctly retrieved.
+     */
     @Test
     void getEmail() {
+        assertEquals(jorge.getEmail(), "jj@jmail.com");
     }
 
+    /**
+     * Test email can be set.
+     */
     @Test
     void setEmail() {
+        jorge.setEmail("test");
+        assertEquals(jorge.getEmail(), "test");
     }
 
+    /**
+     * Test name can be retrieved.
+     */
     @Test
     void getName() {
+        assertEquals(jorge.getName(), "Jorge Jones");
     }
 
+    /**
+     * Test name can be set.
+     */
     @Test
     void setName() {
+        jeff.setName("jeff");
+        assertEquals(jeff.getName(), "jeff");
     }
 
+    /**
+     * Tests that an individual recipe can be added to liked list.
+     */
     @Test
     void addLikedRecipe() {
+        Recipe recipe = new Recipe("Soup");
+        jorge.addLikedRecipe(recipe);
+        assertTrue(jorge.getLikedRecipes().contains(recipe));
     }
 
+    /**
+     * Tests that an individual recipe can be removed from liked list.
+     */
     @Test
     void removeLikedRecipe() {
+        Recipe recipe = new Recipe("Soup");
+        jorge.addLikedRecipe(recipe);
+        assertTrue(jorge.getLikedRecipes().contains(recipe));
+        jorge.removeLikedRecipe(recipe);
+        assertFalse(jorge.getLikedRecipes().contains(recipe));
     }
 
+    /**
+     * Tests all liked recipes can be retrieved.
+     */
     @Test
     void getLikedRecipes() {
+        assertTrue(jorge.getLikedRecipes().isEmpty());
+        Recipe recipe = new Recipe("Soup");
+        jorge.addLikedRecipe(recipe);
+        assertTrue(jorge.getLikedRecipes().contains(recipe));
     }
 
+    /**
+     * Tests that liked recipes can be set with a list.
+     */
     @Test
     void setLikedRecipes() {
+        Recipe recipe = new Recipe("Soup");
+        Recipe recipe2 = new Recipe("Trifle");
+        List<Recipe> recipes = new ArrayList<>(Arrays.asList(recipe, recipe2));
+        jorge.setLikedRecipes(recipes);
+        assertEquals(jorge.getLikedRecipes().size(), 2);
     }
 
+    /**
+     * Tests that an individual recipe can be added to a user's history.
+     */
     @Test
     void addToHistory() {
+        Recipe recipe = new Recipe("Soup");
+        jorge.addToHistory(recipe);
+        assertTrue(jorge.getHistory().contains(recipe));
     }
 
+    /**
+     * Tests that a user's full history can be returned.
+     */
     @Test
     void getHistory() {
+        assertTrue(jorge.getHistory().isEmpty());
+        Recipe recipe = new Recipe("Soup");
+        jorge.addToHistory(recipe);
+        assertTrue(jorge.getHistory().contains(recipe));
     }
 }
