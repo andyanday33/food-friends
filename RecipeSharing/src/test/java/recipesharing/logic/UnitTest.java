@@ -26,6 +26,9 @@ class UnitTest {
         pints = Unit.PINT;
     }
 
+    /**
+     * Test the correct symbol is returned.
+     */
     @Test
     void getSymbol() {
         assertEquals(grams.getSymbol(), "g");
@@ -34,6 +37,9 @@ class UnitTest {
         assertEquals(pints.getSymbol(), "pt");
     }
 
+    /**
+     * Test that the correct name is returned.
+     */
     @Test
     void getName() {
         assertEquals(grams.getName(), "Gram");
@@ -42,6 +48,9 @@ class UnitTest {
         assertEquals(pints.getName(), "Pint");
     }
 
+    /**
+     * Test that each unit is marked as a volume or mass unit.
+     */
     @Test
     void isVolume() {
         assertFalse(grams.isVolume());
@@ -50,6 +59,9 @@ class UnitTest {
         assertTrue(pints.isVolume());
     }
 
+    /**
+     * Test the units can be identified as equal or not.
+     */
     @Test
     void testEquals() {
         Unit grams2 = Unit.GRAM;
@@ -57,6 +69,9 @@ class UnitTest {
         assertTrue(grams.equals(grams2));
     }
 
+    /**
+     * Test that the correct conversion quotient is returned and that exceptions are thrown when expected.
+     */
     @Test
     void getConversionQuotient() {
         assertEquals(grams.getConversionQuotient(kgs), 0.001);
