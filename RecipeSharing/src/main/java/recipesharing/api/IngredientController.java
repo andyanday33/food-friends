@@ -39,11 +39,16 @@ public class IngredientController {
 
     /**
      * Returns an ingredient object based on the ingredient name given as a String.
-     * @return ingredient object.
+     * If the ingredient does not exist then the fail result is returned.
+     * @return the result of the request (200 OK or 404 NOT FOUND) and the ingredient if found.
      */
     @GetMapping("/findOneIngredient")
     public Result getOneIngredient(@RequestParam String ingredientName) {
-        return Result.success(ingredientService.findOneIngredient(ingredientName));
+        try {
+            return Result.success(ingredientService.findOneIngredient(ingredientName));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
     }
 
 
