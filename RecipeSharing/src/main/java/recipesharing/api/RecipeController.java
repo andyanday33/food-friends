@@ -56,8 +56,19 @@ public class RecipeController {
      */
     @GetMapping("/getRecipeById")
     public Result getRecipeById(@RequestParam String recipeId) {
-        Recipe recipeByRecipeName = recipeService.findRecipeById(recipeId);
-        return Result.success(recipeByRecipeName);
+        Recipe recipeByRecipeId = recipeService.findRecipeById(recipeId);
+        return Result.success(recipeByRecipeId);
+    }
+
+    /**
+     * Returns a list of recipes which an author owns when given an author Id.
+     * @param authorId
+     * @return
+     */
+    @GetMapping("/getRecipesByAuthorId")
+    public Result getRecipesByAuthorId(@RequestParam String authorId) {
+        List<Recipe> recipeByAuthorId = recipeService.findRecipeByAuthorId(authorId);
+        return Result.success(recipeByAuthorId);
     }
 
     // *** Cuisine related API endpoints *** //
