@@ -14,7 +14,7 @@ import recipesharing.vo.TransStatusCode;
 import java.nio.charset.StandardCharsets;
 
 /**
- *
+ *  used by controller when login
  */
 @Service
 public class LoginService {
@@ -27,7 +27,12 @@ public class LoginService {
 
     private static final String encoded_password_string = "cs5031!group!~d!";
 
-
+    /**
+     *  user login
+     * @param email user's login email
+     * @param password user's password
+     * @return success message with the user
+     */
     public Result userLogin(String email, String password) {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());
@@ -55,6 +60,11 @@ public class LoginService {
         return Result.fail(TransStatusCode.FAIL_NOT_FOUND.getCode(), TransStatusCode.FAIL_NOT_FOUND.getMsg());
     }
 
+    /**
+     *  register a user
+     * @param user registered user
+     * @return success message with the user
+     */
     public Result register(User user) {
         if (StringUtils.isEmpty(user.getEmail())
                 || StringUtils.isEmpty(user.getPassword())) {
@@ -67,6 +77,12 @@ public class LoginService {
         return Result.success(null);
     }
 
+    /**
+     *  admin login
+     * @param email admin login's email
+     * @param password admin's password
+     * @return success message with the admin
+     */
     public Result adminLogin(String email, String password) {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());

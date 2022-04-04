@@ -12,7 +12,7 @@ import recipesharing.logic.Admin;
 import java.util.List;
 
 /**
- *
+ * data access object for admin
  */
 @Repository
 public class AdminDao {

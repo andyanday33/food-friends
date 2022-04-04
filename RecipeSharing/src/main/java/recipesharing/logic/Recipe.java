@@ -23,6 +23,7 @@ public class Recipe {
     @Indexed
     private String recipeName;
     private String authorId;
+
     @DBRef
     private User author;
 

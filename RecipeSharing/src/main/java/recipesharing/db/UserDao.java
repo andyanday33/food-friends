@@ -12,7 +12,7 @@ import recipesharing.logic.User;
 import java.util.List;
 
 /**
- *
+ * data access object for user
  */
 @Repository
 public class UserDao {

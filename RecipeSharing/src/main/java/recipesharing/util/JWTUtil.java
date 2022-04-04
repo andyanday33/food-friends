@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Generate json web token for user
  */
 public class JWTUtil {
     private static final String jwtToken = "123456Mszlu!@###$$";

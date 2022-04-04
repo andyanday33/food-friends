@@ -2,6 +2,9 @@ package recipesharing.vo;
 
 import lombok.Getter;
 
+/**
+ *  status code for http connection
+ */
 @Getter
 public enum TransStatusCode {
 
