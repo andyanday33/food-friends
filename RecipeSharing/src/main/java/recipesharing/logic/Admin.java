@@ -18,6 +18,8 @@ public class Admin {
     @Id
     private String id;
     @Indexed
+    private String subId; // for the front end auth0
+    @Indexed
     private String name;
     @Indexed
     private String email;
