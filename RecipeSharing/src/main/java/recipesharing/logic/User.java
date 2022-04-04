@@ -26,6 +26,7 @@ public class User {
     private String userName;
     @Indexed
     private String email;
+    private String token;
     private String password;
 
     @Field("history")
