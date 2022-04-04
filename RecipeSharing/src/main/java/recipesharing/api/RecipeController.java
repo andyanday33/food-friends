@@ -2,6 +2,7 @@ package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Recipe;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
@@ -41,12 +42,16 @@ public class RecipeController {
 
     /**
      * Returns a list of recipes which have the same title as the one specified by the user.
-     * // todo throw exception if not found
+     * @param title
+     * @return
      */
     @GetMapping("/getRecipeByTitle")
     public Result getRecipeByTitle(@RequestParam String title) {
-        List<Recipe> recipeByRecipeName = recipeService.findRecipeByRecipeName(title);
-        return Result.success(recipeByRecipeName);
+        try {
+            return Result.success(recipeService.findRecipeByRecipeName(title));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
     }
 
     /**
@@ -56,8 +61,12 @@ public class RecipeController {
      */
     @GetMapping("/getRecipeById")
     public Result getRecipeById(@RequestParam String recipeId) {
-        Recipe recipeByRecipeId = recipeService.findRecipeById(recipeId);
-        return Result.success(recipeByRecipeId);
+        try {
+            return Result.success(recipeService.findRecipeById(recipeId));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+
     }
 
     /**
@@ -67,8 +76,11 @@ public class RecipeController {
      */
     @GetMapping("/getRecipesByAuthorId")
     public Result getRecipesByAuthorId(@RequestParam String authorId) {
-        List<Recipe> recipeByAuthorId = recipeService.findRecipeByAuthorId(authorId);
-        return Result.success(recipeByAuthorId);
+        try {
+            return Result.success(recipeService.findRecipeByAuthorId(authorId));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
     }
 
     /**
@@ -87,11 +99,17 @@ public class RecipeController {
 
     /**
      * Find all cuisines in the database.
+     * TODO not sure this returns cuisines, seems to return recipes
      * @return A list of all the cuisines in the database.
      */
     @GetMapping("/getAllCuisines")
     public Result getCuisines() {
-        return Result.success(recipeService.findAllRecipe());
+        try {
+            return Result.success(recipeService.findAllRecipe());
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+
     }
 
 
