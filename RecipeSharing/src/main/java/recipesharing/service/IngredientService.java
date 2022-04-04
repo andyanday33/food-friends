@@ -32,8 +32,8 @@ public class IngredientService {
         ingredientDao.deleteIngredientByTitle(title);
     }
 
-    public void updateIngredientByTitle(Ingredient ingredient){
-        ingredientDao.updateIngredientByTitle(ingredient);
+    public void updateIngredientByTitle(Ingredient ingredient, String newTitle, Double newQuantity){
+        ingredientDao.updateIngredientByTitle(ingredient, newTitle, newQuantity);
     }
 
 }
