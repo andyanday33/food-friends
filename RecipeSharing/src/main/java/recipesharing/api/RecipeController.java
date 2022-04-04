@@ -131,8 +131,7 @@ public class RecipeController {
     }
 
     /**
-     * Delete cuisine by id
-     *
+     * Delete cuisine by id.
      * @param id recipe id
      */
     @DeleteMapping("/deleteCuisineById")

@@ -9,7 +9,7 @@ import recipesharing.service.IngredientService;
 import recipesharing.vo.Result;
 
 /**
- *
+ * Contains ingredient related endpoints for the API.
  */
 @RestController
 public class IngredientController {

@@ -11,7 +11,7 @@ import recipesharing.vo.Result;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Contains user related endpoints for the API.
  */
 @CrossOrigin(origins = "*")
 @RestController

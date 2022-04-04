@@ -39,7 +39,7 @@ public class AdminController {
 
     /**
      * Find all admins in the database and return them as a list.
-     *
+     * Returns status code with the list. If there are no admins, then 404 will be sent along with an error message.
      * @return a list of admins.
      */
     @GetMapping("/getAllAdmins")
