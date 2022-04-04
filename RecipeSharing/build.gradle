@@ -1,10 +1,10 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.5'
+	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
-group = 'com.example'
+group = 'recipesharing'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -18,13 +18,14 @@ dependencies {
 	implementation 'org.projectlombok:lombok'
 	implementation 'org.mockito:mockito-core'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'junit:junit:4.13.2'
+	implementation 'junit:junit:4.13.2'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

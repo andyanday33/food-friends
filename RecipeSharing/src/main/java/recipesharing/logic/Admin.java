@@ -1,25 +1,31 @@
 package recipesharing.logic;
 
-import recipesharing.db.AdminDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("Admin")
-public class Admin extends Person {
-
-    @Autowired
-    AdminDao adminDao;
+/**
+ *
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Document("t_admin")
+public class Admin {
     @Id
     private String id;
+    @Indexed
+    private String name;
+    @Indexed
+    private String email;
+    private String password;
 
-    /**
-     * Constructor for class.
-     *
-     * @param name  person's name.
-     * @param email person's email address.
-     */
-    public Admin(String name, String email) {
-        super(name, email);
+    public Admin(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 }

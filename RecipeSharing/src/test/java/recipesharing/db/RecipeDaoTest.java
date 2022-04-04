@@ -1,11 +1,13 @@
 package recipesharing.db;
 
-import recipesharing.logic.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import recipesharing.logic.Recipe;
+import recipesharing.logic.RecipeItem;
+import recipesharing.logic.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,31 +22,37 @@ class RecipeDaoTest {
     RecipeDao recipeDao;
 
     @Autowired
-    MongoTemplate mongoTemplate;
-    @Test
-    void addRecipeTest() {
-        Recipe recipe = new Recipe("title");
-        recipeDao.addOneRecipe(recipe);
-    }
-/*    @Test
-    void findRecipeTest() {
-//        recipeDao.findAllRecipes();
-        mongoTemplate.findAll(Recipe.class);
-    }*/
+    UserDao userDao;
 
     @Test
-    void findOneRecipeByTitle() {
+    void findAllRecipe() {
+        List<Recipe> allRecipe = recipeDao.findAllRecipe();
+        allRecipe.forEach(System.out::println);
     }
 
     @Test
-    void findAllRecipes() {
+    void findRecipeById() {
+        System.out.println(recipeDao.findRecipeById("6249daf38c96d557eb053ced"));
     }
 
     @Test
-    void updateOneRecipe() {
+    void findRecipeByRecipeName() {
+        List<Recipe> recipeName = recipeDao.findRecipeByRecipeName("recipeName");
+        recipeName.forEach(System.out::println);
     }
 
     @Test
-    void deleteOneRecipeById() {
+    void findRecipeByAuthorId() {
+        List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("6249cadaa1f0c07dba837007");
+        recipeName.forEach(System.out::println);
     }
+
+    @Test
+    void addRecipe() {
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("pancake", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
+    }
+
+
 }
