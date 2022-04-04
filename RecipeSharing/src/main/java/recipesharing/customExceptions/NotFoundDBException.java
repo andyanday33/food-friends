@@ -5,7 +5,7 @@ package recipesharing.customExceptions;
  */
 public class NotFoundDBException extends Exception{
     String message;
-    NotFoundDBException(String str) {
+    public NotFoundDBException(String str) {
         message = str;
     }
 
