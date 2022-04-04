@@ -37,7 +37,6 @@ public class IngredientDao {
         Query query = Query.query(Criteria.where("title").is(title));
 
         mongoTemplate.remove(query, Ingredient.class);
-
     }
 
     public void updateIngredientByTitle(Ingredient ingredient) {
@@ -47,8 +46,5 @@ public class IngredientDao {
         update.set("quantity", ingredient.getQuantity());
 
         UpdateResult upsert = mongoTemplate.upsert(query, update, Ingredient.class);
-
     }
-
-
 }

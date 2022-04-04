@@ -13,9 +13,32 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Testing of Ingredient database access object and its methods.
+ * Testing of Ingredient data access object and its methods.
  */
+@SpringBootTest
 public class IngredientDaoTest {
 
+    @Autowired
+    IngredientDao ingredientDao;
+
+    @Test
+    public void testFindAllIngredients() {
+
+    }
+
+    @Test
+    public void testFindOneIngredient() {
+
+    }
+
+    @Test
+    public void testDeleteIngredientByTitle() {
+
+    }
+
+    @Test
+    public void testUpdateIngredientByTitle() {
+
+    }
 
 }
