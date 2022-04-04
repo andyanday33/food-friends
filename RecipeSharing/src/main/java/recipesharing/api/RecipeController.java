@@ -43,9 +43,20 @@ public class RecipeController {
      * Returns a list of recipes which have the same title as the one specified by the user.
      * // todo throw exception if not found
      */
-    @GetMapping("/getRecipe")
-    public Result getRecipe(@RequestParam String title) {
+    @GetMapping("/getRecipeByTitle")
+    public Result getRecipeByTitle(@RequestParam String title) {
         List<Recipe> recipeByRecipeName = recipeService.findRecipeByRecipeName(title);
+        return Result.success(recipeByRecipeName);
+    }
+
+    /**
+     * Retrieves the recipe when given a recipe ID if the recipe exists.
+     * @param recipeId - the unique recipe ID String for the recipe.
+     * @return The result of the query (status code, the recipe).
+     */
+    @GetMapping("/getRecipeById")
+    public Result getRecipeById(@RequestParam String recipeId) {
+        Recipe recipeByRecipeName = recipeService.findRecipeById(recipeId);
         return Result.success(recipeByRecipeName);
     }
 
@@ -106,37 +117,33 @@ public class RecipeController {
     }
 
     /**
-     * Delete a recipe
-     * todo what should we pass in here to delete a recipe?
-     * @param recipeID
+     * Deletes a recipe from the database given a unique recipe ID.
+     * @param recipeID - the String representation of the recipe ID.
      */
-    @DeleteMapping("/deleteRecipe")
-    public Result deleteRecipe(@RequestParam String recipeID) {
-        // First find the recipe associated with the recipeID
-        // todo think we need a method in RecipeDao for finding the recipe by ID
-        // then delete it
-        //recipeDao.deleteOneRecipeById(recipe);
+    @DeleteMapping("/deleteRecipeByID")
+    public Result deleteRecipeByID(@RequestParam String recipeID) {
         recipeService.deleteRecipeById(recipeID);
         return Result.success(null);
     }
 //---------------------
     /**
      * Add a new cuisine to the database.
-     * TODO Doesn't work. Throws server error because it can't access addOneCuisine.
+     * TODO Doesn't work.
      */
     @PostMapping("/addOneCuisine")
-    public Result addOneCuisine(@RequestBody Recipe recipe) {
-        recipeService.addRecipe(recipe);
-        return Result.success(recipe);
+    public Result addOneCuisine(@RequestParam String cuisineTitle) {
+        // TODO Check if cuisine already exists in DB first!!
+        //recipeService.addRecipe(recipe);
+        //return Result.success(recipe);
+        return null;
     }
 
     /**
-     * Delete cuisine by id.
+     * Delete cuisine by id if the cuisine exists.
      * @param id recipe id
      */
-    @DeleteMapping("/deleteCuisineById")
-    public Result deleteCuisineById(@RequestParam String id) {
-        //TODO check if exists first
+    @DeleteMapping("/deleteCuisineByID")
+    public Result deleteCuisineByID(@RequestParam String id) {
         recipeService.deleteRecipeById(id);
         return Result.success(null);
     }
