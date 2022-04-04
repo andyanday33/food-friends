@@ -39,11 +39,11 @@ public class IngredientDao {
         mongoTemplate.remove(query, Ingredient.class);
     }
 
-    public void updateIngredientByTitle(Ingredient ingredient) {
+    public void updateIngredientByTitle(Ingredient ingredient, String newTitle, Double newQuantity) {
         Query query = Query.query(Criteria.where("title").is(ingredient.getTitle()));
         Update update = new Update();
-        update.set("title", ingredient.getTitle());
-        update.set("quantity", ingredient.getQuantity());
+        update.set("title", newTitle);
+        update.set("quantity", newQuantity);
 
         UpdateResult upsert = mongoTemplate.upsert(query, update, Ingredient.class);
     }
