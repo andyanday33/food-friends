@@ -9,7 +9,7 @@ import recipesharing.vo.Result;
 import java.util.List;
 
 /**
- *
+ * Contains recipe related endpoints for the API.
  */
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,9 +29,8 @@ public class RecipeController {
     }
 
     /**
-     * Returns a description of how the API works
-     *
-     * @return
+     * Returns a description of how the API works.
+     * @return a String representing the description of the api.
      */
     @GetMapping("/api")
     public String apiDescription() {
@@ -41,15 +40,15 @@ public class RecipeController {
     // *** Recipe related API endpoints *** //
 
     /**
-     * Returns a recipe given a title.
-     * todo What if there are more than one with the same title?
-     * todo Doesn't currently work when testing title = title
+     * Returns a list of recipes which have the same title as the one specified by the user.
+     * // todo throw exception if not found
      */
     @GetMapping("/getRecipe")
     public Result getRecipe(@RequestParam String title) {
         List<Recipe> recipeByRecipeName = recipeService.findRecipeByRecipeName(title);
         return Result.success(recipeByRecipeName);
     }
+
     // *** Cuisine related API endpoints *** //
 
     /**

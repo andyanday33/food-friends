@@ -11,7 +11,7 @@ import recipesharing.vo.Result;
 import java.util.List;
 
 /**
- *
+ * Contains admin related endpoints for the API.
  */
 @CrossOrigin(origins = "*")
 @RestController
@@ -44,9 +44,14 @@ public class AdminController {
      */
     @GetMapping("/getAllAdmins")
     public Result getAllAdmins() {
-        // TODO This should call the function in adminDao which prints out a system println statement but it doesn't reach that point
-        // Breaks before it can be called.
-        return Result.success(adminService.findAllAdmins());
+        try {
+            return Result.success(adminService.findAllAdmins());
+        } catch (Exception e) {
+            e.printStackTrace();
+            // return result "fail"
+            // 404 as cannot be found?
+            return Result.fail(404, "error msg");
+        }
     }
 
 }
