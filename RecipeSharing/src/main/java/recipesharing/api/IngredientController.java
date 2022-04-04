@@ -21,7 +21,6 @@ public class IngredientController {
     /**
      * Returns a list containing all the ingredients stored in the database.
      * @return A List of ingredients.
-     * TODO Does not work! Breaks at .findAllIngredients!
      */
     @GetMapping("/findAllIngredients")
     public Result getAllIngredients() {

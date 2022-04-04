@@ -54,9 +54,7 @@ public class RecipeController {
 
     /**
      * Find all cuisines in the database.
-     * TODO Does not currently work.
-     *
-     * @return
+     * @return A list of all the cuisines in the database.
      */
     @GetMapping("/getAllCuisines")
     public Result getCuisines() {
