@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Admin;
 import recipesharing.logic.User;
 import recipesharing.util.JWTUtil;
@@ -87,11 +88,9 @@ public class LoginService {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());
         }
-        Admin adminByEmail = adminService.findAdminByEmail(email);
-        if (adminByEmail == null) {
-            return Result.fail(TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getCode(), TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
-        }
-        if (adminByEmail.getEmail().equals(email) && adminByEmail.getPassword().equals(password)) {
+        try {
+            Admin adminByEmail = adminService.findAdminByEmail(email);
+            if (adminByEmail.getEmail().equals(email) && adminByEmail.getPassword().equals(password)) {
 
 /*            String token = JWTUtil.createToken(adminByEmail.getId());
 
@@ -101,8 +100,13 @@ public class LoginService {
             adminByEmail.setEmail(token);
             adminByEmail.setPassword(password);*/
 
-            return Result.success(adminByEmail);
+                return Result.success(adminByEmail);
+            }
+        } catch (NotFoundDBException e) {
+            return Result.fail(TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getCode(), TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
         }
+
+
         // TODO REDIS
         // TODO ONLY RETURN THE TOKEN
         return Result.fail(TransStatusCode.FAIL_NOT_FOUND.getCode(), TransStatusCode.FAIL_NOT_FOUND.getMsg());

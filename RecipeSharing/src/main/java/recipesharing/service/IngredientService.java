@@ -34,7 +34,7 @@ public class IngredientService {
         return ingredient;
     }
 
-    public void addOneIngredient(Ingredient ingredient) {
+    public void addOneIngredient(Ingredient ingredient)  {
         ingredientDao.addOneIngredient(ingredient);
     }
 
