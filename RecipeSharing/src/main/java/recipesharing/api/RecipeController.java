@@ -71,6 +71,18 @@ public class RecipeController {
         return Result.success(recipeByAuthorId);
     }
 
+    /**
+     * Checks if a recipe has the specified access type.
+     * @param accessType - todo not sure what this is (public, private, read, write?)
+     * @param recipeId - the unique recipe id as a String.
+     * @return true if has specified access type.
+     */
+    @GetMapping("/getRecipeAccessById")
+    public Result getRecipeAccessById(@RequestParam String accessType, @RequestParam String recipeId) {
+        boolean hasAccess = recipeService.findRecipeAccessById(accessType, recipeId);
+        return Result.success(hasAccess);
+    }
+
     // *** Cuisine related API endpoints *** //
 
     /**
