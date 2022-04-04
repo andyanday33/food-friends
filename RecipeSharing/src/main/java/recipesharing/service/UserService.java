@@ -2,6 +2,7 @@ package recipesharing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.UserDao;
 import recipesharing.logic.User;
 
@@ -19,32 +20,49 @@ public class UserService {
      *  find all users 
      * @return list of all users
      */
-    public List<User> findAllUsers() {
-        return userDao.findAllUsers();
+    public List<User> findAllUsers() throws NotFoundDBException {
+        List<User> userList = userDao.findAllUsers();
+        if (userList.isEmpty()) {
+            throw new NotFoundDBException("There are no users in the database.");
+        }
+        return userList;
     }
     /**
      *  find user by _id
      * @param id _id of the user
      * @return user class
      */
-    public User findUserById(String id) {
-        return userDao.findUserById(id);
+    public User findUserById(String id) throws NotFoundDBException {
+        User user =  userDao.findUserById(id);
+        if (user == null) {
+            throw new NotFoundDBException("The user with id " + id + "does not exist.");
+        }
+        return user;
     }
     /**
      *  find users by the user name, can be not unique
      * @param name user name
      * @return user list
      */
-    public List<User> findUserByUserName(String name) {
-        return userDao.findUserByUserName(name);
+    public List<User> findUserByUserName(String name) throws NotFoundDBException {
+        List<User> userList = userDao.findUserByUserName(name);
+        if (userList.isEmpty()) {
+            throw new NotFoundDBException("There are no users with name " + name + ".");
+        }
+        return userList;
     }
     /**
      *  find user by its email address
      * @param email user email
      * @return user class
      */
-    public User findUserByEmail(String email) {
-        return userDao.findUserByEmail(email);
+    public User findUserByEmail(String email)  {
+        User user = userDao.findUserByEmail(email);
+        // TODO had to comment out exception handling as already seems to be done in LoginService class?
+        //if (user == null) {
+           // throw new NotFoundDBException("There is no user with the email " + email + ".");
+       // }
+        return user;
     }
     /**
      *  add one user 
