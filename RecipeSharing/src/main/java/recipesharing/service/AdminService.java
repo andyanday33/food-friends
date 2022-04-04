@@ -20,7 +20,12 @@ public class AdminService {
      *  find all admin users
      * @return list of all admins
      */
-    public List<Admin> findAllAdmins() {
+    public List<Admin> findAllAdmins() throws Exception {
+        List<Admin> admins = adminDao.findAllAdmins();
+        if (admins.isEmpty()) {
+            //TODO update this with custom exception
+            throw new RuntimeException("No admins exist");
+        }
         return adminDao.findAllAdmins();
     }
 
