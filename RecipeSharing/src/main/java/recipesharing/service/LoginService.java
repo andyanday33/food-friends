@@ -28,7 +28,7 @@ public class LoginService {
     private static final String encoded_password_string = "cs5031!group!~d!";
 
     /**
-     *  user login
+     *  user login via email (not an auth 0 way)
      * @param email user's login email
      * @param password user's password
      * @return success message with the user
@@ -61,7 +61,7 @@ public class LoginService {
     }
 
     /**
-     *  register a user
+     *  register a user (not an auth 0 way)
      * @param user registered user
      * @return success message with the user
      */
@@ -78,7 +78,7 @@ public class LoginService {
     }
 
     /**
-     *  admin login
+     *  admin login (not an auth 0 way)
      * @param email admin login's email
      * @param password admin's password
      * @return success message with the admin

@@ -23,6 +23,8 @@ public class User {
     @Id
     private String userId;
     @Indexed
+    private String subId; // for the front end auth0
+    @Indexed
     private String userName;
     @Indexed
     private String email;
