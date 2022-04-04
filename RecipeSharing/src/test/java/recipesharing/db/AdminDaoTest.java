@@ -1,9 +1,11 @@
 package recipesharing.db;
 
-import recipesharing.logic.Admin;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import recipesharing.logic.Admin;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,15 +17,36 @@ class AdminDaoTest {
 
     @Autowired
     AdminDao adminDao;
-/*
-    @Test
-    void findAllAdmin() {
-        adminDao.findAllAdmins();
-    }
-*/
 
     @Test
-    void addOneAdmin() {
-        adminDao.addOneAdmin(new Admin("admin", "admin@st-andrews.ac.uk"));
+    void findAllAdmins() {
+        List<Admin> allAdmins = adminDao.findAllAdmins();
+        allAdmins.forEach(System.out::println);
+    }
+
+    @Test
+    void findAdminById() {
+    }
+
+    @Test
+    void findAdminByAdminName() {
+    }
+
+    @Test
+    void findAdminByEmail() {
+    }
+
+    @Test
+    void addAdmin() {
+        Admin admin = new Admin("admin1","admin1@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
+    }
+
+    @Test
+    void deleteAdminById() {
+    }
+
+    @Test
+    void updateAdminById() {
     }
 }

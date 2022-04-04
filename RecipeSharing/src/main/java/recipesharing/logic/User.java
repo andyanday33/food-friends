@@ -1,28 +1,41 @@
 package recipesharing.logic;
 
-import recipesharing.db.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document("user")
-public class User extends Person{
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Autowired
-    UserDao userDao;
+/**
+ *
+ */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Document("t_user")
+public class User {
     @Id
-    private String id;
+    private String userId;
+    @Indexed
+    private String userName;
+    @Indexed
+    private String email;
+    private String token;
+    private String password;
 
-    /**
-     * Constructor for class.
-     *
-     * @param name  person's name.
-     * @param email person's email address.
-     */
-    public User(String name, String email) {
-        super(name, email);
-    }
+    @Field("history")
+    private List<RecipeItem> history = new ArrayList<>();
 
-    public User() {
+    public User(String userName, String email, String password, List<RecipeItem> history) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.history = history;
     }
 }
