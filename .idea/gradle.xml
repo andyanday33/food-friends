@@ -10,7 +10,7 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$/RecipeSharing" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/RecipeSharing" />
+            <option value="/cs/home/lj77/Documents/CS5031/Practical 3/project-code/RecipeSharing" />
           </set>
         </option>
       </GradleProjectSettings>
