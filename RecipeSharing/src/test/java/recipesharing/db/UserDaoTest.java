@@ -24,12 +24,37 @@ class UserDaoTest {
     @Autowired
     UserDao userDao;
 
+    /**
+     * Check that there are users in the database.
+     */
     @Test
     void findAllUsers() {
         List<User> allUsers = userDao.findAllUsers();
-        allUsers.forEach(System.out::println);
+        assertTrue(allUsers.size() > 0);
     }
 
+    /**
+     * Creates a user that is added to the db. Checks that that user can then be found in the db.
+     * Finally this test user is removed.
+     */
+    @Test
+    void addUser() {
+        //add user
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        User user = new User("TEST PERSON", "test4@st-andrews.ac.uk", "test password", recipeItems);
+        userDao.addUser(user);
+
+        //check user exists in db.
+        List<User> getUser = userDao.findUserByUserName("TEST PERSON");
+        assertTrue(getUser.contains(user));
+
+        //remove added user from db
+        removeUserFromDB(getUser);
+    }
+
+    /**
+     * Check that individual users can be found via their ID.
+     */
     @Test
     void testFindUserById() {
         User userById = userDao.findUserById("6249c95cf85a657f0d39954f");
@@ -49,18 +74,6 @@ class UserDaoTest {
     }
 
     @Test
-    void addUser() {
-        List<RecipeItem> recipeItems = new ArrayList<>();
-        RecipeItem recipeItem = new RecipeItem("recipeid", "authorid");
-        recipeItems.add(recipeItem);
-        recipeItem.setRecipeId("ididididi");
-        recipeItem.setUserId("dsdsadasds");
-        recipeItems.add(recipeItem);
-        User user = new User("test user4", "test4@st-andrews.ac.uk", "test password", recipeItems);
-        userDao.addUser(user);
-    }
-
-    @Test
     void deleteUserById() {
         User userByEmail = userDao.findUserByEmail("test4@st-andrews.ac.uk");
         if (userByEmail != null) {
@@ -76,5 +89,24 @@ class UserDaoTest {
         recipeItems.add(recipeItem);
         userById.setHistory(recipeItems);
         userDao.updateUserById(userById);
+    }
+
+    /**
+     * Helper method for cleaning up after test. Removes user from database.
+     * @param user to be removed.
+     */
+    private void removeUserFromDB(User user) {
+        String id = user.getUserId();
+        userDao.deleteUserById(id);
+    }
+
+    /**
+     * Helper method for cleaning up after test. Removes user from database.
+     * @param users list of users, the first of which is removed.
+     */
+    private void removeUserFromDB(List<User> users) {
+        User user = users.get(0);
+        String id = user.getUserId();
+        userDao.deleteUserById(id);
     }
 }
