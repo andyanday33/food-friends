@@ -30,6 +30,7 @@ public class CuisineController {
     @GetMapping("/getAllCuisines")
     public Result getCuisines() {
         try {
+            cuisineService.containsCuisine();
             return Result.success(cuisineService.getAllCuisines());
         } catch (NotFoundDBException e) {
             return Result.fail(404, e.getMessage());
@@ -44,7 +45,7 @@ public class CuisineController {
         // TODO Check if cuisine already exists in DB first!!
         Cuisine cuisine = new Cuisine(name);
         cuisineService.addOneCuisine(cuisine);
-        return null;
+        return Result.success(null);
     }
 
     /**

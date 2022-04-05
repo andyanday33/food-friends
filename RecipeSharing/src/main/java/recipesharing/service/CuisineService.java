@@ -26,6 +26,20 @@ public class CuisineService {
         return cuisineList;
     }
 
+    public boolean containsCuisine() {
+        try {
+            List<Cuisine> cuisineList = getAllCuisines();
+            for (Cuisine cuisine : cuisineList) {
+                System.out.println(cuisine.getId());
+                System.out.println(cuisine.getName());
+            }
+            System.out.println(cuisineList);
+            return true;
+        } catch (NotFoundDBException e) {
+            System.out.println("cusine list is empty");
+            return false;
+        }
+    }
     public void addOneCuisine(Cuisine cuisine) {
         cuisineDao.addOneCuisine(cuisine);
     }

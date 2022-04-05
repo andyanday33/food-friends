@@ -2,6 +2,8 @@ package recipesharing.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import recipesharing.logic.Cuisine;
 
@@ -29,6 +31,7 @@ public class CuisineDao {
     }
 
     public void delOneCuisine(String cuisineId){
-        mongoTemplate.remove(cuisineId, "t_cuisine");
+        Query query = Query.query(Criteria.where("_id").is(cuisineId));
+        mongoTemplate.remove(query, Cuisine.class);
     }
 }
