@@ -35,9 +35,13 @@ public class Recipe {
     private int thumpsUp;
 
     private ArrayList<String> MealType; //e.g., {breakfast:String, lunch:String}
-    private String Cuisine; //e.g., French
+
+    @DBRef
+    private Cuisine Cuisine; //e.g., French
 
     private ArrayList<IngredientItem> ingredients;
+
+    private ArrayList<MealItem> mealItems;
 
     // TODO LJ create new recipe constructor to match api but not sure if this is correct
     // The user's read and write access should be
@@ -65,30 +69,7 @@ public class Recipe {
         this.thumpsUp = thumpsUp;
     }
 
-    public Recipe(String recipeName, String authorId, User author, String description, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, String cuisine) {
-        this.recipeName = recipeName;
-        this.authorId = authorId;
-        this.author = author;
-        this.description = description;
-        this.writeAccess = writeAccess;
-        this.readAccess = readAccess;
-        this.thumpsUp = thumpsUp;
-        MealType = mealType;
-        Cuisine = cuisine;
-    }
-
-    public Recipe(String recipeName, String authorId, User author, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, String cuisine) {
-        this.recipeName = recipeName;
-        this.authorId = authorId;
-        this.author = author;
-        this.writeAccess = writeAccess;
-        this.readAccess = readAccess;
-        this.thumpsUp = thumpsUp;
-        MealType = mealType;
-        Cuisine = cuisine;
-    }
-
-    public Recipe(String recipeName, String authorId, User author, String description, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, String cuisine, ArrayList<IngredientItem> ingredients) {
+    public Recipe(String recipeName, String authorId, User author, String description, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, recipesharing.logic.Cuisine cuisine, ArrayList<IngredientItem> ingredients, ArrayList<MealItem> mealItems) {
         this.recipeName = recipeName;
         this.authorId = authorId;
         this.author = author;
@@ -99,6 +80,7 @@ public class Recipe {
         MealType = mealType;
         Cuisine = cuisine;
         this.ingredients = ingredients;
+        this.mealItems = mealItems;
     }
 
     public boolean isWriteAccess() {
