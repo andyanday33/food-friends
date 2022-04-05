@@ -12,24 +12,29 @@ import recipesharing.logic.Admin;
 import java.util.List;
 
 /**
- * data access object for admin
+ * Data access object for admin.
  */
 @Repository
 public class AdminDao {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
+    /**
+     * Find all admins in database
+     * @return all admins in a list.
+     */
     public List<Admin> findAllAdmins(){
         return mongoTemplate.findAll(Admin.class);
     }
+
     public Admin findAdminById(String adminId) {
         return mongoTemplate.findById(adminId, Admin.class);
     }
 
     public List<Admin> findAdminByAdminName(String adminName) {
-        Query query = Query.query(Criteria.where("adminName").is(adminName));
+        Query query = Query.query(Criteria.where("name").is(adminName));
         return mongoTemplate.find(query, Admin.class, "t_admin");
-
     }
 
     public Admin findAdminByEmail(String email) {
@@ -46,10 +51,10 @@ public class AdminDao {
         mongoTemplate.remove(query, Admin.class);
     }
 
+    //TODO add all variables, or consider how this is best implemented in practice
     public void updateAdminById(Admin admin) {
         Query query = Query.query(Criteria.where("_id").is(admin.getEmail()));
         Update update = new Update();
         UpdateResult upsert = mongoTemplate.upsert(query, update, Admin.class);
     }
-
 }

@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+../.idea/compiler.xml
+../.idea/checkstyle-idea.xml
