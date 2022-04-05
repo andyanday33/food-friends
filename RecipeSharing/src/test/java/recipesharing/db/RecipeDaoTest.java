@@ -38,36 +38,52 @@ class RecipeDaoTest {
         assertEquals(retrievedRecipe.getAuthorId(), "authorId1");
     }
 
+    //TODO make independent by adding recipe and getting recipe ID
+    @Test
+    void findRecipeById() {
+        System.out.println(recipeDao.findRecipeById(null));
+    }
+
     /**
      * Deletes the recipe created in the previous test and checks that this has been completed.
      */
+    //TODO update so test independent
     @Test
     void testDeleteRecipeById() {
-        recipeDao.deleteRecipeById("624c031ea9531c27eb1c0138");
+        recipeDao.deleteRecipeById(null);
         Recipe recipe = recipeDao.findRecipeById("624c031ea9531c27eb1c0138");
         assertNull(recipe);
     }
 
+    //TODO Consider how this should be implemented given the number of variables
     @Test
     void testUpdateRecipeById() {
 
     }
 
+    /**
+     * Adds a recipe and then returns all recipes from the DB. Checks size and one recipe it contains.
+     */
     @Test
     void findAllRecipe() {
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("jaffa cake", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
-        allRecipe.forEach(System.out::println);
+        assertTrue(allRecipe.size() > 0);
+        assertTrue(allRecipe.contains(recipe));
     }
 
-    @Test
-    void findRecipeById() {
-        System.out.println(recipeDao.findRecipeById("6249daf38c96d557eb053ced"));
-    }
-
+    /**
+     * Tests that a recipe can be retrieved using its name.
+     */
     @Test
     void findRecipeByRecipeName() {
-        List<Recipe> recipeName = recipeDao.findRecipeByRecipeName("recipeName");
-        recipeName.forEach(System.out::println);
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("jaffa cake unique", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
+        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("jaffa cake unique");
+        assertEquals(recipe, recipes.get(0));
     }
 
     @Test
