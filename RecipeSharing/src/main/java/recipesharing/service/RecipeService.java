@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.RecipeDao;
+import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
 
 import java.util.List;
@@ -95,5 +96,10 @@ public class RecipeService {
      */
     public void updateRecipeById(Recipe newRecipe){
         recipeDao.updateRecipeById(newRecipe);
+    }
+
+    public List<Recipe> findRecipesByCuisine(Cuisine cuisine){
+        //TODO 多表关联
+        return null;
     }
 }
