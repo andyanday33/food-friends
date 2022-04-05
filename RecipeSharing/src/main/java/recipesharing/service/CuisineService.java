@@ -49,6 +49,31 @@ public class CuisineService {
             return false;
         }
     }
+
+    /**
+     * Checks if a cuisine given by the passed name already exists in the database.
+     * @param name - the name of the cuisine.
+     * @return true if it does, false if not.
+     */
+    public boolean containsCuisineWithName(String name) {
+        try {
+            // Get the list of all cuisines (contains cuisine id and name)
+            List<Cuisine> cuisineList = getAllCuisines();
+            // for each cuisine check if the passed cusine name matches one in the list
+            for (Cuisine cuisine : cuisineList) {
+                // if it matches then the cuisine is already in the list
+                if (cuisine.getName().equals(name)) {
+                    return true;
+                }
+            }
+            // cuisine is not in the list
+            return false;
+        } catch (NotFoundDBException e) {
+            System.out.println("Cuisine list is empty");
+            return false;
+        }
+    }
+
     public void addOneCuisine(Cuisine cuisine) {
         cuisineDao.addOneCuisine(cuisine);
     }
