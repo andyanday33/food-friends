@@ -3,7 +3,9 @@ package recipesharing.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
+import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
+import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
 
@@ -18,6 +20,7 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
+    CuisineService cuisineService;
 
     /**
      * If user is unsure of how to use the API then may access the base root.
@@ -45,8 +48,7 @@ public class RecipeController {
             // !! All request param names must be specified but the values can be null. !!
             @RequestParam String title,
             @RequestParam String description,
-            // TODO should this change to something else?
-            @RequestParam String ownerEmail,
+            @RequestParam String ownerId,
             @RequestParam String[] instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
@@ -114,25 +116,8 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
-    // *** Cuisine related API endpoints *** //
-
-    /**
-     * Find all cuisines in the database.
-     * TODO not sure this returns cuisines, seems to return recipes
-     * @return A list of all the cuisines in the database.
-     */
-    @GetMapping("/getAllCuisines")
-    public Result getCuisines() {
-        try {
-            return Result.success(recipeService.findAllRecipe());
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-
-    }
 
 
-//-----------------------------------
 // TODO  public String createRecipe
     @GetMapping("/getRecipe/{user}")
     public void getRecipesByUser(@PathVariable String userId) {
@@ -185,16 +170,30 @@ public class RecipeController {
         recipeService.deleteRecipeById(recipeID);
         return Result.success(null);
     }
-//---------------------
+
+    // *** Cuisine related API endpoints *** //
+
+    /**
+     * Find all cuisines in the database.
+     * @return A list of all the cuisines in the database.
+     */
+    @GetMapping("/getAllCuisines")
+    public Result getCuisines() {
+        try {
+            return Result.success(cuisineService.getAllCuisines());
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
     /**
      * Add a new cuisine to the database.
-     * TODO Doesn't work.
      */
     @PostMapping("/addOneCuisine")
-    public Result addOneCuisine(@RequestParam String cuisineTitle) {
+    public Result addOneCuisine(@RequestParam String name) {
         // TODO Check if cuisine already exists in DB first!!
-        //recipeService.addRecipe(recipe);
-        //return Result.success(recipe);
+        Cuisine cuisine = new Cuisine(name);
+        cuisineService.addOneCuisine(cuisine);
         return null;
     }
 
@@ -204,7 +203,7 @@ public class RecipeController {
      */
     @DeleteMapping("/deleteCuisineByID")
     public Result deleteCuisineByID(@RequestParam String id) {
-        recipeService.deleteRecipeById(id);
+        //cuisineService.delOneCuisine();
         return Result.success(null);
     }
 
