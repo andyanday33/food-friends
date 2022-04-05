@@ -30,7 +30,6 @@ public class CuisineController {
     @GetMapping("/getAllCuisines")
     public Result getCuisines() {
         try {
-            cuisineService.containsCuisine();
             return Result.success(cuisineService.getAllCuisines());
         } catch (NotFoundDBException e) {
             return Result.fail(404, e.getMessage());
@@ -54,6 +53,7 @@ public class CuisineController {
      */
     @DeleteMapping("/deleteCuisineById")
     public Result deleteCuisineByID(@RequestParam String id) {
+        cuisineService.containsCuisineWithId(id);
         cuisineService.delOneCuisine(id);
         return Result.success(null);
     }
