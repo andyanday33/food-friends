@@ -7,22 +7,22 @@
         <div class="flex-1 p-4 grow border rounded-2xl mx-6 mt-4 justify-start overflow-auto">
             <h1 class="text-5xl text-center">Cuisines</h1>
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
-                <NuxtLink to="/Recipes/French" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/French" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">French</h2>
                 </NuxtLink>
-                <NuxtLink to="/Recipes/Chinese" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/Chinese" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">Chinese</h2>
                 </NuxtLink>
-                <NuxtLink to="/Recipes/Greek" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/Greek" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">Greek</h2>
                 </NuxtLink>
-                <NuxtLink to="/Recipes/Italian" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/Italian" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">Italian</h2>
                 </NuxtLink>
-                <NuxtLink to="/Recipes/Spanish" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/Spanish" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">Spanish</h2>
                 </NuxtLink>
-                <NuxtLink to="/Recipes/Mediterranean" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                <NuxtLink to="/Recipes/Mediterranean" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">Mediterranean</h2>
                 </NuxtLink>
             </div>
