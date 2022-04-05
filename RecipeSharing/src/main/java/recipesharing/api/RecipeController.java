@@ -45,8 +45,7 @@ public class RecipeController {
             // !! All request param names must be specified but the values can be null. !!
             @RequestParam String title,
             @RequestParam String description,
-            // TODO should this change to something else?
-            @RequestParam String ownerEmail,
+            @RequestParam String ownerId,
             @RequestParam String[] instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
