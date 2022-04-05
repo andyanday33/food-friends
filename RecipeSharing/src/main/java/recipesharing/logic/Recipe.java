@@ -54,7 +54,6 @@ public class Recipe {
         // todo instructions list doesn't exist
         //this.instructions = instructions;
         this.ingredients = ingredients;
-        // meal doesnt exist
         // cuisine doesnt exist
     }
 
