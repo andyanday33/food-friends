@@ -38,10 +38,21 @@ class RecipeDaoTest {
         assertEquals(retrievedRecipe.getAuthorId(), "authorId1");
     }
 
-    //TODO make independent by adding recipe and getting recipe ID
+    /**
+     * Checks that a recipe can be found using all retrieval methods, and they all return the same thing.
+     */
     @Test
     void findRecipeById() {
-        System.out.println(recipeDao.findRecipeById(null));
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("retrieveID test", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("retrieveID test");
+        Recipe intermediate = returnedRecipes.get(0);
+        String id = intermediate.getRecipeId();
+
+        Recipe idRetrieve = recipeDao.findRecipeById(id);
+        assertEquals(idRetrieve, intermediate);
+        assertEquals(idRetrieve, recipe);
     }
 
     /**
@@ -86,12 +97,14 @@ class RecipeDaoTest {
         assertEquals(recipe, recipes.get(0));
     }
 
+    //TODO update
     @Test
     void findRecipeByAuthorId() {
         List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("6249cadaa1f0c07dba837007");
         recipeName.forEach(System.out::println);
     }
 
+    //TODO implement
     @Test
     void testFindRecipeAccessById() {
 
