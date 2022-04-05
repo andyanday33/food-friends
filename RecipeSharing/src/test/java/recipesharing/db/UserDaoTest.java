@@ -77,11 +77,11 @@ class UserDaoTest {
     void findUserByUserName() {
         //Create test user.
         List<RecipeItem> recipeItems = new ArrayList<>();
-        User user = new User("FIND ME BY USERNAME", "test4@st-andrews.ac.uk", "test password", recipeItems);
+        User user = new User("FIND MY USERNAME", "test4@st-andrews.ac.uk", "test password", recipeItems);
         userDao.addUser(user);
 
         //check retrieval and equality.
-        List<User> users = userDao.findUserByUserName("FIND ME BY ID");
+        List<User> users = userDao.findUserByUserName("FIND MY USERNAME");
         assertEquals(users.get(0), user);
 
         //remove test user
@@ -126,14 +126,10 @@ class UserDaoTest {
         assertNull(deleteUserCheck);
     }
 
+    //TODO consider how to implement the updated across all of the different fields
     @Test
     void updateUserById() {
-        User userById = userDao.findUserById("6249cadaa1f0c07dba837007");
-        List<RecipeItem> recipeItems = new ArrayList<>();
-        RecipeItem recipeItem = new RecipeItem("recipeid", "authorid");
-        recipeItems.add(recipeItem);
-        userById.setHistory(recipeItems);
-        userDao.updateUserById(userById);
+
     }
 
     /**

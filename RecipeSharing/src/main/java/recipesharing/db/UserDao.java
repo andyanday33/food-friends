@@ -46,6 +46,7 @@ public class UserDao {
         mongoTemplate.remove(query, User.class);
     }
 
+    //TODO consider how we want to update the User object.
     public void updateUserById(User user) {
         Query query = Query.query(Criteria.where("_id").is(user.getEmail()));
         Update update = new Update();
