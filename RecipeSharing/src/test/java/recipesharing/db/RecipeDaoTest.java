@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import recipesharing.logic.Recipe;
-import recipesharing.logic.RecipeItem;
 import recipesharing.logic.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testing of recipe data access object and its methods.
@@ -58,12 +58,18 @@ class RecipeDaoTest {
     /**
      * Deletes the recipe created in the previous test and checks that this has been completed.
      */
-    //TODO update so test independent
     @Test
     void testDeleteRecipeById() {
-        recipeDao.deleteRecipeById(null);
-        Recipe recipe = recipeDao.findRecipeById("624c031ea9531c27eb1c0138");
-        assertNull(recipe);
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+
+        recipeDao.addRecipe(recipe);
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
+        Recipe intermediate = returnedRecipes.get(0);
+        String id = intermediate.getRecipeId();
+
+        recipeDao.deleteRecipeById(id);
+        assertNull(recipeDao.findRecipeById(id));
     }
 
     //TODO Consider how this should be implemented given the number of variables
@@ -97,16 +103,29 @@ class RecipeDaoTest {
         assertEquals(recipe, recipes.get(0));
     }
 
-    //TODO update
+    /**
+     * Creates and adds a recipe to the DB. Then finds it using its author. Then deletes the recipe to finish.
+     */
     @Test
     void findRecipeByAuthorId() {
-        List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("6249cadaa1f0c07dba837007");
-        recipeName.forEach(System.out::println);
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+
+        recipeDao.addRecipe(recipe);
+        List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("authorId1");
+        assertTrue(recipeName.contains(recipe));
+
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
+        Recipe intermediate = returnedRecipes.get(0);
+        String id = intermediate.getRecipeId();
+
+        recipeDao.deleteRecipeById(id);
+        assertNull(recipeDao.findRecipeById(id));
     }
 
     //TODO implement
     @Test
     void testFindRecipeAccessById() {
-
+        
     }
 }
