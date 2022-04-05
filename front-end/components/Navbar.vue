@@ -1,14 +1,14 @@
 <template>
  <header> 
-     <nav class="flex items-center justify-between flex-wrap bg-white py-4 lg:px-12 shadow border-solid border-t-2">
-        <div class="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 border-gray-300 pb-5 lg:pb-0">
+     <nav class="flex items-center justify-between flex-wrap py-4 lg:px-12 bg-gray-900">
+        <div class="flex justify-between lg:w-auto w-full pl-6 pr-2 pb-5 lg:pb-0">
             <div class="flex items-center flex-shrink-0 text-gray-800 mr-16">
-                <span class="font-semibold text-xl tracking-tight">Food Friends</span>
+                <span class="font-semibold text-xl tracking-tight text-gray-50">Food Friends</span>
             </div>
         </div>
     
         <div class="menu w-full lg:block flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8">
-            <div class="text-md font-bold text-green-700 lg:flex-grow">
+            <div class="text-md font-bold text-green-600 lg:flex-grow">
                 <NuxtLink to="/"
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Home
@@ -37,13 +37,13 @@
             </div>
             <div class="flex ">
                 <a href="#" v-if="!$auth.loggedIn"
-                   class="block text-md px-4 py-2 rounded text-green-700 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
+                   class="block text-md px-4 py-2 rounded text-green-600 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
                    @click="userSignIn"
                    >
                    Login
                    </a>
                 <a href="#" v-if="$auth.loggedIn"
-                   class=" block text-md px-4  ml-2 py-2 rounded text-green-700 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
+                   class=" block text-md px-4  ml-2 py-2 rounded text-green-600 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
                    @click="userLogOut"
                    >Log Out</a>
             </div>
