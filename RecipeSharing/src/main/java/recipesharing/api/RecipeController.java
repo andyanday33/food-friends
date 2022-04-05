@@ -40,6 +40,25 @@ public class RecipeController {
 
     // *** Recipe related API endpoints *** //
 
+    @GetMapping("/createNewRecipe")
+    public Result createNewRecipe(
+            // !! All request param names must be specified but the values can be null. !!
+            @RequestParam String title,
+            @RequestParam String description,
+            // TODO should this change to something else?
+            @RequestParam String ownerEmail,
+            @RequestParam String[] instructions,
+            @RequestParam String[] ingredientNames,
+            @RequestParam String[] ingredientQuantities,
+            @RequestParam String mealType,
+            @RequestParam String cuisineTitle
+    ) {
+        // TODO we need to fix the recipe constructor
+        //Recipe recipe = new Recipe();
+        //return Result.success(recipeService.addRecipe();)
+        return null;
+    }
+
     /**
      * Returns a list of recipes which have the same title as the one specified by the user.
      * @param title
