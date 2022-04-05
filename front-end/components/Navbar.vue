@@ -59,12 +59,10 @@ export default {
         async userLogOut() {
             let data = await this.$auth.logout();
             console.log(data);
-            this.$store.commit('updateUserData', data);
         },
         async userSignIn() {
             let data = await this.$auth.loginWith('auth0');
             console.log(data);
-            this.$store.commit('removeUserData');
         },
         printUserData(){
             console.log("aaaaaa");

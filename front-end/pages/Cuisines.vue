@@ -35,11 +35,26 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
+const axios = require('axios').default;
 
 export default {
     components: { Navbar, Sidebar },
     name: "CuisinesPage",
-    middleware: 'auth'
+    middleware: 'auth',
+    
+    beforeMount() {
+        //Get all the ingredients from the backend and store them in Vuex store
+        axios.get("http://localhost:8080/findAllIngredients")
+            .then((res) => {
+                console.log(res);
+                this.$store.dispatch("setCuisines", res.data.data);
+                console.log(this.$store.state.cuisineData);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    
+    }
 }
 </script>
 

@@ -1,13 +1,22 @@
 export const state = () => ({
-    userData: null
-})
+    cuisineData: null
+});
 
 export const mutations = {
-    updateUserData(data) {
-        state.userData = data;
-        console.log(state.userData);
-    },
-    removeUserData() {
-        state.userData = null;
+    SET_CUISINE_DATA: (state, data) => {
+        state.cuisineData = data;
     }
-}
+};
+
+export const actions = {
+    setCuisines({ commit, state }, newValue) {
+        commit("SET_CUISINE_DATA", newValue);
+        return state.cuisineData;
+    }
+};
+
+export const getters = {
+    cuisines: (state) => {
+        return state.cuisineData;
+    }
+};
