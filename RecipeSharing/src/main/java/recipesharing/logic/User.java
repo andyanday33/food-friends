@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -28,8 +29,11 @@ public class User {
     private String userName;
     @Indexed
     private String email;
-    private String token;
+
     private String password;
+
+    @Transient
+    private String token;
 
     @Field("history")
     private List<RecipeItem> history = new ArrayList<>();

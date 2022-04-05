@@ -27,12 +27,6 @@ public class LoginService {
 
     private static final String encoded_password_string = "cs5031!group!~d!";
 
-    /**
-     *  user login via email (not an auth 0 way)
-     * @param email user's login email
-     * @param password user's password
-     * @return success message with the user
-     */
     public Result userLogin(String email, String password) {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());
@@ -52,7 +46,40 @@ public class LoginService {
             // forward encrypted user
             userByEmail.setToken(token);
             userByEmail.setPassword(password);*/
+//            userByEmail.setToken(token);
+            return Result.success(userByEmail);
+        }
+        // TODO REDIS
+        // TODO ONLY RETURN THE TOKEN
+        return Result.fail(TransStatusCode.FAIL_NOT_FOUND.getCode(), TransStatusCode.FAIL_NOT_FOUND.getMsg());
+    }
 
+    /**
+     *  user login via email (not an auth 0 way)
+     * @param email user's login email
+     * @param password user's password
+     * @return success message with the user
+     */
+    public Result userLogin(String email, String password, String token) {
+        if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+            return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());
+        }
+        User userByEmail = userService.findUserByEmail(email);
+
+        if (userByEmail == null) {
+            return Result.fail(TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getCode(), TransStatusCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
+        }
+        if (userByEmail.getEmail().equals(email) && userByEmail.getPassword().equals(password)) {
+            System.out.println("success!!");
+            //JDK HIGH ISSUE
+/*            String token = JWTUtil.createToken(userByEmail.getUserId());
+
+            String encodedPswd = password + encoded_password_string;
+            password = DigestUtils.md5DigestAsHex(encodedPswd.getBytes(StandardCharsets.UTF_8));
+            // forward encrypted user
+            userByEmail.setToken(token);
+            userByEmail.setPassword(password);*/
+            userByEmail.setToken(token);
             return Result.success(userByEmail);
         }
         // TODO REDIS

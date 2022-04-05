@@ -54,4 +54,6 @@ public class AdminController {
         }
     }
 
+    //TODO: CRUD USERS, RECIPES AND DO VISUALISATION (PLUGIN?)
+
 }
