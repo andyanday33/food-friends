@@ -29,7 +29,7 @@ public class AdminDao {
     }
 
     public List<Admin> findAdminByAdminName(String adminName) {
-        Query query = Query.query(Criteria.where("adminName").is(adminName));
+        Query query = Query.query(Criteria.where("name").is(adminName));
         return mongoTemplate.find(query, Admin.class, "t_admin");
     }
 

@@ -19,13 +19,29 @@ class AdminDaoTest {
     AdminDao adminDao;
 
     /**
-     * Tests that all Admins can be found and printed.
+     * Tests that all Admins can be found and there are more than zero.
      */
     @Test
     void findAllAdmins() {
         List<Admin> allAdmins = adminDao.findAllAdmins();
         assertTrue(allAdmins.size() > 0);
-        allAdmins.forEach(System.out::println);
+    }
+
+    /**
+     * Tests that an admin can be created and added to the database.
+     */
+    @Test
+    void addAdmin() {
+        Admin admin = new Admin("addMin","admin1@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
+
+        //Tests that the test admin has been added to the database.
+        List<Admin> returned =  adminDao.findAdminByAdminName("addMin");
+        assertTrue(returned.contains(admin));
+
+        //delete test admin.
+        String id = returned.get(0).getId();
+        adminDao.deleteAdminById(id);
     }
 
     /**
@@ -48,15 +64,6 @@ class AdminDaoTest {
      */
     @Test
     void findAdminByEmail() {
-    }
-
-    /**
-     * Tests that an admin can be created and added to the database.
-     */
-    @Test
-    void addAdmin() {
-        Admin admin = new Admin("admin1","admin1@st-andrews.ac.uk", "password");
-        adminDao.addAdmin(admin);
     }
 
     /**
