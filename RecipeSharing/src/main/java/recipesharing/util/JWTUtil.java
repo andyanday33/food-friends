@@ -1,11 +1,11 @@
 package recipesharing.util;
 
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,37 +13,47 @@ import java.util.Map;
  * Generate json web token for user
  */
 public class JWTUtil {
-    private static final String jwtToken = "123456Mszlu!@###$$";
+    private static final String PRIVATE_KEY = "12Msz@##lu!#$$";
 
     /**
-     *
-     * @param userId
-     * @return String token A.B.C
-     * A: Header
-     * B. playload
-     * C. issue
+     * generate a jwt
      */
-    public static String createToken(String userId) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);
-        JwtBuilder jwtBuilder = Jwts.builder()
-                .signWith(SignatureAlgorithm.HS256, jwtToken) // Issuing algorithm, secret key is jwtToken
-                .setClaims(claims) // Body data, to be unique
-                .setIssuedAt(new Date()) // Set issue time
-                .setExpiration(new Date(System.currentTimeMillis() + 24L * 60 * 60 * 60 * 1000));// be effective in a day
-        String token = jwtBuilder.compact();
-        return token;
+    public static String getToken(Map<String, String> map) {
+        JWTCreator.Builder builder = JWT.create();
+
+        //payload
+        map.forEach((k, v) -> {
+            builder.withClaim(k, v);
+        });
+
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.DATE, 7); //expired by 7 days
+
+        builder.withExpiresAt(instance.getTime());
+        return builder.sign(Algorithm.HMAC256(PRIVATE_KEY));
     }
 
-    public static Map<String, Object> checkToken(String token) {
-        try {
-            Jwt parse = Jwts.parser().setSigningKey(jwtToken).parse(token);
-            return (Map<String, Object>) parse.getBody();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static String getToken(String email, String password) {
+        JWTCreator.Builder builder = JWT.create();
 
+        //payload
+        Map map = new HashMap();
+        map.put("email", email);
+        map.put("password", password);
+
+        Calendar instance = Calendar.getInstance();
+        instance.add(Calendar.DATE, 7); //expired by 7 days
+
+        builder.withExpiresAt(instance.getTime());
+        return builder.sign(Algorithm.HMAC256(PRIVATE_KEY));
     }
+    /**
+     * verify jwt
+     */
+    public static DecodedJWT verify(String token) {
+        //throws exceptions
+        return JWT.require(Algorithm.HMAC256(PRIVATE_KEY)).build().verify(token);
+    }
+
 
 }
