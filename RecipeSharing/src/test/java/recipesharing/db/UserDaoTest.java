@@ -1,12 +1,8 @@
 package recipesharing.db;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import recipesharing.logic.RecipeItem;
 import recipesharing.logic.User;
 
@@ -57,14 +53,39 @@ class UserDaoTest {
      */
     @Test
     void testFindUserById() {
-        User userById = userDao.findUserById("6249c95cf85a657f0d39954f");
-        System.out.println(userById);
+        //Create test user.
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        User user = new User("FIND ME BY ID", "test4@st-andrews.ac.uk", "test password", recipeItems);
+        userDao.addUser(user);
+
+        //get ID
+        List<User> users = userDao.findUserByUserName("FIND ME BY ID");
+        String id = users.get(0).getUserId();
+
+        //find user by ID and check equal
+        User userById = userDao.findUserById(id);
+        assertEquals(user, userById);
+
+        //remove test user
+        removeUserFromDB(userById);
     }
 
+    /**
+     * Tests that users can be found based on their username.
+     */
     @Test
     void findUserByUserName() {
-        List<User> test_user = userDao.findUserByUserName("test user");
-        test_user.forEach(System.out::println);
+        //Create test user.
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        User user = new User("FIND ME BY USERNAME", "test4@st-andrews.ac.uk", "test password", recipeItems);
+        userDao.addUser(user);
+
+        //check retrieval and equality.
+        List<User> users = userDao.findUserByUserName("FIND ME BY ID");
+        assertEquals(users.get(0), user);
+
+        //remove test user
+        removeUserFromDB(users.get(0));
     }
 
     @Test
