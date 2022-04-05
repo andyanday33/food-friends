@@ -53,9 +53,15 @@ public class CuisineController {
      */
     @DeleteMapping("/deleteCuisineById")
     public Result deleteCuisineByID(@RequestParam String id) {
-        cuisineService.containsCuisineWithId(id);
-        cuisineService.delOneCuisine(id);
-        return Result.success(null);
+        // Check if the database contains the cuisine
+        if (cuisineService.containsCuisineWithId(id)) {
+            cuisineService.delOneCuisine(id);
+            return Result.success(null);
+        } else {
+            return Result.fail(400, "The cuisine given by id " + id + "does not exist and cannot be deleted.");
+        }
+
+
     }
 
 }
