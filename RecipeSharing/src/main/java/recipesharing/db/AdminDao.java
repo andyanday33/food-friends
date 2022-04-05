@@ -12,7 +12,7 @@ import recipesharing.logic.Admin;
 import java.util.List;
 
 /**
- * data access object for admin
+ * Data access object for admin.
  */
 @Repository
 public class AdminDao {
@@ -47,6 +47,7 @@ public class AdminDao {
         mongoTemplate.remove(query, Admin.class);
     }
 
+    //TODO add all variables, or consider how this is best implemented in practice
     public void updateAdminById(Admin admin) {
         Query query = Query.query(Criteria.where("_id").is(admin.getEmail()));
         Update update = new Update();

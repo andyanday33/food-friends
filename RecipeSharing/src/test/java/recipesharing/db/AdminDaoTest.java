@@ -7,7 +7,9 @@ import recipesharing.logic.Admin;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests AdminDao object and its methods.
@@ -49,7 +51,19 @@ class AdminDaoTest {
      */
     @Test
     void findAdminById() {
+        Admin admin = new Admin("findID","admin1@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
 
+        //Retrieve admin and get ID
+        List<Admin> returned =  adminDao.findAdminByAdminName("findID");
+        String id = returned.get(0).getId();
+
+        //use id to retrieve admin
+        Admin foundAdmin = adminDao.findAdminById(id);
+        assertEquals(admin, foundAdmin);
+
+        //delete test admin
+        adminDao.deleteAdminById(id);
     }
 
     /**
@@ -57,6 +71,15 @@ class AdminDaoTest {
      */
     @Test
     void findAdminByAdminName() {
+        Admin admin = new Admin("Jimothy","admin1@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
+
+        //Retrieve admin and get ID
+        List<Admin> returned =  adminDao.findAdminByAdminName("Jimothy");
+        assertEquals(returned.get(0), admin);
+
+        //delete test admin
+        adminDao.deleteAdminById(returned.get(0).getId());
     }
 
     /**
@@ -64,6 +87,15 @@ class AdminDaoTest {
      */
     @Test
     void findAdminByEmail() {
+        Admin admin = new Admin("emailTest","AaronAdmin@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
+
+        //Retrieve admin and get ID
+        Admin returnedAdmin =  adminDao.findAdminByEmail("AaronAdmin@st-andrews.ac.uk");
+        assertEquals(returnedAdmin, admin);
+
+        //delete test admin
+        adminDao.deleteAdminById(returnedAdmin.getId());
     }
 
     /**
@@ -71,6 +103,19 @@ class AdminDaoTest {
      */
     @Test
     void deleteAdminById() {
+        Admin admin = new Admin("testDelete","admin1@st-andrews.ac.uk", "password");
+        adminDao.addAdmin(admin);
+
+        //Retrieve admin and get ID
+        List<Admin> returned =  adminDao.findAdminByAdminName("testDelete");
+        assertEquals(returned.get(0), admin);
+
+        //Delete this admin
+        String id = returned.get(0).getId();
+        adminDao.deleteAdminById(id);
+
+        //check deleted
+        assertNull(adminDao.findAdminById(id));
     }
 
     /**
@@ -78,5 +123,6 @@ class AdminDaoTest {
      */
     @Test
     void updateAdminById() {
+        //TODO implement when update and upsert logic finalised.
     }
 }
