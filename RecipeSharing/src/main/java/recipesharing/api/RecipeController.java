@@ -208,5 +208,16 @@ public class RecipeController {
         return Result.success(null);
     }
 
+    //TODO
+    @PostMapping("/getMealTypesByRecipeName")
+    public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
+
+        return null;
+    }
+
+    @PostMapping("/getIngredientListByRecipe")
+    public Result getIngredientListByRecipe(@RequestParam String RecipeName){
+        return null;
+    }
 
 }

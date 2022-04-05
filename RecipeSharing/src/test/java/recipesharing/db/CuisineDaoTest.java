@@ -3,6 +3,10 @@ package recipesharing.db;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import recipesharing.logic.Admin;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Cuisine;
 
@@ -19,6 +23,8 @@ class CuisineDaoTest {
     @Autowired
     CuisineDao cuisineDao;
 
+    @Autowired
+    MongoTemplate mongoTemplate;
     @Test
     void getAllCuisines() {
         List<Cuisine> cuisines = cuisineDao.getAllCuisines();
@@ -55,5 +61,13 @@ class CuisineDaoTest {
         List<Cuisine> del = cuisineDao.getAllCuisines();
         //check deleted
         assertFalse(del.contains(testCuisine));
+    }
+
+    @Test
+    void del(){
+
+        Query query = Query.query(Criteria.where("_id").is("sdsdsds"));
+        mongoTemplate.remove(query, Cuisine.class);
+
     }
 }

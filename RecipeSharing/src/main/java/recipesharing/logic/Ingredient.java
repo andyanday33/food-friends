@@ -24,6 +24,12 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
+    public Ingredient(String title, Double quantity, Unit unit) {
+        this.title = title;
+        this.quantity = quantity;
+        this.unit = unit;
+    }
+
     public void addUnit(Unit unit) {
         this.unit = unit;
     }
