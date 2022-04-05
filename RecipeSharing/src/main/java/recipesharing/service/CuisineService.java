@@ -34,5 +34,9 @@ public class CuisineService {
         cuisineDao.delOneCuisine(cuisine);
     }
 
+    public void delOneCuisine(String cuisineId){
+        cuisineDao.delOneCuisine(cuisineId);
+    }
+
 
 }

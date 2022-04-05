@@ -20,7 +20,7 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
-    CuisineService cuisineService;
+
 
     /**
      * If user is unsure of how to use the API then may access the base root.
@@ -171,41 +171,7 @@ public class RecipeController {
         return Result.success(null);
     }
 
-    // *** Cuisine related API endpoints *** //
 
-    /**
-     * Find all cuisines in the database.
-     * @return A list of all the cuisines in the database.
-     */
-    @GetMapping("/getAllCuisines")
-    public Result getCuisines() {
-        try {
-            return Result.success(cuisineService.getAllCuisines());
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-    }
-
-    /**
-     * Add a new cuisine to the database.
-     */
-    @PostMapping("/addOneCuisine")
-    public Result addOneCuisine(@RequestParam String name) {
-        // TODO Check if cuisine already exists in DB first!!
-        Cuisine cuisine = new Cuisine(name);
-        cuisineService.addOneCuisine(cuisine);
-        return null;
-    }
-
-    /**
-     * Delete cuisine by id if the cuisine exists.
-     * @param id recipe id
-     */
-    @DeleteMapping("/deleteCuisineByID")
-    public Result deleteCuisineByID(@RequestParam String id) {
-        //cuisineService.delOneCuisine();
-        return Result.success(null);
-    }
 
 
 }

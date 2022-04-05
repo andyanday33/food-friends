@@ -27,4 +27,8 @@ public class CuisineDao {
     public void delOneCuisine(Cuisine cuisine){
         mongoTemplate.remove(cuisine, "t_cuisine");
     }
+
+    public void delOneCuisine(String cuisineId){
+        mongoTemplate.remove(cuisineId, "t_cuisine");
+    }
 }
