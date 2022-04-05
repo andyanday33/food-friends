@@ -12,7 +12,7 @@ import recipesharing.logic.User;
 import java.util.List;
 
 /**
- * data access object for user
+ * Data access object for user.
  */
 @Repository
 public class UserDao {
@@ -22,6 +22,7 @@ public class UserDao {
     public List<User> findAllUsers(){
         return mongoTemplate.findAll(User.class);
     }
+
     public User findUserById(String userId) {
         return mongoTemplate.findById(userId, User.class);
     }
@@ -29,7 +30,6 @@ public class UserDao {
     public List<User> findUserByUserName(String userName) {
         Query query = Query.query(Criteria.where("userName").is(userName));
         return mongoTemplate.find(query, User.class, "t_user");
-
     }
 
     public User findUserByEmail(String email) {
@@ -46,10 +46,10 @@ public class UserDao {
         mongoTemplate.remove(query, User.class);
     }
 
+    //TODO consider how we want to update the User object.
     public void updateUserById(User user) {
         Query query = Query.query(Criteria.where("_id").is(user.getEmail()));
         Update update = new Update();
         UpdateResult upsert = mongoTemplate.upsert(query, update, User.class);
     }
-
 }
