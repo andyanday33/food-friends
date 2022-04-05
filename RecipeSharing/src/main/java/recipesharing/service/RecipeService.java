@@ -2,6 +2,7 @@ package recipesharing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.RecipeDao;
 import recipesharing.logic.Recipe;
 
@@ -20,8 +21,12 @@ public class RecipeService {
      *  find all recipes, todo: page limits
      * @return recipe list
      */
-    public List<Recipe> findAllRecipe(){
-        return recipeDao.findAllRecipe();
+    public List<Recipe> findAllRecipe() throws NotFoundDBException {
+        List<Recipe> recipeList = recipeDao.findAllRecipe();
+        if (recipeList.isEmpty()) {
+            throw new NotFoundDBException("There are currently no recipes in the database.");
+        }
+        return recipeList;
     }
 
     /**
@@ -29,8 +34,12 @@ public class RecipeService {
      * @param id recipe _id
      * @return one recipe
      */
-    public Recipe findRecipeById(String id){
-        return recipeDao.findRecipeById(id);
+    public Recipe findRecipeById(String id) throws NotFoundDBException {
+        Recipe recipe = recipeDao.findRecipeById(id);
+        if (recipe == null) {
+            throw new NotFoundDBException("The recipe given by id " + id + "does not exist.");
+        }
+        return recipe;
     }
 
     /**
@@ -38,8 +47,12 @@ public class RecipeService {
      * @param name recipe's name/title
      * @return a list of recipes that have the same name
      */
-    public List<Recipe> findRecipeByRecipeName(String name){
-        return recipeDao.findRecipeByRecipeName(name);
+    public List<Recipe> findRecipeByRecipeName(String name) throws NotFoundDBException {
+        List<Recipe> recipeList = recipeDao.findRecipeByRecipeName(name);
+        if (recipeList.isEmpty()) {
+            throw new NotFoundDBException("There are no recipes with the recipe name " + name + ".");
+        }
+        return recipeList;
     }
 
     /**
@@ -47,11 +60,16 @@ public class RecipeService {
      * @param authorId the author's id
      * @return a list of recipes that created by the same user
      */
-    public List<Recipe> findRecipeByAuthorId(String authorId){
-        return recipeDao.findRecipeByAuthorId(authorId);
+    public List<Recipe> findRecipeByAuthorId(String authorId) throws NotFoundDBException {
+        List<Recipe> recipeList = recipeDao.findRecipeByAuthorId(authorId);
+        if (recipeList.isEmpty()) {
+            throw new NotFoundDBException("There are no recipes created by author with id " + authorId + ".");
+        }
+        return recipeList;
     }
 
-    public boolean findRecipeAccessById(String accessType, String recipeId){
+    // TODO need to throw exception here but not sure how to because it returns a boolean which is never null I think?
+    public boolean findRecipeAccessById(String accessType, String recipeId) {
         return recipeDao.findRecipeAccessById(accessType, recipeId);
     }
 

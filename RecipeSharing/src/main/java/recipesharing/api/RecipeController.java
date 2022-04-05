@@ -2,6 +2,7 @@ package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Recipe;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
@@ -41,23 +42,74 @@ public class RecipeController {
 
     /**
      * Returns a list of recipes which have the same title as the one specified by the user.
-     * // todo throw exception if not found
+     * @param title
+     * @return
      */
-    @GetMapping("/getRecipe")
-    public Result getRecipe(@RequestParam String title) {
-        List<Recipe> recipeByRecipeName = recipeService.findRecipeByRecipeName(title);
-        return Result.success(recipeByRecipeName);
+    @GetMapping("/getRecipeByTitle")
+    public Result getRecipeByTitle(@RequestParam String title) {
+        try {
+            return Result.success(recipeService.findRecipeByRecipeName(title));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves the recipe when given a recipe ID if the recipe exists.
+     * @param recipeId - the unique recipe ID String for the recipe.
+     * @return The result of the query (status code, the recipe).
+     */
+    @GetMapping("/getRecipeById")
+    public Result getRecipeById(@RequestParam String recipeId) {
+        try {
+            return Result.success(recipeService.findRecipeById(recipeId));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+
+    }
+
+    /**
+     * Returns a list of recipes which an author owns when given an author Id.
+     * @param authorId
+     * @return
+     */
+    @GetMapping("/getRecipesByAuthorId")
+    public Result getRecipesByAuthorId(@RequestParam String authorId) {
+        try {
+            return Result.success(recipeService.findRecipeByAuthorId(authorId));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    /**
+     * Checks if a recipe has the specified access type.
+     * @param accessType - todo not sure what this is (public, private, read, write?)
+     * @param recipeId - the unique recipe id as a String.
+     * @return true if has specified access type.
+     */
+    @GetMapping("/getRecipeAccessById")
+    public Result getRecipeAccessById(@RequestParam String accessType, @RequestParam String recipeId) {
+        boolean hasAccess = recipeService.findRecipeAccessById(accessType, recipeId);
+        return Result.success(hasAccess);
     }
 
     // *** Cuisine related API endpoints *** //
 
     /**
      * Find all cuisines in the database.
+     * TODO not sure this returns cuisines, seems to return recipes
      * @return A list of all the cuisines in the database.
      */
     @GetMapping("/getAllCuisines")
     public Result getCuisines() {
-        return Result.success(recipeService.findAllRecipe());
+        try {
+            return Result.success(recipeService.findAllRecipe());
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+
     }
 
 
@@ -106,37 +158,33 @@ public class RecipeController {
     }
 
     /**
-     * Delete a recipe
-     * todo what should we pass in here to delete a recipe?
-     * @param recipeID
+     * Deletes a recipe from the database given a unique recipe ID.
+     * @param recipeID - the String representation of the recipe ID.
      */
-    @DeleteMapping("/deleteRecipe")
-    public Result deleteRecipe(@RequestParam String recipeID) {
-        // First find the recipe associated with the recipeID
-        // todo think we need a method in RecipeDao for finding the recipe by ID
-        // then delete it
-        //recipeDao.deleteOneRecipeById(recipe);
+    @DeleteMapping("/deleteRecipeByID")
+    public Result deleteRecipeByID(@RequestParam String recipeID) {
         recipeService.deleteRecipeById(recipeID);
         return Result.success(null);
     }
 //---------------------
     /**
      * Add a new cuisine to the database.
-     * TODO Doesn't work. Throws server error because it can't access addOneCuisine.
+     * TODO Doesn't work.
      */
     @PostMapping("/addOneCuisine")
-    public Result addOneCuisine(@RequestBody Recipe recipe) {
-        recipeService.addRecipe(recipe);
-        return Result.success(recipe);
+    public Result addOneCuisine(@RequestParam String cuisineTitle) {
+        // TODO Check if cuisine already exists in DB first!!
+        //recipeService.addRecipe(recipe);
+        //return Result.success(recipe);
+        return null;
     }
 
     /**
-     * Delete cuisine by id.
+     * Delete cuisine by id if the cuisine exists.
      * @param id recipe id
      */
-    @DeleteMapping("/deleteCuisineById")
-    public Result deleteCuisineById(@RequestParam String id) {
-        //TODO check if exists first
+    @DeleteMapping("/deleteCuisineByID")
+    public Result deleteCuisineByID(@RequestParam String id) {
         recipeService.deleteRecipeById(id);
         return Result.success(null);
     }

@@ -2,6 +2,7 @@ package recipesharing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.AdminDao;
 import recipesharing.logic.Admin;
 
@@ -20,11 +21,10 @@ public class AdminService {
      *  find all admin users
      * @return list of all admins
      */
-    public List<Admin> findAllAdmins() throws Exception {
+    public List<Admin> findAllAdmins() throws NotFoundDBException {
         List<Admin> admins = adminDao.findAllAdmins();
         if (admins.isEmpty()) {
-            //TODO update this with custom exception
-            throw new RuntimeException("No admins exist");
+            throw new NotFoundDBException("There are no admins in the database.");
         }
         return adminDao.findAllAdmins();
     }
@@ -34,8 +34,12 @@ public class AdminService {
      * @param id _id of the admin
      * @return admin class
      */
-    public Admin findAdminById(String id) {
-        return adminDao.findAdminById(id);
+    public Admin findAdminById(String id) throws NotFoundDBException {
+        Admin admin = adminDao.findAdminById(id);
+        if (admin == null) {
+            throw new NotFoundDBException("The admin with id " + id + "does not exist.");
+        }
+        return admin;
     }
 
     /**
@@ -43,8 +47,12 @@ public class AdminService {
      * @param name admin name
      * @return admin list
      */
-    public List<Admin> findAdminByAdminName(String name) {
-        return adminDao.findAdminByAdminName(name);
+    public List<Admin> findAdminByAdminName(String name) throws NotFoundDBException {
+        List<Admin> admins = adminDao.findAdminByAdminName(name);
+        if (admins.isEmpty()) {
+            throw new NotFoundDBException("The admin with name " + name + "does not exist.");
+        }
+        return admins;
     }
 
     /**
@@ -52,8 +60,12 @@ public class AdminService {
      * @param email admin email
      * @return admin class
      */
-    public Admin findAdminByEmail(String email){
-        return adminDao.findAdminByEmail(email);
+    public Admin findAdminByEmail(String email) throws NotFoundDBException {
+        Admin admin = adminDao.findAdminByEmail(email);
+        if (admin == null) {
+            throw new NotFoundDBException("The admin with email " + email + "does not exist.");
+        }
+        return admin;
     }
 
     /**
