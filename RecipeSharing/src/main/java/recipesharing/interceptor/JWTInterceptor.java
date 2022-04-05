@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/*
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -58,3 +58,4 @@ public class JWTInterceptor implements HandlerInterceptor {
         return false;
     }
 }
+*/
