@@ -25,6 +25,23 @@ class RecipeDaoTest {
     UserDao userDao;
 
     @Test
+    void addRecipe() {
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("pancake", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
+    }
+
+    @Test
+    void testDeleteRecipeById() {
+
+    }
+
+    @Test
+    void testUpdateRecipeById() {
+
+    }
+
+    @Test
     void findAllRecipe() {
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
         allRecipe.forEach(System.out::println);
@@ -48,11 +65,7 @@ class RecipeDaoTest {
     }
 
     @Test
-    void addRecipe() {
-        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("pancake", "authorId1", user, true, true, 0);
-        recipeDao.addRecipe(recipe);
+    void testFindRecipeAccessById() {
+
     }
-
-
 }
