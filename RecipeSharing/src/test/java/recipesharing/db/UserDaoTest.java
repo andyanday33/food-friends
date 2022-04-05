@@ -88,18 +88,42 @@ class UserDaoTest {
         removeUserFromDB(users.get(0));
     }
 
+    /**
+     * Tests that users can be found via their email.
+     */
     @Test
     void findUserByEmail() {
-        User userByEmail = userDao.findUserByEmail("test@st-andrews.ac.uk");
-        System.out.println(userByEmail);
+        //Create test user.
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        User user = new User("FIND ME BY EMAIL", "findEmail@st-andrews.ac.uk", "test password", recipeItems);
+        userDao.addUser(user);
+
+        //check retrieval and equality.
+        User emailUser = userDao.findUserByEmail("findEmail@st-andrews.ac.uk");
+        assertEquals(emailUser, user);
+
+        //remove test user
+        removeUserFromDB(emailUser);
     }
 
+    /**
+     * Tests that users can be deleted from the db using their id.
+     */
     @Test
     void deleteUserById() {
-        User userByEmail = userDao.findUserByEmail("test4@st-andrews.ac.uk");
-        if (userByEmail != null) {
-            userDao.deleteUserById(userByEmail.getUserId());
-        }
+        //Create test user.
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        User user = new User("DELETE ME", "deleteUser@st-andrews.ac.uk", "test password", recipeItems);
+        userDao.addUser(user);
+
+        //get id.
+        User deleteUser = userDao.findUserByEmail("deleteUser@st-andrews.ac.uk");
+        String id = deleteUser.getUserId();
+
+        //remove test user
+        userDao.deleteUserById(id);
+        User deleteUserCheck = userDao.findUserByEmail("deleteUser@st-andrews.ac.uk");
+        assertNull(deleteUserCheck);
     }
 
     @Test
