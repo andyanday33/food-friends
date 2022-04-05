@@ -19,9 +19,11 @@ public class AdminDao {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
     public List<Admin> findAllAdmins(){
         return mongoTemplate.findAll(Admin.class);
     }
+
     public Admin findAdminById(String adminId) {
         return mongoTemplate.findById(adminId, Admin.class);
     }
@@ -29,7 +31,6 @@ public class AdminDao {
     public List<Admin> findAdminByAdminName(String adminName) {
         Query query = Query.query(Criteria.where("adminName").is(adminName));
         return mongoTemplate.find(query, Admin.class, "t_admin");
-
     }
 
     public Admin findAdminByEmail(String email) {
@@ -51,5 +52,4 @@ public class AdminDao {
         Update update = new Update();
         UpdateResult upsert = mongoTemplate.upsert(query, update, Admin.class);
     }
-
 }
