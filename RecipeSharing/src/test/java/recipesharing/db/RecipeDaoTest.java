@@ -123,9 +123,24 @@ class RecipeDaoTest {
         assertNull(recipeDao.findRecipeById(id));
     }
 
-    //TODO implement
+    /**
+     * Creates recipe and adds to DB. Then checks that the correct access booleans can be retrieved.
+     * Deletes test recipe to finish.
+     */
     @Test
     void testFindRecipeAccessById() {
-        
+        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
+        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+        recipeDao.addRecipe(recipe);
+
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
+        Recipe intermediate = returnedRecipes.get(0);
+        String id = intermediate.getRecipeId();
+
+        assertTrue(recipeDao.findRecipeAccessById("read", id));
+        assertTrue(recipeDao.findRecipeAccessById("write", id));
+
+        recipeDao.deleteRecipeById(id);
+        assertNull(recipeDao.findRecipeById(id));
     }
 }
