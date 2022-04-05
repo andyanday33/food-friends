@@ -60,5 +60,12 @@ export default {
     redirect: {
       login: '/Unauthorized'
     }
+  },
+
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
+    }
   }
 }
