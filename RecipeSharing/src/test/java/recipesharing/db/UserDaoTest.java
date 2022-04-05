@@ -29,15 +29,6 @@ class UserDaoTest {
         List<User> allUsers = userDao.findAllUsers();
         allUsers.forEach(System.out::println);
     }
-    @Test
-    void updateUserById() {
-        User userById = userDao.findUserById("6249cadaa1f0c07dba837007");
-        List<RecipeItem> recipeItems = new ArrayList<>();
-        RecipeItem recipeItem = new RecipeItem("recipeid", "authorid");
-        recipeItems.add(recipeItem);
-        userById.setHistory(recipeItems);
-        userDao.updateUserById(userById);
-    }
 
     @Test
     void testFindUserById() {
@@ -67,7 +58,6 @@ class UserDaoTest {
         recipeItems.add(recipeItem);
         User user = new User("test user4", "test4@st-andrews.ac.uk", "test password", recipeItems);
         userDao.addUser(user);
-
     }
 
     @Test
@@ -78,4 +68,13 @@ class UserDaoTest {
         }
     }
 
+    @Test
+    void updateUserById() {
+        User userById = userDao.findUserById("6249cadaa1f0c07dba837007");
+        List<RecipeItem> recipeItems = new ArrayList<>();
+        RecipeItem recipeItem = new RecipeItem("recipeid", "authorid");
+        recipeItems.add(recipeItem);
+        userById.setHistory(recipeItems);
+        userDao.updateUserById(userById);
+    }
 }
