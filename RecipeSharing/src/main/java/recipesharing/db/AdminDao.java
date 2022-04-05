@@ -20,6 +20,10 @@ public class AdminDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    /**
+     * Find all admins in database
+     * @return all admins in a list.
+     */
     public List<Admin> findAllAdmins(){
         return mongoTemplate.findAll(Admin.class);
     }
