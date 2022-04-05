@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -37,6 +38,23 @@ public class Recipe {
     private String Cuisine; //e.g., French
 
     private ArrayList<IngredientItem> ingredients;
+
+    // TODO LJ create new recipe constructor to match api but not sure if this is correct
+    // The user's read and write access should be
+    /*
+    public Recipe(String recipeName, String recipeDescription, String ownerId, List<String> instructions, List<Ingredient> ingredients, Meal meal, Cuisine cusine) {
+        this.recipeName = recipeName;
+        this.description = recipeDescription;
+        // todo this.ownerID doesn't exist
+        //this.ownerId = ownerId;
+        // todo instructions list doesn't exist
+        //this.instructions = instructions;
+        this.ingredients = ingredients;
+        // meal doesnt exist
+        // cuisine doesnt exist
+    }
+
+     */
 
     public Recipe(String recipeName, String authorId, User author, boolean writeAccess, boolean readAccess, int thumpsUp) {
         this.recipeName = recipeName;
