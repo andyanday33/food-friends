@@ -3,6 +3,7 @@ package recipesharing.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
+import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
@@ -187,13 +188,12 @@ public class RecipeController {
 
     /**
      * Add a new cuisine to the database.
-     * TODO Doesn't work.
      */
     @PostMapping("/addOneCuisine")
-    public Result addOneCuisine(@RequestParam String cuisineTitle) {
+    public Result addOneCuisine(@RequestParam String name) {
         // TODO Check if cuisine already exists in DB first!!
-        //recipeService.addRecipe(recipe);
-        //return Result.success(recipe);
+        Cuisine cuisine = new Cuisine(name);
+        cuisineService.addOneCuisine(cuisine);
         return null;
     }
 
@@ -203,7 +203,7 @@ public class RecipeController {
      */
     @DeleteMapping("/deleteCuisineByID")
     public Result deleteCuisineByID(@RequestParam String id) {
-        recipeService.deleteRecipeById(id);
+        //cuisineService.delOneCuisine();
         return Result.success(null);
     }
 
