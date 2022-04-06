@@ -85,6 +85,11 @@ public class CuisineService {
         }
     }
 
+    /**
+     * Finds a cuisine with a given name.
+     * @param name - the name of the cuisine.
+     * @return cuisine instance.
+     */
     public Cuisine findCuisineWithName(String name) {
         try {
             // Get the list of all cuisines (contains cuisine id and name)

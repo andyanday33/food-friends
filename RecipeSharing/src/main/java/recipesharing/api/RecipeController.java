@@ -187,9 +187,7 @@ public class RecipeController {
      */
     @GetMapping("/getRecipesByCuisine")
     public void getRecipesByCuisine(@RequestParam String cuisineType) {
-        // Create new cuisine. TODO validate input.
-//        Cuisine cuisine = new Cuisine(cuisineType);
-        //todo needs to be implemented in db
+        //dsada
     }
 
     /**
