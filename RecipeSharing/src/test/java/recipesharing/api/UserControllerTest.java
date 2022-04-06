@@ -72,6 +72,7 @@ public class UserControllerTest {
     /**
      * Tests that users can log in with JWT.
      */
+    //TODO potentially remove if not necessary.
     @Test
     void userLoginWithJWT() {
     }
