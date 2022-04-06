@@ -16,6 +16,76 @@ public class UserControllerTest {
     WebTestClient client;
 
     /**
+     * Tests that users can be retrieved via their id.
+     */
+    @Test
+    void testGetUserByIdSuccess() {
+        client.get().uri("/user/getUserById?id=624d72f04923ce4b64c5e1b5").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().is2xxSuccessful();
+    }
+
+    /**
+     * Tests that retrieving a non-existent user fails.
+     */
+    @Test
+    void testGetUserByIdFail() {
+        client.get().uri("/user/getUserById?id=ojbvijdfbvoj").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success").isEqualTo("false")
+                .jsonPath("code").isEqualTo("404");
+    }
+
+
+    /**
+     * Tests that users can be retrieved via their name.
+     */
+    @Test
+    void testGetUserByNameSuccess() {
+        client.get().uri("/user/getUserByName?name=JeremyDingDong").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().is2xxSuccessful();
+    }
+
+    /**
+     * Tests that retrieving a non-existent user fails.
+     */
+    @Test
+    void testGetUserByNameFailure() {
+        client.get().uri("/user/getUserByName?name=ojbvijdfbvoj").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success").isEqualTo("false")
+                .jsonPath("code").isEqualTo("404");
+    }
+
+    /**
+     * Tests that users can be retrieved via their email.
+     */
+    @Test
+    void testGetUserByEmailSuccess() {
+        client.get().uri("/user/getUserByEmail?email=JeremyDingDong@st-andrews.ac.uk").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().is2xxSuccessful();
+    }
+
+    /**
+     * Tests that retrieving a non-existent user fails.
+     */
+    @Test
+    void testGetUserByEmailFailure() {
+        client.get().uri("/user/getUserByEmail?email=ojbvijdfbvoj").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success").isEqualTo("false")
+                .jsonPath("code").isEqualTo("404");
+    }
+
+    /**
      * Tests that an existing user in the database can log in.
      */
     @Test
