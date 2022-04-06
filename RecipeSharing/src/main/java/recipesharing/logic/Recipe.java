@@ -51,6 +51,7 @@ public class Recipe {
 
     private List<MealItem> mealItems;
 
+    private List<User> groupUsers;
 
     // TODO LJ create new recipe constructor to match api but not sure if this is correct
     // The user's read and write access should be
@@ -84,6 +85,11 @@ public class Recipe {
 
 
     public Recipe(String delete_me, String authorId1, User user, boolean b, boolean b1, int i) {
+    }
+
+    public Recipe(String recipeId, String recipeName) {
+        this.recipeId = recipeId;
+        this.recipeName = recipeName;
     }
 
     public boolean isWriteAccess() {

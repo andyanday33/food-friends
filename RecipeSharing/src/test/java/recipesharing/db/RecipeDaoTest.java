@@ -207,9 +207,15 @@ class RecipeDaoTest {
         recipeDao.addRecipe(recipe);
     }
 
-//    @Test
-//    void testFindRecipeWithIngredientList(){
-//        List<Recipe> carrot_cake = recipeDao.findRecipeByRecipeName("carrot cake");
-//        carrot_cake.forEach(System.out::println);
-//    }
+    @Test
+    void testFindRecipeWithIngredientList(){
+        Recipe carrot_cake = recipeDao.findRecipeById("624d5c4556aa8979cdb6b60c");
+
+        List<IngredientItem> ingredients = carrot_cake.getIngredients();
+        for (IngredientItem i: ingredients
+        ) {
+            System.out.println(i.getIngredient());
+        }
+
+    }
 }

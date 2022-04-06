@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Cuisine;
-import recipesharing.logic.Ingredient;
-import recipesharing.logic.IngredientItem;
 import recipesharing.logic.Recipe;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +20,6 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
-    @Autowired
-    CuisineService cuisineService;
 
 
     /**
@@ -48,45 +43,22 @@ public class RecipeController {
 
     // *** Recipe related API endpoints *** //
 
-    /**
-     * Create a new recipe which will be added to the database.
-     * @param title - title of the recipe.
-     * @param description - description of the recipe (an overview).
-     * @param ownerId - the unique owner Id.
-     * @param instructions - the list of instructions associated with a recipe.
-     * @param ingredientNames - the list of ingredients associated with a recipe.
-     * @param ingredientQuantities - the list of ingredient quantities associated with the ingredient names.
-     * @param cuisineTitle - the title of a cuisine.
-     * @return
-     */
-    @PostMapping("/createNewRecipe")
+    @GetMapping("/createNewRecipe")
     public Result createNewRecipe(
             // !! All request param names must be specified but the values can be null. !!
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam ArrayList<String> instructions,
+            @RequestParam String[] instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
+            @RequestParam String mealType,
             @RequestParam String cuisineTitle
     ) {
-        // Create a new list to store each ingredient item.
-        ArrayList<IngredientItem> ingredients = new ArrayList<>();
-        // Loop through all ingredient names and add each ingredient and corresponding quantity to the list.
-        for (int i = 0; i < ingredientNames.length; i++) {
-            ingredients.add(new IngredientItem(title, new Ingredient(ingredientNames[i], Double.parseDouble(ingredientQuantities[i]))));
-        }
-        // if the database contains a cuisine with the given name then they may add the recipe
-        if (cuisineService.containsCuisineWithName(cuisineTitle)) {
-            // find the cuisine object associated with the cuisine title
-            Cuisine cuisine = cuisineService.findCuisineWithName(cuisineTitle);
-            // Create a new recipe
-            Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
-            return Result.success(recipe);
-        } else {
-            return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
-        }
-
+        // TODO we need to fix the recipe constructor
+        //Recipe recipe = new Recipe();
+        //return Result.success(recipeService.addRecipe();)
+        return null;
     }
 
     /**

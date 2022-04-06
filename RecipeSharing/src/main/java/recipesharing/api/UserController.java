@@ -97,4 +97,16 @@ public class UserController {
         return loginService.userLogin(email, password, token);
     }
 
+    /**
+
+     *  invite a user to edit one recipe (should be used by the author)
+     * @param recipeId id of the recipe
+     * @param invitedUserId id of the user being invited to edit the recipe
+     * @return
+     */
+    @PostMapping("/inviteuser/{invitedUserId}")
+    public Result inviteUserById(@PathVariable String invitedUserId, String recipeId){
+        userService.inviteUserById(invitedUserId, recipeId);
+        return Result.success(null);
+    }
 }

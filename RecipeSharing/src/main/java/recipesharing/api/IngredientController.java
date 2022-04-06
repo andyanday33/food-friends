@@ -40,7 +40,13 @@ public class IngredientController {
     }
 
 
-
+    /**
+     *  add an  ingredient to the database
+     * @param ingredientName the name of ingredient
+     * @param quantityToDouble the string quantity of ingredient
+     * @param unitName the unit name
+     * @return
+     */
     @PostMapping("/addIngredient")
     public Result addIngredient(@RequestParam String ingredientName,
                                 @RequestParam String quantityToDouble,

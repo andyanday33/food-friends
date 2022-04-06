@@ -9,7 +9,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
+import recipesharing.db.RecipeDao;
 import recipesharing.db.UserDao;
+import recipesharing.logic.Recipe;
 import recipesharing.logic.User;
 import recipesharing.logic.User;
 
@@ -23,6 +25,9 @@ public class UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    RecipeDao recipeDao;
 
     @Autowired
     MongoTemplate mongoTemplate;
@@ -140,6 +145,21 @@ public class UserService {
      */
     public void updateUserById(User newUser) {
         userDao.updateUserById(newUser);
+    }
+
+    /**
+     *  invite a user to edit one recipe (should be used by the author)
+     * @param recipeId id of the recipe
+     * @param invitedId id of the user being invited to edit the recipe
+     */
+    public void inviteUserById(String recipeId, String invitedId){
+        User invited = userDao.findUserById(invitedId);
+        Recipe joined = recipeDao.findRecipeById(recipeId);
+
+        List<User> groupUsers = joined.getGroupUsers();
+        groupUsers.add(invited);
+
+        joined.setGroupUsers(groupUsers);
     }
 
 }

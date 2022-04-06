@@ -38,6 +38,7 @@ public class User {
     @Field("history")
     private List<RecipeItem> history = new ArrayList<>();
 
+
     public User(String userName, String email, String password, List<RecipeItem> history) {
         this.userName = userName;
         this.email = email;
