@@ -25,7 +25,7 @@ const axios = require('axios').default;
 export default {
     components: { Navbar, Sidebar },
     name: "CuisinesPage",
-    middleware: 'auth',
+    //middleware: 'auth',
     
     beforeMount() {
         //Get all the ingredients from the backend and store them in Vuex store
@@ -33,7 +33,7 @@ export default {
             .then((res) => {
                 console.log(res);
                 this.$store.dispatch("setCuisines", res.data.data);
-                console.log(this.$store.state.cuisineData);
+                console.log(this.$store.state.cuisineData[0]);
             })
             .catch((err) => {
                 console.error(err);
