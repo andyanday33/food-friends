@@ -28,8 +28,8 @@ public class UserController {
 
     @Autowired
     LoginService loginService;
-    @PostMapping("/login")
     //TODO NEED TO ENCRYPT PWD
+    @PostMapping("/login")
     public Result userLogin( @RequestParam String email, @RequestParam String password){
 
         return loginService.userLogin(email, password);
