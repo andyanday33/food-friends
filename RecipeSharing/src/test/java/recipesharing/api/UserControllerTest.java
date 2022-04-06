@@ -25,7 +25,7 @@ public class UserControllerTest {
                 .expectBody()
                 .jsonPath("success", "true");
     }
-
+    */
     /**
      * Tests that users can log out.
      */
@@ -37,7 +37,7 @@ public class UserControllerTest {
                 .expectBody()
                 .jsonPath("success", "false");
     }
-    */
+
 
     /**
      * Tests that users can log out.
