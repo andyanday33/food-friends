@@ -1,6 +1,7 @@
 package recipesharing.logic;
 
 import lombok.Data;
+import org.springframework.data.annotation.PersistenceConstructor;
 
 /**
  * used for database table association this is for [ingredient] n - 1 [recipe]
@@ -15,6 +16,7 @@ public class IngredientItem {
 
     private Ingredient ingredient;
 
+    @PersistenceConstructor
     public IngredientItem(String recipeName, Ingredient ingredient) {
         this.recipeName = recipeName;
         this.ingredient = ingredient;
