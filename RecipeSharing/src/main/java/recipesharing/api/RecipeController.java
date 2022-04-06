@@ -80,7 +80,8 @@ public class RecipeController {
             Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
             // Create a new recipe
             Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
-
+            // add the recipe
+            recipeService.addRecipe(recipe);
             return Result.success(recipe);
         } else {
             return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
