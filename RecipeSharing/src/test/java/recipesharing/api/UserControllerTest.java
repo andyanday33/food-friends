@@ -26,7 +26,7 @@ public class UserControllerTest {
     }
 
     /**
-     * Tests that retrieving a non-existent user fails.
+     * Tests that retrieving a non-existent user fails and doesn't crash server.
      */
     @Test
     void testGetUserByIdFail() {
@@ -34,8 +34,8 @@ public class UserControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("success").isEqualTo("false")
-                .jsonPath("code").isEqualTo("404");
+                .jsonPath("msg").isEqualTo("invalid token")
+                .jsonPath("state").isEqualTo("false");
     }
 
 
@@ -50,7 +50,7 @@ public class UserControllerTest {
     }
 
     /**
-     * Tests that retrieving a non-existent user fails.
+     * Tests that retrieving a non-existent user fails and doesn't crash server.
      */
     @Test
     void testGetUserByNameFailure() {
@@ -58,8 +58,8 @@ public class UserControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("success").isEqualTo("false")
-                .jsonPath("code").isEqualTo("404");
+                .jsonPath("msg").isEqualTo("invalid token")
+                .jsonPath("state").isEqualTo("false");
     }
 
     /**
@@ -73,7 +73,7 @@ public class UserControllerTest {
     }
 
     /**
-     * Tests that retrieving a non-existent user fails.
+     * Tests that retrieving a non-existent user fails and doesn't crash server.
      */
     @Test
     void testGetUserByEmailFailure() {
@@ -81,8 +81,8 @@ public class UserControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("success").isEqualTo("false")
-                .jsonPath("code").isEqualTo("404");
+                .jsonPath("msg").isEqualTo("invalid token")
+                .jsonPath("state").isEqualTo("false");;
     }
 
     /**
@@ -108,7 +108,6 @@ public class UserControllerTest {
                 .expectBody()
                 .jsonPath("success", "false");
     }
-
 
     /**
      * Tests that users can log out.
