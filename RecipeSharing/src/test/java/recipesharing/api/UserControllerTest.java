@@ -50,10 +50,15 @@ public class UserControllerTest {
     }
 
     /**
-     * Tests that users can register.
+     * Tests that an existing user cannot register again.
      */
     @Test
     void register() {
+        client.post().uri("user/register?userName=JeremyDingDong&email=JeremyDingDong@st-andrews.ac.uk&password=password").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success", "false");
     }
 
     /**
