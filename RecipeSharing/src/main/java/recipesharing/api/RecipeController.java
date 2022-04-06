@@ -176,16 +176,6 @@ public class RecipeController {
         //TODO missing DB functionality
     }
 
-    /**
-     * todo still to be implemented.
-     * @param cuisineType
-     */
-    @GetMapping("/getRecipesByCuisine")
-    public void getRecipesByCuisine(@RequestParam String cuisineType) {
-        // Create new cuisine. TODO validate input.
-//        Cuisine cuisine = new Cuisine(cuisineType);
-        //todo needs to be implemented in db
-    }
 
     /**
      * Deletes a recipe from the database given a unique recipe ID.
