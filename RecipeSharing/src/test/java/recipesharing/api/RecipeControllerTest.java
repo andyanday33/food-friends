@@ -1,25 +1,61 @@
 package recipesharing.api;
 
-//import org.junit.Test;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import recipesharing.api.RecipeController;
 
-import javax.print.attribute.standard.Media;
-
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
+
     @Autowired
     WebTestClient client;
 
-    @BeforeEach
-    void setup() {
+    @Test
+    public void testIndex() {
+
+    }
+
+    @Test
+    public void testApiDescription() {
+
+    }
+
+    @Test
+    public void testCreateNewRecipe() {
+
+    }
+
+    @Test
+    public void getRecipeByTitle() {
+
+    }
+
+    @Test
+    public void getRecipeById() {
+
+    }
+
+    @Test
+    public void getRecipeByAuthorId() {
+
+    }
+
+    @Test
+    public void getRecipeAccessById() {
+
+    }
+
+    @Test
+    public void changeUserPermissionsOnRecipe() {
+
+    }
+    @Test
+    public void testDeleteRecipeById() {
 
     }
 
@@ -33,16 +69,6 @@ public class RecipeControllerTest {
                 .expectStatus().isNotFound();
     }
 
-    /*
-    @Test
-    public void createRecipe() {
-        client.post().uri("/createRecipe?title=exampleTitle&description=exampleDescription&ownerId=test1234&instructions=Step 1 - example instruction, Step 2 - example instruction&ingredientNames=Milk, Eggs, Flour&ingredientQuantities=325.2, 2.0, 500.0&mealType=Lunch&cuisineTitle=Italian")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk();
-    }
-     */
-
     @Test
     public void findListOfRecipesByTitle() {
         client.get().uri("/getRecipeByTitle?title=pancake")
@@ -52,16 +78,4 @@ public class RecipeControllerTest {
                 .expectBody();
 
     }
-
-    @Test void findRecipeById() {
-
-    }
-
-    @Test void findRecipesByAuthorId() {
-
-    }
-
-
-
-
 }
