@@ -1,12 +1,24 @@
 package recipesharing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.RecipeDao;
+import recipesharing.logic.Recipe;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
+import recipesharing.vo.RecipesCuisineVo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +30,10 @@ public class RecipeService {
     @Autowired
     RecipeDao recipeDao;
 
+    @Autowired
+    MongoTemplate mongoTemplate;
     /**
-     *  find all recipes, todo: page limits
+     *  find all recipes, 
      * @return recipe list
      */
     public List<Recipe> findAllRecipe() throws NotFoundDBException {
@@ -30,6 +44,33 @@ public class RecipeService {
         return recipeList;
     }
 
+    public List<Recipe> findAllRecipesWithPageLimit(int page, int size) {
+
+
+        Query query = new Query();
+        long count = mongoTemplate.count(query, Recipe.class);
+
+        Pageable pageable = PageRequest.of(page-1,size);
+
+        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC, "recipeName")), Recipe.class);
+    }
+
+    /**
+     * find admins with page limits and query
+     * the query can specify the name, id etc
+     * @param query query condition
+     * @param page current
+     * @param size the number of records shows up
+     * @return admin list 
+     */
+    public List<Recipe> findAllRecipesByQueryWithPageLimit(Query query, int page, int size) {
+
+        long count = mongoTemplate.count(query, Recipe.class);
+
+        Pageable pageable = PageRequest.of(page-1,size);
+
+        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC,"recipeName")), Recipe.class);
+    }
     /**
      *  find a recipe by its _id
      * @param id recipe _id
@@ -98,8 +139,8 @@ public class RecipeService {
         recipeDao.updateRecipeById(newRecipe);
     }
 
-    public List<Recipe> findRecipesByCuisine(Cuisine cuisine){
-        //TODO 多表关联
-        return null;
-    }
+//    public void getIngredientListByRecipeId(String recipeId){
+//        Query query = Query.query(Criteria.where("").is(cuisineId));
+//        mongoTemplate.remove(query, Recipe.class);
+//    }
 }

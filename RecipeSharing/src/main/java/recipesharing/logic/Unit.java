@@ -18,7 +18,7 @@ public enum Unit {
     private final String symbol;
     private final boolean volume;
 
-    private Unit(String name, String symbol, boolean volume){
+    private Unit(String name, String symbol, boolean volume) {
         this.name = name;
         this.symbol = symbol;
         this.volume = volume;
@@ -62,21 +62,21 @@ public enum Unit {
     }
 
     private Double volumeConversion(Unit to) {
-        HashMap<Map<Unit,Unit>, Double> conversionMap = getVolumeMap();
+        HashMap<Map<Unit, Unit>, Double> conversionMap = getVolumeMap();
         Double quotient = conversionMap.get(Map.of(this, to));
 
         return quotient;
     }
 
     private Double massConversion(Unit to) {
-        HashMap<Map<Unit,Unit>, Double> conversionMap = getMassMap();
+        HashMap<Map<Unit, Unit>, Double> conversionMap = getMassMap();
         Double quotient = conversionMap.get(Map.of(this, to));
 
         return quotient;
     }
 
-    private HashMap<Map<Unit,Unit>, Double> getVolumeMap() {
-        HashMap<Map<Unit,Unit>, Double> unitToUnitMapping = new HashMap<>();
+    private HashMap<Map<Unit, Unit>, Double> getVolumeMap() {
+        HashMap<Map<Unit, Unit>, Double> unitToUnitMapping = new HashMap<>();
 
         Map<Unit, Unit> ml2l = Map.of(MILLILITRE, LITRE);
         Map<Unit, Unit> ml2floz = Map.of(MILLILITRE, FLUIDOUNCE);
@@ -107,8 +107,8 @@ public enum Unit {
         return unitToUnitMapping;
     }
 
-    private HashMap<Map<Unit,Unit>, Double> getMassMap() {
-        HashMap<Map<Unit,Unit>, Double> unitToUnitMapping = new HashMap<>();
+    private HashMap<Map<Unit, Unit>, Double> getMassMap() {
+        HashMap<Map<Unit, Unit>, Double> unitToUnitMapping = new HashMap<>();
 
         Map<Unit, Unit> g2kg = Map.of(GRAM, KILOGRAM);
         Map<Unit, Unit> g2oz = Map.of(GRAM, OUNCE);
@@ -137,5 +137,18 @@ public enum Unit {
         unitToUnitMapping.put(lb2oz, 16.0);
 
         return unitToUnitMapping;
+    }
+
+    public static Unit unitConverter(String unitName) {
+//        MILLILITRE("Millilitre", "ml", true),
+//                LITRE("Litre", "l", true),
+//                FLUIDOUNCE("Fluid Ounce", "fl oz", true),
+//                PINT("Pint", "pt", true),
+//                GRAM("Gram", "g", false),
+//                KILOGRAM("Kilogram", "kg", false),
+//                OUNCE("Ounce", "oz", false),
+//                POUND("Pound", "lb", false);
+        Unit converted = MILLILITRE;
+        return converted;
     }
 }

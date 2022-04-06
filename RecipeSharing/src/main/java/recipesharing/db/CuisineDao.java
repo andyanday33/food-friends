@@ -18,15 +18,19 @@ public class CuisineDao {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public List<Cuisine> getAllCuisines(){
+    public List<Cuisine> getAllCuisines() {
         return mongoTemplate.findAll(Cuisine.class, "t_cuisine");
     }
 
-    public void addOneCuisine(Cuisine cuisine){
-        mongoTemplate.save(cuisine, "t_cuisine");
+    public void addOneCuisine(Cuisine cuisine) {
+        if (!mongoTemplate.exists(new Query(Criteria.where("name").is(cuisine.getName()))
+                , Cuisine.class
+                , "t_cuisine")) {
+            mongoTemplate.save(cuisine, "t_cuisine");
+        }
     }
 
-    public void delOneCuisine(Cuisine cuisine){
+    public void delOneCuisine(Cuisine cuisine) {
         mongoTemplate.remove(cuisine, "t_cuisine");
     }
 
