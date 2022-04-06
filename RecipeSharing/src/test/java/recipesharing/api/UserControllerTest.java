@@ -38,7 +38,6 @@ public class UserControllerTest {
                 .jsonPath("code").isEqualTo("404");
     }
 
-
     /**
      * Tests that users can be retrieved via their name.
      */
