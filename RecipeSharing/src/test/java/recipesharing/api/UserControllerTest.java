@@ -38,7 +38,6 @@ public class UserControllerTest {
                 .jsonPath("code").isEqualTo("404");
     }
 
-
     /**
      * Tests that users can be retrieved via their name.
      */
@@ -96,7 +95,7 @@ public class UserControllerTest {
                 .expectBody()
                 .jsonPath("success", "true");
     }
-    */
+
     /**
      * Tests that users can log out.
      */
