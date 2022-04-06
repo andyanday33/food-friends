@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file:///cs/home/lj77/Documents/CS5031/Practical 3/project-code/RecipeSharing" />
     <file type="web" url="file://$PROJECT_DIR$/RecipeSharing" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
