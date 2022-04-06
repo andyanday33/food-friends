@@ -19,5 +19,23 @@ public class UserControllerTest {
     WebTestClient client;
 
 
+    @Test
+    void userLogin() {
+    }
 
+    @Test
+    void userLogout() {
+    }
+
+    @Test
+    void register() {
+    }
+
+    @Test
+    void test1() {
+    }
+
+    @Test
+    void userLoginWithJWT() {
+    }
 }
