@@ -107,15 +107,22 @@ public class UserController {
     }
 
     /**
-
-     *  invite a user to edit one recipe (should be used by the author)
+     * invite a user to edit one recipe (should be used by the author)
      * @param recipeId id of the recipe
      * @param invitedUserId id of the user being invited to edit the recipe
      * @return
      */
-    @PostMapping("/inviteuser/{invitedUserId}")
-    public Result inviteUserById(@PathVariable String invitedUserId, String recipeId){
+    @PostMapping("/inviteUserToEditRecipe")
+    public Result inviteUserById(
+            @RequestParam String invitedUserId,
+            @RequestParam String recipeId) {
         userService.inviteUserById(invitedUserId, recipeId);
         return Result.success(null);
+    }
+
+    @PutMapping("/updatePermissionsForRecipe")
+    public Result updatePermissionsForRecipe () {
+        // TODO add method body once db functionality is in place.
+        return null;
     }
 }
