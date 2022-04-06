@@ -53,6 +53,7 @@ public class AdminController {
 
     // *** Admin related API endpoints *** //
 
+
     /**
      * Find all admins in the database and return them as a list.
      * Returns status code with the list. If there are no admins, then 404 will be sent along with an error message.
@@ -82,6 +83,19 @@ public class AdminController {
     ) {
         Admin admin = new Admin(name, email, password);
         adminService.addAdmin(admin);
+        return Result.success(null);
+    }
+
+    /**
+     * Delete an admin given their id
+     * @param id - the admin id
+     * @return
+     */
+    @DeleteMapping("/deleteAdminById")
+    public Result deleteAdminById(
+            @RequestParam String id
+    ) {
+        adminService.deleteAdminById(id);
         return Result.success(null);
     }
 
