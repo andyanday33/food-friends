@@ -68,6 +68,7 @@ public class Recipe {
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.cuisine = cuisine;
+        this.readAccess=true;
     }
 
 
