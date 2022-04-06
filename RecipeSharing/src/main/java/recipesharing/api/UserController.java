@@ -40,6 +40,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getUserByName")
+    public Result getUserByName (@RequestParam String name) {
+        try {
+            return Result.success(userService.findUserByUserName(name));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    @GetMapping("/getUserByEmail")
+    public Result getUserByEmail (@RequestParam String email) {
+        return Result.success(userService.findUserByEmail(email));
+    }
+
     //TODO NEED TO ENCRYPT PWD
     @PostMapping("/login")
     public Result userLogin( @RequestParam String email, @RequestParam String password){
