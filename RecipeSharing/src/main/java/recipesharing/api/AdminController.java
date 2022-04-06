@@ -69,6 +69,50 @@ public class AdminController {
     }
 
     /**
+     * Searches for all admins with a specific name and returns a list of those if they exist.
+     * @param name - the name of the admin(s) to be found.
+     * @return The status code of the request which will be 404 if no admin can be found,
+     * an error message if cannot be found or the list of admins if can be found.
+     */
+    @GetMapping("/getAdminsWithName")
+    public Result getAdminByName(@RequestParam String name) {
+        try {
+            return Result.success(adminService.findAdminByAdminName(name));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    /**
+     * Searches for an admin with a given id and returns the admin if it can be found.
+     * @param id - the unique id of an admin.
+     * @return The Result of the request including status code and the admin if it can be found.
+     */
+    @GetMapping("/getAdminWithId")
+    public Result getAdminWithId(@RequestParam String id) {
+        try {
+            return Result.success(adminService.findAdminById(id));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    /**
+     * Searches for an admin with a given email and returns the admin if it can be found in the database.
+     * @param email - the email of an admin.
+     * @return - The result of the request including status code and error message (if 404 status code).
+     * Also returns the admin if the admin can be found.
+     */
+    @GetMapping("/getAdminWithEmail")
+    public Result getAdminWithEmail(@RequestParam String email) {
+        try {
+            return Result.success(adminService.findAdminByEmail(email));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
+    /**
      * Add a new admin to the database.
      * @param name - the name of the admin.
      * @param email - the email of the admin.
