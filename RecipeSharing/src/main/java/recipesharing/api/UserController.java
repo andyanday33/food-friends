@@ -12,6 +12,7 @@ import recipesharing.vo.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +44,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody User user){
+    public Result register(@RequestParam String userName,
+                           @RequestParam String email,
+                           @RequestParam String password) {
+        User user = new User(userName, email, password, new ArrayList<>());
+
         return loginService.register(user);
     }
 

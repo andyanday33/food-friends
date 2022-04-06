@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
 
 /**
  * Tests the admin related API methods.
@@ -21,15 +18,24 @@ public class UserControllerTest {
     /*
 
     @Test
-    void userLogin() {
-        URI uri = UriComponentsBuilder.fromPath("/user/login")
-                .queryParam("email", "test2@st-andrews.ac.uk")
-                .queryParam("password", "test password")
-                .build()
-                .toUri();
+    void userSuccessfulLogin() {
+        client.post().uri("user/login?email=test2@st-andrews.ac.uk&password=test password").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success", "true");
+    }
 
-        client.post().uri(uri).accept(MediaType.APPLICATION_JSON)
-                .exchange();
+    /**
+     * Tests that users can log out.
+     */
+    @Test
+    void userUnsuccessfulLogin() {
+        client.post().uri("user/login?email=garbage&password=garbage").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success", "false");
     }
     */
 
@@ -44,10 +50,15 @@ public class UserControllerTest {
     }
 
     /**
-     * Tests that users can register.
+     * Tests that an existing user cannot register again.
      */
     @Test
     void register() {
+        client.post().uri("user/register?userName=JeremyDingDong&email=JeremyDingDong@st-andrews.ac.uk&password=password").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success", "false");
     }
 
     /**
@@ -61,6 +72,7 @@ public class UserControllerTest {
     /**
      * Tests that users can log in with JWT.
      */
+    //TODO potentially remove if not necessary.
     @Test
     void userLoginWithJWT() {
     }
