@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.User;
 import recipesharing.service.LoginService;
 import recipesharing.service.UserService;
@@ -29,6 +30,15 @@ public class UserController {
     @Autowired
     LoginService loginService;
 
+
+    @GetMapping("/getUserById")
+    public Result getUserById (@RequestParam String id) {
+        try {
+            return Result.success(userService.findUserById(id));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
 
     //TODO NEED TO ENCRYPT PWD
     @PostMapping("/login")
