@@ -59,10 +59,29 @@ export default {
         clientId: 'zynW9dJqT1m4TguKMexnpkulEuBDRCyK',
         audience: 'https://dev-tys5d4fu.us.auth0.com/api/v2/',
         logoutRedirectUri: 'http://localhost:3000'
+      },
+      local: {
+        token: {
+          property: 'access_token',
+          global: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+         // autoFetch: true
+        },
+        endpoints: {
+          login: { url: 'http:/localhost:8080/user/login', method: 'post' },
+          register: { url: 'http:/localhost:8080/user/register', method: 'post' },
+          user: { url: 'http:/localhost:8080/user', method: 'get' },
+          logout: { url: 'http:/localhost:8080/user/logout', method: 'post' }
+        },
+        // autoLogout: false
       }
     },
     redirect: {
-      login: '/Unauthorized'
+      login: '/Unauthorized',
+      home: '/'
     }
   },
 
@@ -71,5 +90,10 @@ export default {
       productionTip: false,
       devtools: true
     }
+  },
+
+  env: {
+    clientId: process.env.CLIENT_ID,
+
   }
 }

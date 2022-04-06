@@ -52,7 +52,26 @@ export default {
             })
             .catch((err) => {
                 console.error(err);
-            })
+            });
+
+        var options = {
+            method: 'POST',
+            url: 'https://dev-tys5d4fu.us.auth0.com/oauth/token',
+            headers: {'content-type': 'application/x-www-form-urlencoded'},
+            data: {
+                grant_type: 'client_credentials',
+                client_id: process.env.CLIENT_ID,
+                client_secret: process.env.CLIENT_SECRET,
+                audience: "http:/localhost:3000"
+            }
+            };
+
+        axios.request(options).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.error(error);
+                console.log("aaaaa");
+            });
     
     }
 }
