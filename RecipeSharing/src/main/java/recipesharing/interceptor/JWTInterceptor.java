@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
+ * 1. to intercept a token sending from the front end header
+ * 2. decrypt the token to find the user info
+ */
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -23,6 +26,7 @@ public class JWTInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
+        response.setHeader("Access-Control-Allow-Headers", "token, Accept, Origin, X-Requested-With, Content-Type, Last-Modified");
 
         //request token in the http header
         String token = request.getHeader("token");
@@ -58,4 +62,3 @@ public class JWTInterceptor implements HandlerInterceptor {
         return false;
     }
 }
-*/
