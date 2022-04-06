@@ -12,10 +12,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JWTInterceptor())
 //                .addPathPatterns("/**")
-                .addPathPatterns("")
-                .excludePathPatterns("/user/login", "/", "/admin/login"
-                        , "/api", "/admin/logout", "/user/logout"
-                        ,"/user/register")
+//                .addPathPatterns("")
+//                .excludePathPatterns("/user/login", "/", "/admin/login"
+//                        , "/api", "/admin/logout", "/user/logout"
+//                        ,"/user/register")
         ;
     }
 }

@@ -39,14 +39,8 @@ public class LoginService {
         }
         if (userByEmail.getEmail().equals(email) && userByEmail.getPassword().equals(password)) {
             System.out.println("success!!");
-            //JDK HIGH ISSUE
-/*            String token = JWTUtil.createToken(userByEmail.getUserId());
 
-            String encodedPswd = password + encoded_password_string;
-            password = DigestUtils.md5DigestAsHex(encodedPswd.getBytes(StandardCharsets.UTF_8));
-            // forward encrypted user
-            userByEmail.setToken(token);
-            userByEmail.setPassword(password);*/
+
 //            userByEmail.setToken(token);
             return Result.success(userByEmail);
         }
@@ -56,12 +50,12 @@ public class LoginService {
     }
 
     /**
-     *  user login via email (not an auth 0 way)
+     *  user login via email and create a new token inside user class
      * @param email user's login email
      * @param password user's password
      * @return success message with the user
      */
-    public Result userLogin(String email, String password, String token) {
+    public Result userLoginWithToken(String email, String password) {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());
         }
@@ -72,19 +66,12 @@ public class LoginService {
         }
         if (userByEmail.getEmail().equals(email) && userByEmail.getPassword().equals(password)) {
             System.out.println("success!!");
-            //JDK HIGH ISSUE
-/*            String token = JWTUtil.createToken(userByEmail.getUserId());
 
-            String encodedPswd = password + encoded_password_string;
-            password = DigestUtils.md5DigestAsHex(encodedPswd.getBytes(StandardCharsets.UTF_8));
-            // forward encrypted user
+            String token = JWTUtil.getToken(email, password);
             userByEmail.setToken(token);
-            userByEmail.setPassword(password);*/
-            userByEmail.setToken(token);
+            userByEmail.setPassword(password);
             return Result.success(userByEmail);
         }
-        // TODO REDIS
-        // TODO ONLY RETURN THE TOKEN
         return Result.fail(TransStatusCode.FAIL_NOT_FOUND.getCode(), TransStatusCode.FAIL_NOT_FOUND.getMsg());
     }
 
