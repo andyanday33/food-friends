@@ -25,11 +25,16 @@ class CuisineDaoTest {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
     @Test
     void getAllCuisines() {
+        Cuisine cuisine = new Cuisine("Japanese");
+        cuisineDao.addOneCuisine(cuisine);
         List<Cuisine> cuisines = cuisineDao.getAllCuisines();
-        cuisines.forEach(System.out::println);
         assertTrue(cuisines.size() > 0);
+
+        Cuisine testCuisine = cuisines.get(0);
+        cuisineDao.delOneCuisine(testCuisine);
     }
 
     @Test

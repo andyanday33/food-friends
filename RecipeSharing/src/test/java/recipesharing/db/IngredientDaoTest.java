@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import recipesharing.logic.Ingredient;
+import recipesharing.logic.Unit;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class IngredientDaoTest {
      */
     @Test
     public void testFindOneIngredient() {
-        Ingredient addSalt = new Ingredient("salt", 5.0);
+        Ingredient addSalt = new Ingredient("salt", 5.0, Unit.GRAM);
         ingredientDao.addOneIngredient(addSalt);
         Ingredient salt = ingredientDao.findOneIngredient("salt");
         assertEquals(salt.getTitle(), "salt");
