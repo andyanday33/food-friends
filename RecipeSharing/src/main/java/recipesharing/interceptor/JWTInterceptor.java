@@ -21,6 +21,7 @@ import java.util.Map;
  * 1. to intercept a token sending from the front end header
  * 2. decrypt the token to find the user info
  */
+/*
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -63,3 +64,4 @@ public class JWTInterceptor implements HandlerInterceptor {
         return false;
     }
 }
+*/

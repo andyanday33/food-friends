@@ -87,10 +87,12 @@ public class CuisineController {
      * @param cuisineId cuisine id, from the 'recipe table' as a foreign key
      * @return a list of recipes
      */
-    @PostMapping("/getRecipesByCuisine")
+    @GetMapping("/getRecipesByCuisineId")
     public Result getRecipesByCuisineId(@RequestParam String cuisineId) {
         return Result.success(cuisineService.findRecipesBycuisineId(cuisineId));
     }
+
+
 }
 
 
