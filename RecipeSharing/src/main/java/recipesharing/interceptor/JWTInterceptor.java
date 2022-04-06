@@ -7,15 +7,20 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import recipesharing.util.JWTUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
+ * 1. to intercept a token sending from the front end header
+ * 2. decrypt the token to find the user info
+ */
 @Slf4j
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -23,7 +28,6 @@ public class JWTInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-
         //request token in the http header
         String token = request.getHeader("token");
         log.info("current token：{}", token);
@@ -31,6 +35,7 @@ public class JWTInterceptor implements HandlerInterceptor {
         Map<String, Object> map = new HashMap<>();
         try {
             JWTUtil.verify(token);
+
             return true;
         } catch (SignatureVerificationException e) {
             e.printStackTrace();
@@ -58,4 +63,3 @@ public class JWTInterceptor implements HandlerInterceptor {
         return false;
     }
 }
-*/

@@ -3,12 +3,12 @@ package recipesharing.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
-import recipesharing.logic.Cuisine;
-import recipesharing.logic.Recipe;
+import recipesharing.logic.*;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +20,8 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
+    @Autowired
+    CuisineService cuisineService;
 
 
     /**
@@ -43,34 +45,45 @@ public class RecipeController {
 
     // *** Recipe related API endpoints *** //
 
-    @GetMapping("/createNewRecipe")
+    /**
+     * Create a new recipe which is stored in the db.
+     * @param title - the title of the recipe.
+     * @param description - the description of the recipe.
+     * @param ownerId - the id of the owner of the recipe.
+     * @param instructions - A list of instructions.
+     * @param ingredientNames - A list of names of ingredients.
+     * @param ingredientQuantities - A list of quantities corresponding to each ingredient name.
+     * @param cuisineName - the name of the cuisine.
+     * @return
+     */
+    @PostMapping("/createNewRecipe")
     public Result createNewRecipe(
             // !! All request param names must be specified but the values can be null. !!
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam String[] instructions,
+            @RequestParam ArrayList<String> instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
-            @RequestParam String mealType,
-            @RequestParam String cuisineTitle
+            @RequestParam String cuisineName
     ) {
-        // TODO we need to fix the recipe constructor
-        //Recipe recipe = new Recipe();
-        //return Result.success(recipeService.addRecipe();)
-        return null;
-    }
 
-    /**
-     * Searches for all recipes in the database and returns as a list.
-     * @return Returns the status of the request (200 or 404) and the list if it exists.
-     */
-    @GetMapping("/getAllRecipes")
-    public Result getAllRecipes() {
-        try {
-            return Result.success(recipeService.findAllRecipe());
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
+        // Create a new list to store each ingredient item.
+        ArrayList<IngredientItem> ingredients = new ArrayList<>();
+        // Loop through all ingredient names and add each ingredient and corresponding quantity to the list.
+        for (int i = 0; i < ingredientNames.length; i++) {
+            ingredients.add(new IngredientItem(title, new Ingredient(ingredientNames[i], Double.parseDouble(ingredientQuantities[i]))));
+        }
+        // if the database contains a cuisine with the given name then they may add the recipe
+        if (cuisineService.containsCuisineWithName(cuisineName)) {
+            // find the cuisine object associated with the cuisine title
+            Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
+            // Create a new recipe
+            Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
+
+            return Result.success(recipe);
+        } else {
+            return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
         }
     }
 
@@ -129,6 +142,16 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
+
+
+// TODO  public String createRecipe
+    @GetMapping("/getRecipe/{user}")
+    public void getRecipesByUser(@PathVariable String userId) {
+        //change from String to User
+        // return list of recipes
+
+    }
+
     /**
      * Change permissions for a recipe
      * @param name
@@ -159,7 +182,9 @@ public class RecipeController {
      */
     @GetMapping("/getRecipesByCuisine")
     public void getRecipesByCuisine(@RequestParam String cuisineType) {
-        //dsada
+        // Create new cuisine. TODO validate input.
+//        Cuisine cuisine = new Cuisine(cuisineType);
+        //todo needs to be implemented in db
     }
 
     /**
@@ -173,18 +198,45 @@ public class RecipeController {
     }
 
 
-
-    //TODO
+    /**
+     *  find a meal tag list from one recipe
+     * @param recipeId id of the recipe
+     * @return meal item list that contains the tags
+     * @throws NotFoundDBException
+     */
     @PostMapping("/getmealtypebyrecipename")
-    public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
+    public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
 
-        return null;
+        List<MealItem> mealItems = recipe.getMealItems();
+        return Result.success(mealItems);
+    }
+    /**
+     *  find a ingredient list from one recipe
+     * @param recipeId id of the recipe
+     * @return ingredient item list that contains the ingredient
+     * @throws NotFoundDBException
+     */
+    @PostMapping("/getingredientlistbyrecipe")
+    public Result getIngredientListByRecipe(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
+
+        List<IngredientItem> ingredients = recipe.getIngredients();
+        return Result.success(ingredients);
     }
 
-    @PostMapping("/getingredientlistbyrecipe")
-    public Result getIngredientListByRecipe(@RequestParam String RecipeName){
 
-        return null;
+    /**
+     *  check if the person has writing access to the recipe
+     *  now: only author & invited users & admins have the write access
+     * @param userId   user id
+     * @param recipeId   recipe id
+     * @return boolean variable that shows if it is writable
+     */
+    @GetMapping("/getUserWriteAccessById")
+    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId){
+        Boolean writable = recipeService.isWritable(userId, recipeId);
+        return Result.success(writable);
     }
 
 }

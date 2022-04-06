@@ -50,20 +50,11 @@ public class UserController {
         }
     }
 
-    /*
     @GetMapping("/getUserByEmail")
     public Result getUserByEmail (@RequestParam String email) {
-        try {
-            return Result.success(userService.findUserByEmail(email));
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-
+        return Result.success(userService.findUserByEmail(email));
     }
 
-     */
-
-    //TODO NEED TO ENCRYPT PWD
     @PostMapping("/login")
     public Result userLogin( @RequestParam String email, @RequestParam String password){
 
@@ -98,11 +89,21 @@ public class UserController {
         map.put("msg", "request successfully");
         return map;
     }
-    @PostMapping("/loginjwttest")
+
+    /**
+     *  login with  a generated token
+     *  after this stage, the front end should put the token in the request header
+     *  and then everytime the client making a request reaching to the back end
+     *  it should be intercepted to verify the token (defined in InterceptorConfig.class)
+     * @param email user login email
+     * @param password user password
+     * @return user obj
+     */
+    @PostMapping("/loginwithtoken")
     public Result userLoginWithJWT( @RequestParam String email, @RequestParam String password){
         String token = JWTUtil.getToken(email, password);
 
-        return loginService.userLogin(email, password, token);
+        return loginService.userLogin(email, password);
     }
 
     /**

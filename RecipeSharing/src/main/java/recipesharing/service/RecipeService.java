@@ -12,10 +12,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
+import recipesharing.db.AdminDao;
 import recipesharing.db.RecipeDao;
 import recipesharing.logic.Recipe;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
+import recipesharing.logic.User;
 import recipesharing.vo.RecipesCuisineVo;
 
 import java.util.ArrayList;
@@ -29,6 +31,9 @@ public class RecipeService {
 
     @Autowired
     RecipeDao recipeDao;
+
+    @Autowired
+    AdminDao adminDao;
 
     @Autowired
     MongoTemplate mongoTemplate;
@@ -139,8 +144,35 @@ public class RecipeService {
         recipeDao.updateRecipeById(newRecipe);
     }
 
-//    public void getIngredientListByRecipeId(String recipeId){
-//        Query query = Query.query(Criteria.where("").is(cuisineId));
-//        mongoTemplate.remove(query, Recipe.class);
-//    }
+
+    /**
+     *  check if the person has writing access to the recipe
+     *  now: only author & invited users & admins have the write access
+     * @param userId author's id
+     * @param recipeId recipe's id
+     * @return
+     */
+    public Boolean isWritable(String userId, String recipeId) {
+        Recipe recipeById = recipeDao.findRecipeById(recipeId);
+
+        Query query = Query.query(Criteria.where("_id").is(userId));
+
+        //Author check
+        if (recipeById.getAuthorId().equals(userId)){
+            return true;
+            // admin check
+        } else if (mongoTemplate.exists(query, "t_admin")) {
+            return true;
+        } else {
+            // group user check
+            List<User> groupUsers = recipeById.getGroupUsers();
+            for (User u: groupUsers
+                 ) {
+                if(u.getUserId().equals(userId)){
+                    return true;
+            }
+
+            }  return false;
+        }
+    }
 }

@@ -3,9 +3,13 @@ package recipesharing.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.db.AdminDao;
+import recipesharing.db.RecipeDao;
 import recipesharing.logic.Admin;
 import recipesharing.service.AdminService;
 import recipesharing.service.LoginService;
+import recipesharing.service.RecipeService;
+import recipesharing.service.UserService;
+import recipesharing.util.JWTUtil;
 import recipesharing.vo.Result;
 
 import java.util.List;
@@ -24,12 +28,23 @@ public class AdminController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    RecipeService recipeService;
+
+    @Autowired
+    UserService userService;
+
     @PostMapping("/login")
-    //TODO NEED TO ENCRYPT PWD
     public Result adminLogin(@RequestParam String email, @RequestParam String password) {
         return loginService.adminLogin(email, password);
     }
 
+    @PostMapping("/loginwithtoken")
+    public Result adminLoginWithJWT( @RequestParam String email, @RequestParam String password){
+        String token = JWTUtil.getToken(email, password);
+
+        return loginService.userLogin(email, password);
+    }
     @PostMapping("/logout")
     public Result adminLogout() {
         return Result.success(null);
@@ -53,7 +68,5 @@ public class AdminController {
             return Result.fail(404, "error msg");
         }
     }
-
-    //TODO: CRUD USERS, RECIPES AND DO VISUALISATION (PLUGIN?)
 
 }
