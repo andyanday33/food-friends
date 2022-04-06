@@ -1,16 +1,11 @@
 package recipesharing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.CuisineDao;
 import recipesharing.logic.Cuisine;
-import recipesharing.logic.Cuisine;
-import recipesharing.logic.Recipe;
+import recipesharing.logic.Ingredient;
 
 import java.util.List;
 
@@ -21,49 +16,40 @@ import java.util.List;
 public class CuisineService {
 
     @Autowired
-    CuisineDao cuisineService;
+    CuisineDao cuisineDao;
 
-    @Autowired
-    MongoTemplate mongoTemplate;
-
-    public List<Cuisine> getAllCuisines() {
-        return cuisineService.getAllCuisines();
+    public List<Cuisine> getAllCuisines() throws NotFoundDBException {
+        List<Cuisine> cuisineList = cuisineDao.getAllCuisines();
+        if (cuisineList.isEmpty()) {
+            throw new NotFoundDBException("There are no cuisines.");
+        }
+        return cuisineList;
     }
 
-    public List<Cuisine> findAllCuisinesWithPageLimit(int page, int size) {
-        
-        Query query = new Query();
-        long count = mongoTemplate.count(query, Cuisine.class);
-
-        Pageable pageable = PageRequest.of(page - 1, size);
-
-        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC, "name")), Cuisine.class);
+    public boolean containsCuisine() {
+        try {
+            List<Cuisine> cuisineList = getAllCuisines();
+            for (Cuisine cuisine : cuisineList) {
+                System.out.println(cuisine.getId());
+                System.out.println(cuisine.getName());
+            }
+            System.out.println(cuisineList);
+            return true;
+        } catch (NotFoundDBException e) {
+            System.out.println("cusine list is empty");
+            return false;
+        }
     }
-
-    /**
-     * find cuisines with page limits and query the query can specify the name, id etc
-     *
-     * @param query query condition
-     * @param page  current
-     * @param size  the number of records shows up
-     *
-     * @return cuisine list
-     */
-    public List<Cuisine> findAllCuisinesByQueryWithPageLimit(Query query, int page, int size) {
-
-        long count = mongoTemplate.count(query, Cuisine.class);
-
-        Pageable pageable = PageRequest.of(page - 1, size);
-
-        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC, "name")), Cuisine.class);
-    }
-
     public void addOneCuisine(Cuisine cuisine) {
-        cuisineService.addOneCuisine(cuisine);
+        cuisineDao.addOneCuisine(cuisine);
     }
 
-    public void delOneCuisine(Cuisine cuisine) {
-        cuisineService.delOneCuisine(cuisine);
+    public void delOneCuisine(Cuisine cuisine){
+        cuisineDao.delOneCuisine(cuisine);
+    }
+
+    public void delOneCuisine(String cuisineId){
+        cuisineDao.delOneCuisine(cuisineId);
     }
 
 
