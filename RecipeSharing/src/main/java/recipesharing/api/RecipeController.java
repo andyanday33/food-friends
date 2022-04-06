@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Cuisine;
+import recipesharing.logic.IngredientItem;
+import recipesharing.logic.MealItem;
 import recipesharing.logic.Recipe;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
@@ -34,6 +36,7 @@ public class RecipeController {
 
     /**
      * Returns a description of how the API works.
+     *
      * @return a String representing the description of the api.
      */
     @GetMapping("/api")
@@ -63,7 +66,9 @@ public class RecipeController {
 
     /**
      * Returns a list of recipes which have the same title as the one specified by the user.
+     *
      * @param title
+     *
      * @return
      */
     @GetMapping("/getRecipeByTitle")
@@ -77,7 +82,9 @@ public class RecipeController {
 
     /**
      * Retrieves the recipe when given a recipe ID if the recipe exists.
+     *
      * @param recipeId - the unique recipe ID String for the recipe.
+     *
      * @return The result of the query (status code, the recipe).
      */
     @GetMapping("/getRecipeById")
@@ -92,7 +99,9 @@ public class RecipeController {
 
     /**
      * Returns a list of recipes which an author owns when given an author Id.
+     *
      * @param authorId
+     *
      * @return
      */
     @GetMapping("/getRecipesByAuthorId")
@@ -106,8 +115,10 @@ public class RecipeController {
 
     /**
      * Checks if a recipe has the specified access type.
+     *
      * @param accessType - todo not sure what this is (public, private, read, write?)
-     * @param recipeId - the unique recipe id as a String.
+     * @param recipeId   - the unique recipe id as a String.
+     *
      * @return true if has specified access type.
      */
     @GetMapping("/getRecipeAccessById")
@@ -117,8 +128,7 @@ public class RecipeController {
     }
 
 
-
-// TODO  public String createRecipe
+    // TODO  public String createRecipe
     @GetMapping("/getRecipe/{user}")
     public void getRecipesByUser(@PathVariable String userId) {
         //change from String to User
@@ -128,6 +138,7 @@ public class RecipeController {
 
     /**
      * Change permissions for a recipe
+     *
      * @param name
      * @param email
      * @param recipeID
@@ -143,6 +154,7 @@ public class RecipeController {
 
     /**
      * Searches for all recipes with the given ingredient in them and returns a list of recipes.
+     *
      * @param ingredientName
      */
     @GetMapping("/getRecipesWithIngredient")
@@ -152,6 +164,7 @@ public class RecipeController {
 
     /**
      * todo still to be implemented.
+     *
      * @param cuisineType
      */
     @GetMapping("/getRecipesByCuisine")
@@ -163,6 +176,7 @@ public class RecipeController {
 
     /**
      * Deletes a recipe from the database given a unique recipe ID.
+     *
      * @param recipeID - the String representation of the recipe ID.
      */
     @DeleteMapping("/deleteRecipeByID")
@@ -171,19 +185,31 @@ public class RecipeController {
         return Result.success(null);
     }
 
-
-
-    //TODO
+    /**
+     *  find a meal tag list from one recipe
+     * @param recipeId id of the recipe
+     * @return meal item list that contains the tags
+     * @throws NotFoundDBException
+     */
     @PostMapping("/getmealtypebyrecipename")
-    public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
+    public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
 
-        return null;
+        List<MealItem> mealItems = recipe.getMealItems();
+        return Result.success(mealItems);
     }
-
+    /**
+     *  find a ingredient list from one recipe
+     * @param recipeId id of the recipe
+     * @return ingredient item list that contains the ingredient
+     * @throws NotFoundDBException
+     */
     @PostMapping("/getingredientlistbyrecipe")
-    public Result getIngredientListByRecipe(@RequestParam String RecipeName){
+    public Result getIngredientListByRecipe(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
 
-        return null;
+        List<IngredientItem> ingredients = recipe.getIngredients();
+        return Result.success(ingredients);
     }
 
 }

@@ -4,7 +4,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.User;
 import recipesharing.service.LoginService;
 import recipesharing.service.UserService;
@@ -13,7 +12,6 @@ import recipesharing.vo.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,31 +28,6 @@ public class UserController {
 
     @Autowired
     LoginService loginService;
-
-
-    @GetMapping("/getUserById")
-    public Result getUserById (@RequestParam String id) {
-        try {
-            return Result.success(userService.findUserById(id));
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-    }
-
-    @GetMapping("/getUserByName")
-    public Result getUserByName (@RequestParam String name) {
-        try {
-            return Result.success(userService.findUserByUserName(name));
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-    }
-
-    @GetMapping("/getUserByEmail")
-    public Result getUserByEmail (@RequestParam String email) {
-        return Result.success(userService.findUserByEmail(email));
-    }
-
     //TODO NEED TO ENCRYPT PWD
     @PostMapping("/login")
     public Result userLogin( @RequestParam String email, @RequestParam String password){
@@ -68,11 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestParam String userName,
-                           @RequestParam String email,
-                           @RequestParam String password) {
-        User user = new User(userName, email, password, new ArrayList<>());
-
+    public Result register(@RequestBody User user){
         return loginService.register(user);
     }
 
