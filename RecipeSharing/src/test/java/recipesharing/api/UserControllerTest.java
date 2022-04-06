@@ -15,8 +15,9 @@ public class UserControllerTest {
     @Autowired
     WebTestClient client;
 
-    /*
-
+    /**
+     * Tests that an existing user in the database can log in.
+     */
     @Test
     void userSuccessfulLogin() {
         client.post().uri("user/login?email=test2@st-andrews.ac.uk&password=test password").accept(MediaType.APPLICATION_JSON)
@@ -37,7 +38,7 @@ public class UserControllerTest {
                 .expectBody()
                 .jsonPath("success", "false");
     }
-    */
+
 
     /**
      * Tests that users can log out.
