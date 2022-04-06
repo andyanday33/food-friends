@@ -85,6 +85,25 @@ public class CuisineService {
         }
     }
 
+    public Cuisine findCuisineWithName(String name) {
+        try {
+            // Get the list of all cuisines (contains cuisine id and name)
+            List<Cuisine> cuisineList = getAllCuisines();
+            // for each cuisine check if the passed cusine name matches one in the list
+            for (Cuisine cuisine : cuisineList) {
+                // if it matches then the cuisine is already in the list
+                if (cuisine.getName().equals(name)) {
+                    return cuisine;
+                }
+            }
+            // cuisine is not in the list
+            return null;
+        } catch (NotFoundDBException e) {
+            System.out.println("Cuisine list is empty");
+            return null;
+        }
+    }
+
     public void addOneCuisine(Cuisine cuisine) {
         cuisineDao.addOneCuisine(cuisine);
     }
