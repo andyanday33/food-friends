@@ -174,14 +174,15 @@ public class RecipeController {
 
 
     //TODO
-    @PostMapping("/getMealTypesByRecipeName")
+    @PostMapping("/getmealtypebyrecipename")
     public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
 
         return null;
     }
 
-    @PostMapping("/getIngredientListByRecipe")
+    @PostMapping("/getingredientlistbyrecipe")
     public Result getIngredientListByRecipe(@RequestParam String RecipeName){
+
         return null;
     }
 

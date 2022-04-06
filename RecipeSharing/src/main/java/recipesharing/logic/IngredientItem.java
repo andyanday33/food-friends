@@ -3,8 +3,7 @@ package recipesharing.logic;
 import lombok.Data;
 
 /**
- *  used for database table association
- *  this is for [ingredient] n - 1 [recipe]
+ * used for database table association this is for [ingredient] n - 1 [recipe]
  */
 @Data
 public class IngredientItem {
@@ -12,12 +11,16 @@ public class IngredientItem {
     private String ingredientItemId;
 
     private String recipeId;
+    private String recipeName;
 
-    private String ingredientId;
+    private Ingredient ingredient;
 
-    public IngredientItem(String recipeId, String ingredientId){
-        this.ingredientItemId = String.valueOf(ingredientId.hashCode());
-        this.ingredientId = ingredientId;
-        this.recipeId = recipeId;
+    public IngredientItem(String recipeName, Ingredient ingredient) {
+        this.recipeName = recipeName;
+        this.ingredient = ingredient;
+    }
+
+    public IngredientItem(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 }

@@ -1,64 +1,39 @@
 package recipesharing.api;
 
-<<<<<<< HEAD
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import recipesharing.logic.Cuisine;
-import recipesharing.service.CuisineService;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
->>>>>>> origin/main
+import recipesharing.vo.RecipesCuisineVo;
 import recipesharing.vo.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
- *
- */
-=======
  * Contains cuisine related endpoints for the API.
  */
 @CrossOrigin(origins = "*")
->>>>>>> origin/main
 @RestController
 public class CuisineController {
 
     @Autowired
     CuisineService cuisineService;
+    @Autowired
+    MongoTemplate mongoTemplate;
 
-<<<<<<< HEAD
-    @GetMapping("/findAllCuisines")
-    public Result getAllCuisines(){
-        List<Cuisine> allCuisines = cuisineService.getAllCuisines();
-        return Result.success(allCuisines);
-    }
-
-    @PostMapping("/findRecipesByCuisine")
-    public Result getRecipesByCuisineName(@RequestParam String cuisineName){
-
-        return null;
-    }
-
-
-    @PostMapping("/addOneMoreCuisine")
-    public Result addOneCuisine(@RequestParam String cuisineName){
-        cuisineService.addOneCuisine(new Cuisine(cuisineName));
-=======
     // *** Cuisine related API endpoints *** //
 
     /**
      * Find all cuisines in the database.
+     *
      * @return A list of all the cuisines in the database.
      */
     @GetMapping("/getAllCuisines")
@@ -84,13 +59,24 @@ public class CuisineController {
 
     /**
      * Delete cuisine by id if the cuisine exists.
+     *
      * @param id recipe id
      */
     @DeleteMapping("/deleteCuisineById")
     public Result deleteCuisineByID(@RequestParam String id) {
         cuisineService.delOneCuisine(id);
->>>>>>> origin/main
         return Result.success(null);
     }
 
+    /**
+     * get a list of recipes that has the same cuisine id
+     * @param cuisineId cuisine id, from the 'recipe table' as a foreign key
+     * @return a list of recipes
+     */
+    @PostMapping("/getRecipesByCuisine")
+    public Result getRecipesByCuisineId(@RequestParam String cuisineId) {
+        return Result.success(cuisineService.findRecipesBycuisineId(cuisineId));
+    }
 }
+
+

@@ -10,8 +10,6 @@ import recipesharing.db.IngredientDao;
 @Document("Ingredient")
 public class Ingredient {
 
-    @Autowired
-    IngredientDao ingredientDao;
     @Id
     private String id;
     private String title;

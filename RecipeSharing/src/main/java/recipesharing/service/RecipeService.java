@@ -5,6 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
@@ -12,7 +16,9 @@ import recipesharing.db.RecipeDao;
 import recipesharing.logic.Recipe;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
+import recipesharing.vo.RecipesCuisineVo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -133,8 +139,8 @@ public class RecipeService {
         recipeDao.updateRecipeById(newRecipe);
     }
 
-    public List<Recipe> findRecipesByCuisine(Cuisine cuisine){
-        //TODO 多表关联
-        return null;
-    }
+//    public void getIngredientListByRecipeId(String recipeId){
+//        Query query = Query.query(Criteria.where("").is(cuisineId));
+//        mongoTemplate.remove(query, Recipe.class);
+//    }
 }
