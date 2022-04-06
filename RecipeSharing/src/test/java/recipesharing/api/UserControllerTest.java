@@ -19,22 +19,38 @@ public class UserControllerTest {
     WebTestClient client;
 
 
+    /**
+     * Tests that users can log in.
+     */
     @Test
     void userLogin() {
     }
 
+    /**
+     * Tests that users can log out.
+     */
     @Test
     void userLogout() {
     }
 
+    /**
+     * Tests that users can register.
+     */
     @Test
     void register() {
     }
 
+    /**
+     * Tests JWT.
+     */
+    //TODO potentially remove if not necessary.
     @Test
     void test1() {
     }
 
+    /**
+     * Tests that users can log in with JWT.
+     */
     @Test
     void userLoginWithJWT() {
     }
