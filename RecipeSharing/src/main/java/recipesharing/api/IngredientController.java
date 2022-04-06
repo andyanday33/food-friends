@@ -2,10 +2,12 @@ package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Ingredient;
+import recipesharing.logic.Unit;
 import recipesharing.service.IngredientService;
 import recipesharing.vo.Result;
 import recipesharing.vo.TransStatusCode;
@@ -39,5 +41,24 @@ public class IngredientController {
 
 
 
+    @PostMapping("/addIngredient")
+    public Result addIngredient(@RequestParam String ingredientName,
+                                @RequestParam String quantityToDouble,
+                                @RequestParam String unitName) {
+/*        try {
+            Ingredient oneIngredient = ingredientService.findOneIngredient(ingredientName);
+            return Result.success(ingredientService.addOneIngredient(ingredientName);
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }*/
+
+        //parse the json string
+        Double quantity = Double.parseDouble(quantityToDouble);
+//        Boolean unitVolume = Boolean.parseBoolean(unitVolumeToBoolean);
+        //TODO NOT SURE IF THE unitConverter FUNCTIONALITY IS CORRECT
+        Ingredient ingredient = new Ingredient(ingredientName, quantity, Unit.unitConverter(unitName));
+        ingredientService.addOneIngredient(ingredient);
+        return Result.success(ingredient);
+    }
 
 }

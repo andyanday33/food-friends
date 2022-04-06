@@ -17,6 +17,7 @@ public class Cuisine {
     @Indexed
     private String name;
 
+
     public Cuisine(String name) {
         this.name = name;
     }

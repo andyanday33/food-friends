@@ -3,8 +3,9 @@ package recipesharing.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import recipesharing.logic.Admin;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,12 @@ class AdminServiceTest {
     @Test
     void findAllAdmins() {
         //adminService.findAllAdmins();
+    }
+
+    @Test
+    void findAllAdminsWithPageLimit() {
+
+        List<Admin> allAdminsWithPageLimit = adminService.findAllAdminsWithPageLimit(1, 5);
+        allAdminsWithPageLimit.forEach(System.out::println);
     }
 }

@@ -10,8 +10,6 @@ import recipesharing.db.IngredientDao;
 @Document("Ingredient")
 public class Ingredient {
 
-    @Autowired
-    IngredientDao ingredientDao;
     @Id
     private String id;
     private String title;
@@ -22,6 +20,12 @@ public class Ingredient {
     public Ingredient(String title, Double quantity) {
         this.title = title;
         this.quantity = quantity;
+    }
+
+    public Ingredient(String title, Double quantity, Unit unit) {
+        this.title = title;
+        this.quantity = quantity;
+        this.unit = unit;
     }
 
     public void addUnit(Unit unit) {

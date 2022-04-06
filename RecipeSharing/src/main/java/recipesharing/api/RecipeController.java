@@ -173,5 +173,17 @@ public class RecipeController {
 
 
 
+    //TODO
+    @PostMapping("/getmealtypebyrecipename")
+    public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
+
+        return null;
+    }
+
+    @PostMapping("/getingredientlistbyrecipe")
+    public Result getIngredientListByRecipe(@RequestParam String RecipeName){
+
+        return null;
+    }
 
 }

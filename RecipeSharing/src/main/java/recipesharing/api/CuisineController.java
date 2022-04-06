@@ -1,14 +1,20 @@
 package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Cuisine;
 import recipesharing.logic.Recipe;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
+import recipesharing.vo.RecipesCuisineVo;
 import recipesharing.vo.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +26,14 @@ public class CuisineController {
 
     @Autowired
     CuisineService cuisineService;
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     // *** Cuisine related API endpoints *** //
 
     /**
      * Find all cuisines in the database.
+     *
      * @return A list of all the cuisines in the database.
      */
     @GetMapping("/getAllCuisines")
@@ -73,4 +82,15 @@ public class CuisineController {
 
     }
 
+    /**
+     * get a list of recipes that has the same cuisine id
+     * @param cuisineId cuisine id, from the 'recipe table' as a foreign key
+     * @return a list of recipes
+     */
+    @PostMapping("/getRecipesByCuisine")
+    public Result getRecipesByCuisineId(@RequestParam String cuisineId) {
+        return Result.success(cuisineService.findRecipesBycuisineId(cuisineId));
+    }
 }
+
+

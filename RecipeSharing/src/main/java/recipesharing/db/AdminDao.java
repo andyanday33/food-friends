@@ -2,6 +2,8 @@ package recipesharing.db;
 
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -27,6 +29,7 @@ public class AdminDao {
     public List<Admin> findAllAdmins(){
         return mongoTemplate.findAll(Admin.class);
     }
+
 
     public Admin findAdminById(String adminId) {
         return mongoTemplate.findById(adminId, Admin.class);
@@ -57,4 +60,5 @@ public class AdminDao {
         Update update = new Update();
         UpdateResult upsert = mongoTemplate.upsert(query, update, Admin.class);
     }
+
 }
