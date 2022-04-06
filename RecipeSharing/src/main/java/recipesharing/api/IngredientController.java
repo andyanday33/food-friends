@@ -1,10 +1,7 @@
 package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.logic.Ingredient;
 import recipesharing.logic.Unit;
@@ -65,6 +62,17 @@ public class IngredientController {
         Ingredient ingredient = new Ingredient(ingredientName, quantity, Unit.unitConverter(unitName));
         ingredientService.addOneIngredient(ingredient);
         return Result.success(ingredient);
+    }
+
+    /**
+     * Deletes an ingredient from the database if exists.
+     * @param title - the title/name of the ingredient.
+     * @return The result of the request.
+     */
+    @DeleteMapping("/deleteIngredientByTitle")
+    public Result deleteIngredientByTitle(@RequestParam String title) {
+        ingredientService.deleteIngredientByTitle(title);
+        return Result.success(null);
     }
 
 }
