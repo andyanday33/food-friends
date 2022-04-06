@@ -18,12 +18,19 @@ public class UserControllerTest {
     @Autowired
     WebTestClient client;
 
-
     /**
      * Tests that users can log in.
      */
     @Test
     void userLogin() {
+        URI uri = UriComponentsBuilder.fromPath("/user/login")
+                .queryParam("email", "test2@st-andrews.ac.uk")
+                .queryParam("password", "test password")
+                .build()
+                .toUri();
+
+        client.post().uri(uri).accept(MediaType.APPLICATION_JSON)
+                .exchange();
     }
 
     /**
@@ -31,6 +38,9 @@ public class UserControllerTest {
      */
     @Test
     void userLogout() {
+        client.post().uri("/user/logout").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().is2xxSuccessful();
     }
 
     /**
