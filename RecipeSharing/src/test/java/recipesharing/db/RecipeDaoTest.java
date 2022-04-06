@@ -42,7 +42,7 @@ class RecipeDaoTest {
     @Test
     void addRecipe() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("jaffa cake", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("jaffa cake", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> recipes = recipeDao.findRecipeByRecipeName("jaffa cake");
         Recipe retrievedRecipe = recipes.get(0);
@@ -56,7 +56,7 @@ class RecipeDaoTest {
     @Test
     void findRecipeById() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findRecipeByIDTest", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("findRecipeByIDTest", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("findRecipeByIDTest");
         Recipe intermediate = returnedRecipes.get(0);
@@ -76,7 +76,7 @@ class RecipeDaoTest {
     @Test
     void testDeleteRecipeById() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("DELETE ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
 
         recipeDao.addRecipe(recipe);
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
@@ -99,7 +99,7 @@ class RecipeDaoTest {
     @Test
     void findAllRecipe() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("jaffa cake", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("CONTAINS ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
         assertTrue(allRecipe.size() > 0);
@@ -112,7 +112,7 @@ class RecipeDaoTest {
     @Test
     void findRecipeByRecipeName() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findThisName", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("findThisName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findThisName");
         assertEquals(recipe, recipes.get(0));
@@ -129,10 +129,10 @@ class RecipeDaoTest {
     @Test
     void findRecipeByAuthorId() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("DELETE ME", "authId49", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
 
         recipeDao.addRecipe(recipe);
-        List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("authorId1");
+        List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("authId49");
         assertTrue(recipeName.contains(recipe));
 
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
@@ -150,7 +150,7 @@ class RecipeDaoTest {
     @Test
     void testFindRecipeAccessById() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("DELETE ME", "authorId1", user, true, true, 0);
+        Recipe recipe = new Recipe("DELETE ME", "authId64", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
 
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");

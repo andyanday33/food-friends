@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.PersistenceConstructor;
 import recipesharing.db.IngredientDao;
 
 @Data
@@ -22,6 +23,7 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
+    @PersistenceConstructor
     public Ingredient(String title, Double quantity, Unit unit) {
         this.title = title;
         this.quantity = quantity;
