@@ -7,8 +7,9 @@
         <div class="flex-1 p-4 grow border rounded-2xl mx-6 mt-4 justify-start overflow-auto">
             <h1 class="text-5xl text-center">Recipes for {{ this.$route.params.type }} Cuisine</h1>
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
-                <div class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
-                    <h2 class="m-auto text-3xl">Recipe 1</h2>
+                <h1 v-if="recipes.length == 0" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
+                <div v-for="(x,recipe) in recipes" :key="recipe" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
+                    <h2 class="m-auto text-3xl">{{ recipes[recipe].recipeName }}</h2>
                 </div>
             </div>
         </div>
@@ -26,14 +27,36 @@ export default {
     components: { Navbar, Sidebar },
     name: "CuisinesPage",
     //middleware: 'auth',
-    
-    beforeMount() {
-        //Get all the ingredients from the backend and store them in Vuex store
-        axios.get("http://localhost:8080/getAllCuisines")
+    data() {
+        return {
+            recipes: []
+        }
+    },
+
+    async beforeMount() {
+
+        if(!this.$store.state.cuisineData) {
+            //Get all the ingredients from the backend and store them in Vuex store
+            await axios.get("/getAllCuisines")
+                .then((res) => {
+                    console.log(res);
+                    this.$store.dispatch("setCuisines", res.data.data);
+                    console.log(this.$store.state.cuisineData[0].name);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+
+        let cuisine = await this.$store.state.cuisineData.filter((cuisine) => {
+            return cuisine.name == this.$route.params.type
+        });
+
+        console.log(cuisine[0].id);
+        await axios.post("/getRecipesByCuisine", null, { params : { cuisineId : cuisine[0].id }})
             .then((res) => {
                 console.log(res);
-                this.$store.dispatch("setCuisines", res.data.data);
-                console.log(this.$store.state.cuisineData[0]);
+                this.recipes = res.data.data;
             })
             .catch((err) => {
                 console.error(err);

@@ -36,12 +36,12 @@
                 </button>
             </div>
             <div class="flex ">
-                <a href="#" v-if="!$auth.loggedIn"
+                <NuxtLink to="/login" v-if="!$auth.loggedIn"
                    class="block text-md px-4 py-2 rounded text-green-600 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
                    @click="userSignIn"
                    >
                    Login
-                   </a>
+                </NuxtLink>
                 <a href="#" v-if="$auth.loggedIn"
                    class=" block text-md px-4  ml-2 py-2 rounded text-green-600 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
                    @click="userLogOut"
@@ -58,10 +58,6 @@ export default {
     methods: {
         async userLogOut() {
             let data = await this.$auth.logout();
-            console.log(data);
-        },
-        async userSignIn() {
-            let data = await this.$auth.loginWith('auth0');
             console.log(data);
         },
         printUserData(){

@@ -1,3 +1,4 @@
+/*
 package recipesharing.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -19,3 +20,4 @@ public class InterceptorConfig implements WebMvcConfigurer {
         ;
     }
 }
+*/

@@ -46,7 +46,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'http://localhost:8080',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -54,12 +54,6 @@ export default {
 
   auth: {
     strategies: {
-      auth0: {
-        domain: 'dev-tys5d4fu.us.auth0.com',
-        clientId: 'zynW9dJqT1m4TguKMexnpkulEuBDRCyK',
-        audience: 'https://dev-tys5d4fu.us.auth0.com/api/v2/',
-        logoutRedirectUri: 'http://localhost:3000'
-      },
       local: {
         token: {
           property: 'access_token',

@@ -46,9 +46,9 @@ export default {
     name: "CuisinesPage",
     //middleware: 'auth',
     
-    beforeMount() {
+    async beforeMount() {
         //Get all the ingredients from the backend and store them in Vuex store
-        axios.get("http://localhost:8080/getAllCuisines")
+        await axios.get("/getAllCuisines")
             .then((res) => {
                 console.log(res);
                 this.$store.dispatch("setCuisines", res.data.data);
