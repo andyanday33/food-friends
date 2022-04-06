@@ -37,20 +37,54 @@ public class CuisineService {
         return cuisineList;
     }
 
-    public boolean containsCuisine() {
+    /**
+     * Checks if a cuisine given by the passed id already exists in the database.
+     * @param id - the unique cuisine id.
+     * @return true if it does, false if not.
+     */
+    public boolean containsCuisineWithId(String id) {
         try {
+            // Get the list of all cuisines (contains cuisine id and name)
             List<Cuisine> cuisineList = getAllCuisines();
+            // for each cuisine check if the passed cusine id matches one in the list
             for (Cuisine cuisine : cuisineList) {
-                System.out.println(cuisine.getId());
-                System.out.println(cuisine.getName());
+                // if it matches then the cuisine is already in the list
+                if (cuisine.getId().equals(id)) {
+                    return true;
+                }
             }
-            System.out.println(cuisineList);
-            return true;
+            // cuisine is not in the list
+            return false;
         } catch (NotFoundDBException e) {
-            System.out.println("cusine list is empty");
+            System.out.println("Cuisine list is empty");
             return false;
         }
     }
+
+    /**
+     * Checks if a cuisine given by the passed name already exists in the database.
+     * @param name - the name of the cuisine.
+     * @return true if it does, false if not.
+     */
+    public boolean containsCuisineWithName(String name) {
+        try {
+            // Get the list of all cuisines (contains cuisine id and name)
+            List<Cuisine> cuisineList = getAllCuisines();
+            // for each cuisine check if the passed cusine name matches one in the list
+            for (Cuisine cuisine : cuisineList) {
+                // if it matches then the cuisine is already in the list
+                if (cuisine.getName().equals(name)) {
+                    return true;
+                }
+            }
+            // cuisine is not in the list
+            return false;
+        } catch (NotFoundDBException e) {
+            System.out.println("Cuisine list is empty");
+            return false;
+        }
+    }
+
     public void addOneCuisine(Cuisine cuisine) {
         cuisineDao.addOneCuisine(cuisine);
     }
