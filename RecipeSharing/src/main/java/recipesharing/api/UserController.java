@@ -119,4 +119,10 @@ public class UserController {
         userService.inviteUserById(invitedUserId, recipeId);
         return Result.success(null);
     }
+
+    @PutMapping("/updatePermissionsForRecipe")
+    public Result updatePermissionsForRecipe () {
+        // TODO add method body once db functionality is in place.
+        return null;
+    }
 }
