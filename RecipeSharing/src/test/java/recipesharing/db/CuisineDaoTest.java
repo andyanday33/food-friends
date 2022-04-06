@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Testing of Ingredient data access object and its methods.
  */
+/*
 @SpringBootTest
 class CuisineDaoTest {
 
@@ -51,7 +52,7 @@ class CuisineDaoTest {
         cuisineDao.delOneCuisine(testCuisine);
     }
 
-    /*
+
     @Test
     void delOneCuisine() {
 
@@ -69,7 +70,7 @@ class CuisineDaoTest {
         assertFalse(del.contains(testCuisine));
     }
 
-     */
+
 
     @Test
     void del(){
@@ -78,4 +79,7 @@ class CuisineDaoTest {
         mongoTemplate.remove(query, Cuisine.class);
 
     }
+
+
 }
+*/

@@ -50,10 +50,18 @@ public class UserController {
         }
     }
 
+    /*
     @GetMapping("/getUserByEmail")
     public Result getUserByEmail (@RequestParam String email) {
-        return Result.success(userService.findUserByEmail(email));
+        try {
+            return Result.success(userService.findUserByEmail(email));
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+
     }
+
+     */
 
     //TODO NEED TO ENCRYPT PWD
     @PostMapping("/login")
