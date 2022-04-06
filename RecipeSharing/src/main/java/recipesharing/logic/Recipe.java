@@ -39,7 +39,6 @@ public class Recipe {
     private boolean readAccess;
     private int thumpsUp;
 
-//    private ArrayList<String> MealType; //e.g., {breakfast:String, lunch:String}
 
     //    @DBRef
     private Cuisine cuisine; //e.g., French
@@ -53,16 +52,21 @@ public class Recipe {
 
     private List<User> groupUsers;
 
-    // TODO LJ create new recipe constructor to match api but not sure if this is correct
-    // The user's read and write access should be
-
+    /**
+     *
+     * @param recipeName
+     * @param recipeDescription
+     * @param ownerId
+     * @param instructions
+     * @param ingredients
+     * @param cuisine
+     */
     public Recipe(String recipeName, String recipeDescription, String ownerId, ArrayList<String> instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine) {
         this.recipeName = recipeName;
         this.description = recipeDescription;
         this.authorId = ownerId;
         this.instructions = instructions;
         this.ingredients = ingredients;
-        // Need to check if exists
         this.cuisine = cuisine;
     }
 
