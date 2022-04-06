@@ -89,19 +89,6 @@ public class RecipeController {
     }
 
     /**
-     * Searches for all recipes in the database and returns as a list.
-     * @return Returns the status of the request (200 or 404) and the list if it exists.
-     */
-    @GetMapping("/getAllRecipes")
-    public Result getAllRecipes() {
-        try {
-            return Result.success(recipeService.findAllRecipe());
-        } catch (NotFoundDBException e) {
-            return Result.fail(404, e.getMessage());
-        }
-    }
-
-    /**
      * Returns a list of recipes which have the same title as the one specified by the user.
      * @param title
      * @return
@@ -156,6 +143,16 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
+
+
+// TODO  public String createRecipe
+    @GetMapping("/getRecipe/{user}")
+    public void getRecipesByUser(@PathVariable String userId) {
+        //change from String to User
+        // return list of recipes
+
+    }
+
     /**
      * Change permissions for a recipe
      * @param name
@@ -186,7 +183,9 @@ public class RecipeController {
      */
     @GetMapping("/getRecipesByCuisine")
     public void getRecipesByCuisine(@RequestParam String cuisineType) {
-        //dsada
+        // Create new cuisine. TODO validate input.
+//        Cuisine cuisine = new Cuisine(cuisineType);
+        //todo needs to be implemented in db
     }
 
     /**

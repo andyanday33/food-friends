@@ -57,7 +57,7 @@ public class CuisineController {
             cuisineService.addOneCuisine(cuisine);
             return Result.success(null);
         }
-        // Otherwise return an error message as the cuisine already exists.
+        // Otherwise, return an error message as the cuisine already exists.
         else {
             return Result.fail(400, "Cannot add cuisine " + name + " as it already exists.");
         }

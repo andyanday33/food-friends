@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Generate json web token for user
+ * Generate & verify a json web token for user
  */
 public class JWTUtil {
     private static final String PRIVATE_KEY = "12Msz@##lu!#$$";
