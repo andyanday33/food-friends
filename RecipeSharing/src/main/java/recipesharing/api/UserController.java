@@ -30,27 +30,6 @@ public class UserController {
 
     @Autowired
     LoginService loginService;
-    //TODO NEED TO ENCRYPT PWD
-    @PostMapping("/login")
-    public Result userLogin( @RequestParam String email, @RequestParam String password){
-
-        return loginService.userLogin(email, password);
-    }
-
-    @PostMapping("/logout")
-    public Result userLogout(){
-        return Result.success(null);
-    }
-
-
-    @PostMapping("/register")
-    public Result register(@RequestParam String userName,
-                           @RequestParam String email,
-                           @RequestParam String password) {
-        User user = new User(userName, email, password, new ArrayList<>());
-
-        return loginService.register(user);
-    }
 
 
     @GetMapping("/getUserById")
@@ -74,6 +53,27 @@ public class UserController {
     @GetMapping("/getUserByEmail")
     public Result getUserByEmail (@RequestParam String email) {
         return Result.success(userService.findUserByEmail(email));
+    }
+
+    //TODO NEED TO ENCRYPT PWD
+    @PostMapping("/login")
+    public Result userLogin( @RequestParam String email, @RequestParam String password){
+
+        return loginService.userLogin(email, password);
+    }
+
+    @PostMapping("/logout")
+    public Result userLogout(){
+        return Result.success(null);
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestParam String userName,
+                           @RequestParam String email,
+                           @RequestParam String password) {
+        User user = new User(userName, email, password, new ArrayList<>());
+
+        return loginService.register(user);
     }
 
     @PostMapping("/jwttest")
