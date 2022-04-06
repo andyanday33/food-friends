@@ -37,7 +37,7 @@ export default {
 
         if(!this.$store.state.cuisineData) {
             //Get all the ingredients from the backend and store them in Vuex store
-            await axios.get("/getAllCuisines")
+            await axios.get(`${ process.env.baseUrl }:${ process.env.apiPort }/getAllCuisines`)
                 .then((res) => {
                     console.log(res);
                     this.$store.dispatch("setCuisines", res.data.data);
@@ -53,7 +53,7 @@ export default {
         });
 
         console.log(cuisine[0].id);
-        await axios.post("/getRecipesByCuisine", null, { params : { cuisineId : cuisine[0].id }})
+        await axios.post(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisine`, null, { params : { cuisineId : cuisine[0].id }})
             .then((res) => {
                 console.log(res);
                 this.recipes = res.data.data;
