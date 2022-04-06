@@ -2,6 +2,7 @@ package recipesharing.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.AdminDao;
 import recipesharing.db.RecipeDao;
 import recipesharing.logic.Admin;
@@ -61,12 +62,27 @@ public class AdminController {
     public Result getAllAdmins() {
         try {
             return Result.success(adminService.findAllAdmins());
-        } catch (Exception e) {
-            e.printStackTrace();
-            // return result "fail"
-            // 404 as cannot be found?
-            return Result.fail(404, "error msg");
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
         }
+    }
+
+    /**
+     * Add a new admin to the database.
+     * @param name - the name of the admin.
+     * @param email - the email of the admin.
+     * @param password - the password for the admin.
+     * @return
+     */
+    @PostMapping("/addNewAdmin")
+    public Result addNewAdmin(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password
+    ) {
+        Admin admin = new Admin(name, email, password);
+        adminService.addAdmin(admin);
+        return Result.success(null);
     }
 
 }
