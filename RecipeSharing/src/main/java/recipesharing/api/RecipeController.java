@@ -3,10 +3,7 @@ package recipesharing.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import recipesharing.customExceptions.NotFoundDBException;
-import recipesharing.logic.Cuisine;
-import recipesharing.logic.Ingredient;
-import recipesharing.logic.IngredientItem;
-import recipesharing.logic.Recipe;
+import recipesharing.logic.*;
 import recipesharing.service.CuisineService;
 import recipesharing.service.RecipeService;
 import recipesharing.vo.Result;
@@ -70,6 +67,7 @@ public class RecipeController {
             @RequestParam String[] ingredientQuantities,
             @RequestParam String cuisineName
     ) {
+
         // Create a new list to store each ingredient item.
         ArrayList<IngredientItem> ingredients = new ArrayList<>();
         // Loop through all ingredient names and add each ingredient and corresponding quantity to the list.
@@ -82,6 +80,7 @@ public class RecipeController {
             Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
             // Create a new recipe
             Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
+
             return Result.success(recipe);
         } else {
             return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
@@ -199,18 +198,45 @@ public class RecipeController {
     }
 
 
-
-    //TODO
+    /**
+     *  find a meal tag list from one recipe
+     * @param recipeId id of the recipe
+     * @return meal item list that contains the tags
+     * @throws NotFoundDBException
+     */
     @PostMapping("/getmealtypebyrecipename")
-    public Result getMealTypesByRecipeName(@RequestParam String RecipeName){
+    public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
 
-        return null;
+        List<MealItem> mealItems = recipe.getMealItems();
+        return Result.success(mealItems);
+    }
+    /**
+     *  find a ingredient list from one recipe
+     * @param recipeId id of the recipe
+     * @return ingredient item list that contains the ingredient
+     * @throws NotFoundDBException
+     */
+    @PostMapping("/getingredientlistbyrecipe")
+    public Result getIngredientListByRecipe(@RequestParam String recipeId) throws NotFoundDBException {
+        Recipe recipe = recipeService.findRecipeById(recipeId);
+
+        List<IngredientItem> ingredients = recipe.getIngredients();
+        return Result.success(ingredients);
     }
 
-    @PostMapping("/getingredientlistbyrecipe")
-    public Result getIngredientListByRecipe(@RequestParam String RecipeName){
 
-        return null;
+    /**
+     *  check if the person has writing access to the recipe
+     *  now: only author & invited users & admins have the write access
+     * @param userId   user id
+     * @param recipeId   recipe id
+     * @return boolean variable that shows if it is writable
+     */
+    @GetMapping("/getUserWriteAccessById")
+    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId){
+        Boolean writable = recipeService.isWritable(userId, recipeId);
+        return Result.success(writable);
     }
 
 }

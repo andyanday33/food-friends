@@ -91,7 +91,7 @@ public class UserController {
     }
 
     /**
-     *  login with generating a token
+     *  login with  a generated token
      *  after this stage, the front end should put the token in the request header
      *  and then everytime the client making a request reaching to the back end
      *  it should be intercepted to verify the token (defined in InterceptorConfig.class)
