@@ -184,19 +184,6 @@ public class RecipeController {
 
 
     /**
-     *  find a meal tag list from one recipe
-     * @param recipeId id of the recipe
-     * @return meal item list that contains the tags
-     * @throws NotFoundDBException
-     */
-    @GetMapping("/getmealtypebyrecipename")
-    public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
-        Recipe recipe = recipeService.findRecipeById(recipeId);
-
-        List<MealItem> mealItems = recipe.getMealItems();
-        return Result.success(mealItems);
-    }
-    /**
      *  find a ingredient list from one recipe
      * @param recipeId id of the recipe
      * @return ingredient item list that contains the ingredient
