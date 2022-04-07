@@ -173,17 +173,6 @@ public class RecipeController {
 
 
     /**
-     * Searches for all recipes with the given ingredient in them and returns a list of recipes.
-     * @param ingredientName
-     */
-    @GetMapping("/getRecipesWithIngredient")
-    public void getRecipesWithIngredient(@RequestParam String ingredientName) {
-        //TODO missing DB functionality
-
-    }
-
-
-    /**
      * Deletes a recipe from the database given a unique recipe ID.
      * @param recipeID - the String representation of the recipe ID.
      */
