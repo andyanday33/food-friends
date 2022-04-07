@@ -111,9 +111,9 @@ class RecipeDaoTest {
     @Test
     void findRecipeByRecipeName() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findThisName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("findName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
-        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findThisName");
+        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findName");
         assertEquals(recipe, recipes.get(0));
 
         String id = recipes.get(0).getRecipeId();
