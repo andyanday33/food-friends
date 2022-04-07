@@ -54,13 +54,11 @@ export default {
             console.log("wow");
             await this.$store.dispatch("setIsAdmin", true);
         }
-        console.log(this.$store.state.isAdmin);
-        console.log(admins);
-        console.log("-------------------");
-
         this.$auth.setUser(res.data);
         this.$auth.setUserToken(res.data.userId); //This is not encrypted, yet to implement jwt
-      
+        this.$store.dispatch("setUser", res.data);
+
+        console.log(this.$store.state.user);
         console.log("----------");
         console.log(this.$auth.user);
         console.log(this.$auth.loggedIn);

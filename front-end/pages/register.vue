@@ -2,7 +2,7 @@
   <div class="bg-gray-800 text-gray-50 h-screen justify-center">
     <Navbar />
     <h1 class="mt-5 text-5xl text-center">Register to Food Friends!</h1>
-    <form class="grid grid-cols-3 p-4 grow justify-start border rounded-2xl mx-6 mt-4" @submit.prevent="userLogin">
+    <form class="grid grid-cols-3 p-4 grow justify-start border rounded-2xl mx-6 mt-4" @submit.prevent="userRegister">
       <div class="col-span-3 justify-self-center grid grid-cols-2 justify-items-center">
         <label class="py-5 px-4">Email:</label>
         <input class="text-black mt-4 border-2 border-gray-300 bg-gray-50 h-10 pl-2 pr-8 rounded-lg focus:outline-none" 
@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    async userLogin() {
+    async userRegister() {
       try {
         this.register.incorrect = false;
         // let response = await this.$auth.loginWith('local', { data: this.login });

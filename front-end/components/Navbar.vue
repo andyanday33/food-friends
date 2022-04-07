@@ -13,11 +13,15 @@
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Home
                 </NuxtLink>
+                <NuxtLink to="/createRecipe" v-if="$auth.loggedIn"
+                   class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
+                    Create new recipe
+                </NuxtLink>
                 <a href="#" v-if="$auth.loggedIn" @click="printUserData"
                    class=" block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     My Recipes
                 </a>
-                <a href="#" v-if="$auth.loggedIn"
+                <a href="#" v-if="$auth.loggedIn" @click="printUserData"
                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-green-900 mr-2">
                     Saved Recipes
                 </a>
@@ -63,11 +67,12 @@ export default {
         async userLogOut() {
             let data = await this.$auth.logout();
             this.$store.dispatch("setIsAdmin", false); //We're always taking admin role from the current user
-            console.log(data);
+            this.$store.dispatch("setUser", {});
         },
         printUserData(){
             console.log("aaaaaa");
             console.log(this.$auth.user);
+            console.log(this.$store.state.user);
         }
     }
 }

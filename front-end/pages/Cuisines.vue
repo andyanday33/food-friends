@@ -5,30 +5,12 @@
     <main class="flex">
         <Sidebar class = "flex-none" />
         <div class="flex-1 p-4 grow border rounded-2xl mx-6 mt-4 justify-start overflow-auto">
-            <h1 class="text-5xl text-center">Cuisines</h1>
+            <h2 class="text-5xl text-center">Cuisines</h2>
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
-                <!-- <NuxtLink to="/Recipes/French" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">French</h2>
-                </NuxtLink>
-                <NuxtLink to="/Recipes/Chinese" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">Chinese</h2>
-                </NuxtLink>
-                <NuxtLink to="/Recipes/Greek" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">Greek</h2>
-                </NuxtLink>
-                <NuxtLink to="/Recipes/Italian" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">Italian</h2>
-                </NuxtLink>
-                <NuxtLink to="/Recipes/Spanish" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">Spanish</h2>
-                </NuxtLink>
-                <NuxtLink to="/Recipes/Mediterranean" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">Mediterranean</h2>
-                </NuxtLink> -->
                 <h1 v-if="!$store.state.cuisineData" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
                 <NuxtLink v-for="(x,cuisine) in $store.state.cuisineData" :key="cuisine" :to="`/Cuisine/` + $store.state.cuisineData[cuisine].name"
                  class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
-                    <h2 class="m-auto text-3xl">{{ $store.state.cuisineData[cuisine].name }}</h2>
+                    <h3 class="m-auto text-3xl">{{ $store.state.cuisineData[cuisine].name }}</h3>
                 </NuxtLink>
             </div>
         </div>
