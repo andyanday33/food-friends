@@ -197,6 +197,9 @@ class RecipeDaoTest {
         }
     }
 
+    /**
+     * Tests adding a recipe with ingredients included.
+     */
     @Test
     void testAddRecipeWithIngredientList(){
         Recipe recipe = new Recipe();
