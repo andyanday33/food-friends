@@ -94,12 +94,18 @@ class RecipeDaoTest {
      */
     @Test
     void findAllRecipe() {
-        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
         Recipe recipe = new Recipe("CONTAINS ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
         assertTrue(allRecipe.size() > 0);
-        assertTrue(allRecipe.contains(recipe));
+        boolean containsCheck = false;
+        for (Recipe rec : allRecipe) {
+            if (rec.getRecipeName().equals("CONTAINS ME")) {
+                containsCheck = true;
+                break;
+            }
+        }
+        assertTrue(containsCheck);
     }
 
     /**
