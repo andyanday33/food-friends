@@ -24,24 +24,6 @@ public class RecipeController {
     CuisineService cuisineService;
 
 
-    /**
-     * If user is unsure of how to use the API then may access the base root.
-     *
-     * @return Returns instructions on how to access /api for more information.
-     */
-    @GetMapping("/")
-    public String index() {
-        return "Use GET /api for information on how to use the API.";
-    }
-
-    /**
-     * Returns a description of how the API works.
-     * @return a String representing the description of the api.
-     */
-    @GetMapping("/api")
-    public String apiDescription() {
-        return "description of api";
-    }
 
     // *** Recipe related API endpoints *** //
 
