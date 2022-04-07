@@ -12,5 +12,10 @@
         <module name="recipesharing.project-code.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RecipeSharing" target="11" />
+      <module name="RecipeSharing.main" target="11" />
+      <module name="RecipeSharing.test" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
