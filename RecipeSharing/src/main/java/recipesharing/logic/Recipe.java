@@ -35,7 +35,7 @@ public class Recipe {
     private LocalDateTime updatedTime;
 
     private String description;
-    private ArrayList<String> instructions;
+    private String instructions;
     private boolean writeAccess;
     private boolean readAccess;
     private int thumpsUp;
@@ -62,7 +62,7 @@ public class Recipe {
      * @param ingredients
      * @param cuisine
      */
-    public Recipe(String recipeName, String description, String authorId, ArrayList<String> instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine) {
+    public Recipe(String recipeName, String description, String authorId, String instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine) {
         this.recipeName = recipeName;
         this.description = description;
         this.authorId = authorId;

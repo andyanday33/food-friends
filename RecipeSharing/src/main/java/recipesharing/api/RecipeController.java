@@ -44,7 +44,7 @@ public class RecipeController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam ArrayList<String> instructions,
+            @RequestParam String instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
             @RequestParam String cuisineName
@@ -145,7 +145,7 @@ public class RecipeController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam ArrayList<String> instructions,
+            @RequestParam String instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
             @RequestParam String cuisineName
