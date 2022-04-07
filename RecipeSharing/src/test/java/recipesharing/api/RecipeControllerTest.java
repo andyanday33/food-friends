@@ -37,7 +37,11 @@ public class RecipeControllerTest {
 
     @Test
     public void testCreateNewRecipe() {
-
+        client.post().uri("/createNewRecipe?title=stinky tofu&description=tofu that really stinks&ownerId=auth78&instructions=let it ferment for 50 years&ingredientNames=Tofu&ingredientQuantities=1.0&cuisineName=Japanese")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody();
     }
 
     @Test
