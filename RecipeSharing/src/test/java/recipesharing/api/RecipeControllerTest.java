@@ -12,39 +12,13 @@ import recipesharing.api.RecipeController;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Tests the recipe API and it's methods.
+ * Tests the recipe API and its methods.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
 
     @Autowired
     WebTestClient client;
-
-    /**
-     * Simple test of index method.
-     */
-    @Test
-    public void testIndex() {
-        String apiDescription = client.get().uri("/").accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectBody(String.class)
-                .returnResult()
-                .getResponseBody();
-        assertEquals(apiDescription, "Use GET /api for information on how to use the API.");
-    }
-
-    /**
-     * Simple test of api description.
-     */
-    @Test
-    public void testApiDescription() {
-        String apiDescription = client.get().uri("/api").accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectBody(String.class)
-                .returnResult()
-                .getResponseBody();
-        assertEquals(apiDescription, "description of api");
-    }
 
     /**
      * Tests that a new recipe can be created.
