@@ -23,15 +23,25 @@ class CuisineControllerTest {
      */
     @Test
     public void testGetAllCuisines() {
-
+        client.get().uri("/getAllCuisines")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody();
     }
 
     /**
      * Tests that a cuisine can be added.
      */
     @Test
-    public void testAddCuisine() {
-
+    public void testAddCuisineFail() {
+        client.post().uri("/addOneCuisine?name=Spannish")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("success").isEqualTo("false")
+                .jsonPath("code").isEqualTo("400");
     }
 
     /**
