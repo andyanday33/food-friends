@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
-import recipesharing.logic.Ingredient;
-import recipesharing.logic.IngredientItem;
-import recipesharing.logic.Recipe;
-import recipesharing.logic.User;
+import recipesharing.logic.*;
 import recipesharing.vo.RecipesCuisineVo;
 import recipesharing.vo.Result;
 
@@ -42,12 +39,12 @@ class RecipeDaoTest {
     @Test
     void addRecipe() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("jaffa cake", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("jaffajaffa", "half moon", "jim", null, null, null);
         recipeDao.addRecipe(recipe);
-        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("jaffa cake");
+        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("jaffajaffa");
         Recipe retrievedRecipe = recipes.get(0);
-        assertEquals(retrievedRecipe.getRecipeName(), "jaffa cake");
-        assertEquals(retrievedRecipe.getAuthorId(), "authorId1");
+        assertEquals(retrievedRecipe.getRecipeName(), "jaffajaffa");
+        assertEquals(retrievedRecipe.getAuthorId(), "jim");
     }
 
     /**
@@ -55,10 +52,9 @@ class RecipeDaoTest {
      */
     @Test
     void findRecipeById() {
-        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findRecipeByIDTest", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("findThisID", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
-        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("findRecipeByIDTest");
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("findThisID");
         Recipe intermediate = returnedRecipes.get(0);
         String id = intermediate.getRecipeId();
 
@@ -112,9 +108,9 @@ class RecipeDaoTest {
     @Test
     void findRecipeByRecipeName() {
         User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findThisName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("findName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
-        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findThisName");
+        List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findName");
         assertEquals(recipe, recipes.get(0));
 
         String id = recipes.get(0).getRecipeId();
