@@ -47,35 +47,24 @@ class CuisineDaoTest {
 
     @Test
     void addOneCuisine() {
+
         Cuisine cuisine = new Cuisine("Icelandic");
         cuisineDao.addOneCuisine(cuisine);
 
         //Tests that the test cuisine has been added to the database.
         List<Cuisine> returned = cuisineDao.getAllCuisines();
+        // check that the cuisine is in the list of cuisines
         assertTrue(returned.contains(cuisine));
 
         //delete test cuisine.
-        Cuisine testCuisine = returned.get(0);
-        cuisineDao.delOneCuisine(testCuisine);
+        cuisineDao.delOneCuisine(cuisine);
+        returned = cuisineDao.getAllCuisines();
+        // Check that the cuisine is no longer in the database
+        assertFalse(returned.contains(cuisine));
     }
 
 
-    @Test
-    void delOneCuisine() {
 
-        Cuisine cuisine = new Cuisine("Ugandan");
-        cuisineDao.addOneCuisine(cuisine);
-
-        //Tests that the test cuisine has been added to the database.
-        List<Cuisine> returned = cuisineDao.getAllCuisines();
-        //delete test cuisine.
-        Cuisine testCuisine = returned.get(0);
-        cuisineDao.delOneCuisine(testCuisine);
-
-        List<Cuisine> del = cuisineDao.getAllCuisines();
-        //check deleted
-        assertFalse(del.contains(testCuisine));
-    }
 
 
 

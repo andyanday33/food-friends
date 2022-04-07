@@ -14,12 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  *
  */
-/*
+
 @SpringBootTest
 class CuisineServiceTest {
 
     @Autowired
     CuisineService cuisineService;
+
     @Test
     void getAllCuisines() {
         try {
@@ -73,4 +74,4 @@ class CuisineServiceTest {
     }
 }
 
- */
+
