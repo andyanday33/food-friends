@@ -51,13 +51,13 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeById() {
-        client.get().uri("/getRecipeById?recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeById?recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.success").isEqualTo("true")
-                .jsonPath("$.data.recipeId").isEqualTo("624ed6763570fc64f5db9e70");
+                .jsonPath("$.data.recipeId").isEqualTo("624f1e08a78f7d53897fd2d2");
     }
 
     /**
@@ -79,7 +79,7 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeAccessById() {
-        client.get().uri("/getRecipeAccessById?accessType=read&recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeAccessById?accessType=read&recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -87,7 +87,7 @@ public class RecipeControllerTest {
                 .jsonPath("$.success").isEqualTo("true")
                 .jsonPath("$.data").isEqualTo("true");
 
-        client.get().uri("/getRecipeAccessById?accessType=write&recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeAccessById?accessType=write&recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()

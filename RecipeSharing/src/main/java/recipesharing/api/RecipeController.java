@@ -44,7 +44,7 @@ public class RecipeController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam ArrayList<String> instructions,
+            @RequestParam String instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
             @RequestParam String cuisineName
@@ -145,7 +145,7 @@ public class RecipeController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam String ownerId,
-            @RequestParam ArrayList<String> instructions,
+            @RequestParam String instructions,
             @RequestParam String[] ingredientNames,
             @RequestParam String[] ingredientQuantities,
             @RequestParam String cuisineName
@@ -173,17 +173,6 @@ public class RecipeController {
 
 
     /**
-     * Searches for all recipes with the given ingredient in them and returns a list of recipes.
-     * @param ingredientName
-     */
-    @GetMapping("/getRecipesWithIngredient")
-    public void getRecipesWithIngredient(@RequestParam String ingredientName) {
-        //TODO missing DB functionality
-
-    }
-
-
-    /**
      * Deletes a recipe from the database given a unique recipe ID.
      * @param recipeID - the String representation of the recipe ID.
      */
@@ -194,19 +183,6 @@ public class RecipeController {
     }
 
 
-    /**
-     *  find a meal tag list from one recipe
-     * @param recipeId id of the recipe
-     * @return meal item list that contains the tags
-     * @throws NotFoundDBException
-     */
-    @GetMapping("/getmealtypebyrecipename")
-    public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
-        Recipe recipe = recipeService.findRecipeById(recipeId);
-
-        List<MealItem> mealItems = recipe.getMealItems();
-        return Result.success(mealItems);
-    }
     /**
      *  find a ingredient list from one recipe
      * @param recipeId id of the recipe
