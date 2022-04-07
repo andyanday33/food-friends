@@ -55,10 +55,9 @@ class RecipeDaoTest {
      */
     @Test
     void findRecipeById() {
-        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
-        Recipe recipe = new Recipe("findRecipeByIDTest", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("findThisID", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
-        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("findRecipeByIDTest");
+        List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("findThisID");
         Recipe intermediate = returnedRecipes.get(0);
         String id = intermediate.getRecipeId();
 
