@@ -32,6 +32,14 @@ public class UserController {
     LoginService loginService;
 
 
+    @GetMapping("/getAllUsers")
+    public Result getAllUsers() {
+        try {
+            return Result.success(userService.findAllUsers());
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
     @GetMapping("/getUserById")
     public Result getUserById (@RequestParam String id) {
         try {
