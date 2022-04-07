@@ -23,9 +23,7 @@ import recipesharing.vo.RecipesCuisineVo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+
 @Service
 public class RecipeService {
 
@@ -49,6 +47,12 @@ public class RecipeService {
         return recipeList;
     }
 
+    /**
+     * find all recipe with page limit
+     * @param page page number
+     * @param size the number of records
+     * @return
+     */
     public List<Recipe> findAllRecipesWithPageLimit(int page, int size) {
 
 
@@ -115,7 +119,12 @@ public class RecipeService {
         return recipeList;
     }
 
-
+    /**
+     *  check if the recipe is accessible
+     * @param accessType write/read
+     * @param recipeId _id for recipe
+     * @return true/false
+     */
     public boolean findRecipeAccessById(String accessType, String recipeId) {
         return recipeDao.findRecipeAccessById(accessType, recipeId);
     }
@@ -176,6 +185,13 @@ public class RecipeService {
         }
     }
 
+    /**
+     *  change the read access
+     * @param opt private/public
+     * @param recipeId _id for recipe
+     * @param userId _id for user
+     * @return true/false
+     */
     public boolean changeReadAccess(String opt, String recipeId, String userId){
         Boolean writable = this.isWritable(userId, recipeId);
         if(writable){

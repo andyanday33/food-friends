@@ -57,7 +57,6 @@ public class Recipe {
     /**
      * @param recipeName
      * @param description
-     * @param ownerId
      * @param instructions
      * @param ingredients
      * @param cuisine
@@ -73,6 +72,17 @@ public class Recipe {
         this.createdTime = LocalDateTime.now();
     }
 
+    public Recipe(String recipeName, String description, String authorId, String instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine, String cuisineId) {
+        this.recipeName = recipeName;
+        this.description = description;
+        this.authorId = authorId;
+        this.instructions = instructions;
+        this.ingredients = ingredients;
+        this.cuisine = cuisine;
+        this.readAccess = true;
+        this.cuisineId = cuisineId;
+        this.createdTime = LocalDateTime.now();
+    }
 
     public Recipe(String recipeName, String authorId, LocalDateTime createdTime, LocalDateTime updatedTime, String description, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, String cuisineId, ArrayList<IngredientItem> ingredients, ArrayList<MealItem> mealItems) {
         this.recipeName = recipeName;

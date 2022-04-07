@@ -31,10 +31,20 @@ public class AdminDao {
     }
 
 
+    /**
+     *  find a admin by its id
+     * @param adminId _id for admin
+     * @return  an admin
+     */
     public Admin findAdminById(String adminId) {
         return mongoTemplate.findById(adminId, Admin.class);
     }
 
+    /**
+     *
+     * @param adminName
+     * @return
+     */
     public List<Admin> findAdminByAdminName(String adminName) {
         Query query = Query.query(Criteria.where("name").is(adminName));
         return mongoTemplate.find(query, Admin.class, "t_admin");

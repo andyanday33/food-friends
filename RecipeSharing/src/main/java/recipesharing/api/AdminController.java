@@ -35,28 +35,47 @@ public class AdminController {
     @Autowired
     UserService userService;
 
+    /**
+     * login method for admin interface
+     *
+     * @param email    unique email id
+     * @param password admin password
+     *
+     * @return return the admin obj
+     */
     @PostMapping("/login")
-    public Result adminLogin(@RequestParam String email, @RequestParam String password) {
-        return loginService.adminLogin(email, password);
+    public Result adminLogin(@RequestParam String email, @RequestParam String password) throws NotFoundDBException {
+
+        return Result.success(adminService.findAdminByEmail(email));
     }
 
+    /**
+     *  admin login with token
+     * @param email unique email id
+     * @param password admin password
+     * @return
+     */
     @PostMapping("/loginwithtoken")
-    public Result adminLoginWithJWT( @RequestParam String email, @RequestParam String password){
+    public Result adminLoginWithJWT(@RequestParam String email, @RequestParam String password) throws NotFoundDBException {
         String token = JWTUtil.getToken(email, password);
-
-        return loginService.userLogin(email, password);
+        Admin adminByEmail = adminService.findAdminByEmail(email);
+        adminByEmail.setToken(token);
+        return Result.success(adminByEmail);
     }
+
     @PostMapping("/logout")
-    public Result adminLogout() {
-        return Result.success(null);
+    public Result adminLogout(@RequestBody Admin admin) {
+        admin.setToken(null);
+        return Result.success(admin);
     }
 
     // *** Admin related API endpoints *** //
 
 
     /**
-     * Find all admins in the database and return them as a list.
-     * Returns status code with the list. If there are no admins, then 404 will be sent along with an error message.
+     * Find all admins in the database and return them as a list. Returns status code with the list. If there are no
+     * admins, then 404 will be sent along with an error message.
+     *
      * @return a list of admins.
      */
     @GetMapping("/getAllAdmins")
@@ -70,9 +89,11 @@ public class AdminController {
 
     /**
      * Searches for all admins with a specific name and returns a list of those if they exist.
+     *
      * @param name - the name of the admin(s) to be found.
-     * @return The status code of the request which will be 404 if no admin can be found,
-     * an error message if cannot be found or the list of admins if can be found.
+     *
+     * @return The status code of the request which will be 404 if no admin can be found, an error message if cannot be
+     * found or the list of admins if can be found.
      */
     @GetMapping("/getAdminsWithName")
     public Result getAdminByName(@RequestParam String name) {
@@ -85,7 +106,9 @@ public class AdminController {
 
     /**
      * Searches for an admin with a given id and returns the admin if it can be found.
+     *
      * @param id - the unique id of an admin.
+     *
      * @return The Result of the request including status code and the admin if it can be found.
      */
     @GetMapping("/getAdminWithId")
@@ -99,9 +122,11 @@ public class AdminController {
 
     /**
      * Searches for an admin with a given email and returns the admin if it can be found in the database.
+     *
      * @param email - the email of an admin.
-     * @return - The result of the request including status code and error message (if 404 status code).
-     * Also returns the admin if the admin can be found.
+     *
+     * @return - The result of the request including status code and error message (if 404 status code). Also returns
+     * the admin if the admin can be found.
      */
     @GetMapping("/getAdminWithEmail")
     public Result getAdminWithEmail(@RequestParam String email) {
@@ -114,9 +139,11 @@ public class AdminController {
 
     /**
      * Add a new admin to the database.
-     * @param name - the name of the admin.
-     * @param email - the email of the admin.
+     *
+     * @param name     - the name of the admin.
+     * @param email    - the email of the admin.
      * @param password - the password for the admin.
+     *
      * @return
      */
     @PostMapping("/addNewAdmin")
@@ -132,7 +159,9 @@ public class AdminController {
 
     /**
      * Delete an admin given their id
+     *
      * @param id - the admin id
+     *
      * @return
      */
     @DeleteMapping("/deleteAdminById")
