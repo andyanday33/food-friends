@@ -14,17 +14,20 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  *
  */
-/*
+
 @SpringBootTest
 class CuisineServiceTest {
 
     @Autowired
     CuisineService cuisineService;
+
+    /**
+     * Tests that if there are cuisines in the database, that they can be returned a list.
+     */
     @Test
     void getAllCuisines() {
         try {
             List<Cuisine> cuisines = cuisineService.getAllCuisines();
-            cuisines.forEach(System.out::println);
             assertTrue(cuisines.size() > 0);
         } catch (NotFoundDBException e) {
             e.printStackTrace();
@@ -32,6 +35,9 @@ class CuisineServiceTest {
 
     }
 
+    /**
+     * Tests that a cuisine can be added to the database as expected.
+     */
     @Test
     void addOneCuisine() {
         Cuisine cuisine = new Cuisine("Japanese");
@@ -43,17 +49,19 @@ class CuisineServiceTest {
             assertTrue(returned.contains(cuisine));
 
             //delete test cuisine.
-            Cuisine testCuisine = returned.get(0);
-            cuisineService.delOneCuisine(testCuisine);
+            cuisineService.delOneCuisine(cuisine);
         } catch (NotFoundDBException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Tests that a cuisine can be deleted from the database as expected.
+     */
     @Test
     void delOneCuisine() {
-
+        // create a new cuisine and add to the database
         Cuisine cuisine = new Cuisine("Japanese");
         cuisineService.addOneCuisine(cuisine);
 
@@ -61,11 +69,10 @@ class CuisineServiceTest {
         try {
             List<Cuisine> returned = cuisineService.getAllCuisines();
             //delete test cuisine.
-            Cuisine testCuisine = returned.get(0);
-            cuisineService.delOneCuisine(testCuisine);
+            cuisineService.delOneCuisine(cuisine);
             List<Cuisine> del = cuisineService.getAllCuisines();
             //check deleted
-            assertFalse(del.contains(testCuisine));
+            assertFalse(del.contains(cuisine));
         } catch (NotFoundDBException e) {
             e.printStackTrace();
         }
@@ -73,4 +80,4 @@ class CuisineServiceTest {
     }
 }
 
- */
+
