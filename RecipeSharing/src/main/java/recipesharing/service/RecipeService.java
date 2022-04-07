@@ -143,7 +143,7 @@ public class RecipeService {
     public void updateRecipeById(Recipe newRecipe){
         recipeDao.updateRecipeById(newRecipe);
     }
-    
+
 
     /**
      * check if the person has writing access to the recipe now: only author & invited users & admins have the write
@@ -171,11 +171,6 @@ public class RecipeService {
         } else {
             // group user check from "t_recipe"'s group user list
             List<String> groupUsers = recipeById.getGroupUserIds();
-            //            for (User u: groupUsers
-            //                 ) {
-            //                if (u.getUserId().equals(userId)) {
-            //                    return true;
-            //                }
 
             return !groupUsers.isEmpty() && groupUsers.contains(userId);
         }
