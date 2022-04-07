@@ -7,9 +7,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
-import recipesharing.logic.*;
+import recipesharing.logic.Ingredient;
+import recipesharing.logic.IngredientItem;
+import recipesharing.logic.Recipe;
+import recipesharing.logic.User;
 import recipesharing.vo.RecipesCuisineVo;
-import recipesharing.vo.Result;
 
 import java.util.ArrayList;
 import java.util.List;
