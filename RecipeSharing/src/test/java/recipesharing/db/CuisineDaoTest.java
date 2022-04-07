@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Testing of Ingredient data access object and its methods.
  */
-/*
+
 @SpringBootTest
 class CuisineDaoTest {
 
@@ -27,20 +27,27 @@ class CuisineDaoTest {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    /**
+     * Checks that the database updates the list of cuisines when they are added or deleted.
+     */
     @Test
     void getAllCuisines() {
-        Cuisine cuisine = new Cuisine("Japanese");
+        // create new cuisine and add it to the database
+        Cuisine cuisine = new Cuisine("Caribbean");
         cuisineDao.addOneCuisine(cuisine);
         List<Cuisine> cuisines = cuisineDao.getAllCuisines();
-        assertTrue(cuisines.size() > 0);
-
-        Cuisine testCuisine = cuisines.get(0);
-        cuisineDao.delOneCuisine(testCuisine);
+        // check that the cuisine is in the list of cuisines
+        assertTrue(cuisines.contains(cuisine));
+        // delete the cuisine
+        cuisineDao.delOneCuisine(cuisine);
+        cuisines = cuisineDao.getAllCuisines();
+        // Check that the cuisine is no longer in the database
+        assertFalse(cuisines.contains(cuisine));
     }
 
     @Test
     void addOneCuisine() {
-        Cuisine cuisine = new Cuisine("Japanese");
+        Cuisine cuisine = new Cuisine("Icelandic");
         cuisineDao.addOneCuisine(cuisine);
 
         //Tests that the test cuisine has been added to the database.
@@ -56,7 +63,7 @@ class CuisineDaoTest {
     @Test
     void delOneCuisine() {
 
-        Cuisine cuisine = new Cuisine("Japanese");
+        Cuisine cuisine = new Cuisine("Ugandan");
         cuisineDao.addOneCuisine(cuisine);
 
         //Tests that the test cuisine has been added to the database.
@@ -72,14 +79,5 @@ class CuisineDaoTest {
 
 
 
-    @Test
-    void del(){
-
-        Query query = Query.query(Criteria.where("_id").is("sdsdsds"));
-        mongoTemplate.remove(query, Cuisine.class);
-
-    }
-
-
 }
-*/
+
