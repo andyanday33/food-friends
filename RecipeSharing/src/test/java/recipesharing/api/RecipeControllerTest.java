@@ -12,7 +12,7 @@ import recipesharing.api.RecipeController;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Tests the recipe API and it's methods.
+ * Tests the recipe API and its methods.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
