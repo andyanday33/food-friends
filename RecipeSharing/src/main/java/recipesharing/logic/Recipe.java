@@ -70,6 +70,7 @@ public class Recipe {
         this.ingredients = ingredients;
         this.cuisine = cuisine;
         this.readAccess = true;
+        this.createdTime = LocalDateTime.now();
     }
 
 
@@ -85,6 +86,7 @@ public class Recipe {
         this.cuisineId = cuisineId;
         this.ingredients = ingredients;
         this.mealItems = mealItems;
+        this.createdTime = LocalDateTime.now();
     }
 
 
@@ -94,6 +96,7 @@ public class Recipe {
     public Recipe(String recipeId, String recipeName) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
+        this.createdTime = LocalDateTime.now();
     }
 
 
