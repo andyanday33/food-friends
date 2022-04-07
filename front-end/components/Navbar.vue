@@ -58,6 +58,7 @@ export default {
     methods: {
         async userLogOut() {
             let data = await this.$auth.logout();
+            this.$store.dispatch("setIsAdmin", false); //We're always taking admin role from the current user
             console.log(data);
         },
         printUserData(){
