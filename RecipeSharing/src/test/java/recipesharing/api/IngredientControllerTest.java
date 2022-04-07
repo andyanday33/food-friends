@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * Tests the ingredient API and its methods.
  */
@@ -49,6 +47,19 @@ public class IngredientControllerTest {
      */
     @Test
     public void testDeleteIngredient() {
+        client.post().uri("/addIngredient?ingredientName=pigeon thigh&quantityToDouble=4.0&unitName=grams")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true")
+                .jsonPath("$.data.title").isEqualTo("pigeon thigh");
 
+        client.delete().uri("/deleteIngredientByTitle?title=pigeon thigh")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true");
     }
 }
