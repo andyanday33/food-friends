@@ -59,8 +59,8 @@ class RecipeDaoTest {
         String id = intermediate.getRecipeId();
 
         Recipe idRetrieve = recipeDao.findRecipeById(id);
-        assertEquals(idRetrieve, intermediate);
-        assertEquals(idRetrieve, recipe);
+        assertEquals(idRetrieve.getRecipeName(), intermediate.getRecipeName());
+        assertEquals(idRetrieve.getRecipeName(), recipe.getRecipeName());
 
         recipeDao.deleteRecipeById(id);
         assertNull(recipeDao.findRecipeById(id));
