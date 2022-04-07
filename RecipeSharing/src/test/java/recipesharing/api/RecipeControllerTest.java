@@ -88,8 +88,14 @@ public class RecipeControllerTest {
      * Tests that recipes can be retrieved by their author's ID.
      */
     @Test
-    public void getRecipeByAuthorId() {
-
+    public void getRecipesByAuthorId() {
+        client.get().uri("/getRecipesByAuthorId?authorId=auth78")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true")
+                .jsonPath("$.data[0].authorId").isEqualTo("auth78");
     }
 
     /**
