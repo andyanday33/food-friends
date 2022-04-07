@@ -46,8 +46,7 @@ public class CuisineController {
     }
 
     /**
-     * Add a new cuisine to the database.
-     * Error message will be returned if the cuisine already exists in the database.
+     * Add a new cuisine to the database. Error message will be returned if the cuisine already exists in the database.
      */
     @PostMapping("/addOneCuisine")
     public Result addOneCuisine(@RequestParam String name) {
@@ -65,8 +64,9 @@ public class CuisineController {
     }
 
     /**
-     * Delete cuisine by id if the cuisine exists.
-     * Error message will be returned if the cuisine does not exist in the DB.
+     * Delete cuisine by id if the cuisine exists. Error message will be returned if the cuisine does not exist in the
+     * DB.
+     *
      * @param id recipe id
      */
     @DeleteMapping("/deleteCuisineById")
@@ -84,7 +84,9 @@ public class CuisineController {
 
     /**
      * get a list of recipes that has the same cuisine id
+     *
      * @param cuisineId cuisine id, from the 'recipe table' as a foreign key
+     *
      * @return a list of recipes
      */
     @GetMapping("/getRecipesByCuisineId")
