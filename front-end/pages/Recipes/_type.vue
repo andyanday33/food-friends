@@ -26,7 +26,7 @@ const axios = require('axios').default;
 export default {
     components: { Navbar, Sidebar },
     name: "CuisinesPage",
-    //middleware: 'auth',
+    middleware: 'auth',
     data() {
         return {
             recipes: []
