@@ -52,7 +52,7 @@ export default {
             return cuisine.name == this.$route.params.type
         });
 
-        await axios.get(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisineId`, { params : { cuisineId : cuisine[0].id }})
+        await axios.get(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisineId`, { params : { recipesCuisineId : cuisine[0].id }})
             .then((res) => {
                 console.log(res);
                 this.recipes = res.data.data;
