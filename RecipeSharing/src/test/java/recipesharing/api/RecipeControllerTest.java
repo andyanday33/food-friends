@@ -9,12 +9,18 @@ import recipesharing.api.RecipeController;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests the recipe API and it's methods.
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
 
     @Autowired
     WebTestClient client;
 
+    /**
+     * Simple test of index method.
+     */
     @Test
     public void testIndex() {
         String apiDescription = client.get().uri("/").accept(MediaType.APPLICATION_JSON)
@@ -25,6 +31,9 @@ public class RecipeControllerTest {
         assertEquals(apiDescription, "Use GET /api for information on how to use the API.");
     }
 
+    /**
+     * Simple test of api description.
+     */
     @Test
     public void testApiDescription() {
         String apiDescription = client.get().uri("/api").accept(MediaType.APPLICATION_JSON)
@@ -35,6 +44,9 @@ public class RecipeControllerTest {
         assertEquals(apiDescription, "description of api");
     }
 
+    /**
+     * Tests that a new recipe can be created.
+     */
     @Test
     public void testCreateNewRecipe() {
         client.post().uri("/createNewRecipe?title=stinky tofu&description=tofu that really stinks&ownerId=auth78&instructions=let it ferment for 50 years&ingredientNames=Tofu&ingredientQuantities=1.0&cuisineName=Japanese")
@@ -44,6 +56,9 @@ public class RecipeControllerTest {
                 .expectBody();
     }
 
+    /**
+     * Tests that recipes can be retrieved by their title.
+     */
     @Test
     public void getRecipeByTitle() {
 
