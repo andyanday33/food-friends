@@ -7,9 +7,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
-import recipesharing.logic.*;
+import recipesharing.logic.Ingredient;
+import recipesharing.logic.IngredientItem;
+import recipesharing.logic.Recipe;
+import recipesharing.logic.User;
 import recipesharing.vo.RecipesCuisineVo;
-import recipesharing.vo.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +61,8 @@ class RecipeDaoTest {
         String id = intermediate.getRecipeId();
 
         Recipe idRetrieve = recipeDao.findRecipeById(id);
-        assertEquals(idRetrieve, intermediate);
-        assertEquals(idRetrieve, recipe);
+        assertEquals(idRetrieve.getRecipeName(), intermediate.getRecipeName());
+        assertEquals(idRetrieve.getRecipeName(), recipe.getRecipeName());
 
         recipeDao.deleteRecipeById(id);
         assertNull(recipeDao.findRecipeById(id));
@@ -94,12 +96,18 @@ class RecipeDaoTest {
      */
     @Test
     void findAllRecipe() {
-        User user = userDao.findUserById("6249cadaa1f0c07dba837007");
         Recipe recipe = new Recipe("CONTAINS ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
         assertTrue(allRecipe.size() > 0);
-        assertTrue(allRecipe.contains(recipe));
+        boolean containsCheck = false;
+        for (Recipe rec : allRecipe) {
+            if (rec.getRecipeName().equals("CONTAINS ME")) {
+                containsCheck = true;
+                break;
+            }
+        }
+        assertTrue(containsCheck);
     }
 
     /**
@@ -111,7 +119,7 @@ class RecipeDaoTest {
         Recipe recipe = new Recipe("findName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findName");
-        assertEquals(recipe, recipes.get(0));
+        assertEquals(recipe.getRecipeName(), recipes.get(0).getRecipeName());
 
         String id = recipes.get(0).getRecipeId();
 
@@ -129,7 +137,15 @@ class RecipeDaoTest {
 
         recipeDao.addRecipe(recipe);
         List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("authId49");
-        assertTrue(recipeName.contains(recipe));
+
+        boolean containsCheck = false;
+        for (Recipe rec : recipeName) {
+            if (rec.getRecipeName().equals("DELETE ME")) {
+                containsCheck = true;
+                break;
+            }
+        }
+        assertTrue(containsCheck);
 
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
         Recipe intermediate = returnedRecipes.get(0);
@@ -173,19 +189,19 @@ class RecipeDaoTest {
                 "t_recipe", RecipesCuisineVo.class);
 
         ArrayList<RecipesCuisineVo> recipesCuisineVos = new ArrayList<>();
-        for (RecipesCuisineVo result:results1
-        ) {
-            if(result.getCuisineId()!=null && result.get_id()!=null)
-            {
+        for (RecipesCuisineVo result:results1) {
+            if (result.getCuisineId() != null && result.get_id() != null) {
                 recipesCuisineVos.add(result);
             }
         }
         for (RecipesCuisineVo r : recipesCuisineVos) {
             System.out.println(r);
         }
-
     }
 
+    /**
+     * Tests adding a recipe with ingredients included.
+     */
     @Test
     void testAddRecipeWithIngredientList(){
         Recipe recipe = new Recipe();
@@ -201,17 +217,5 @@ class RecipeDaoTest {
         recipe.setIngredients(ingredients);
 
         recipeDao.addRecipe(recipe);
-    }
-
-    @Test
-    void testFindRecipeWithIngredientList(){
-        Recipe carrot_cake = recipeDao.findRecipeById("624d5c4556aa8979cdb6b60c");
-
-        List<IngredientItem> ingredients = carrot_cake.getIngredients();
-        for (IngredientItem i: ingredients
-        ) {
-            System.out.println(i.getIngredient());
-        }
-
     }
 }
