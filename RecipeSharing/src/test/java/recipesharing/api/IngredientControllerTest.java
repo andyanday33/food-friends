@@ -22,7 +22,12 @@ public class IngredientControllerTest {
      */
     @Test
     public void testFindAllIngredients() {
-
+        client.get().uri("/findAllIngredients")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true");
     }
 
     /**
