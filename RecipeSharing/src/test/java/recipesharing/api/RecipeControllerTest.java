@@ -18,8 +18,57 @@ public class RecipeControllerTest {
     @Autowired
     WebTestClient client;
 
-    @BeforeEach
-    void setup() {
+    @Test
+    public void testIndex() {
+        String apiDescription = client.get().uri("/").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+        assertEquals(apiDescription, "Use GET /api for information on how to use the API.");
+    }
+
+    @Test
+    public void testApiDescription() {
+        String apiDescription = client.get().uri("/api").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+        assertEquals(apiDescription, "description of api");
+    }
+
+    @Test
+    public void testCreateNewRecipe() {
+
+    }
+
+    @Test
+    public void getRecipeByTitle() {
+
+    }
+
+    @Test
+    public void getRecipeById() {
+
+    }
+
+    @Test
+    public void getRecipeByAuthorId() {
+
+    }
+
+    @Test
+    public void getRecipeAccessById() {
+
+    }
+
+    @Test
+    public void changeUserPermissionsOnRecipe() {
+
+    }
+    @Test
+    public void testDeleteRecipeById() {
 
     }
 
