@@ -28,6 +28,12 @@ public class LoginService {
 
     private static final String encoded_password_string = "cs5031!group!~d!";
 
+    /**
+     * user login without token
+     * @param email user email
+     * @param password user pwd
+     * @return
+     */
     public Result userLogin(String email, String password) {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
             return Result.fail(TransStatusCode.PARAMS_ERROR.getCode(), TransStatusCode.PARAMS_ERROR.getMsg());

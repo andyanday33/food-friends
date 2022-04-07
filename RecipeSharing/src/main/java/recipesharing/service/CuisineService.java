@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.CuisineDao;
@@ -29,6 +31,11 @@ public class CuisineService {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    /**
+     * find all recipes
+     * @return a list of recipes
+     * @throws NotFoundDBException
+     */
     public List<Cuisine> getAllCuisines() throws NotFoundDBException {
         List<Cuisine> cuisineList = cuisineDao.getAllCuisines();
         if (cuisineList.isEmpty()) {
@@ -109,26 +116,48 @@ public class CuisineService {
         }
     }
 
+    /**
+     * add one cuisine
+     * @param cuisine cuisine obj
+     */
     public void addOneCuisine(Cuisine cuisine) {
         cuisineDao.addOneCuisine(cuisine);
     }
 
+    /**
+     * del one cuisine
+     * @param cuisine cuisine obj
+     */
     public void delOneCuisine(Cuisine cuisine){
         cuisineDao.delOneCuisine(cuisine);
     }
 
+    /**
+     * del add one cuisine by its id
+     * @param cuisineId cuisine _id
+     */
     public void delOneCuisine(String cuisineId){
         cuisineDao.delOneCuisine(cuisineId);
     }
 
 
+    /**
+     * from a cuisine id, find all the recipes it has
+     * @param cuisineId _id for cuisine
+     * @return a list of RecipesCuisineVo which contains the _ids for the recipes
+     */
     public List<RecipesCuisineVo> findRecipesBycuisineId(String cuisineId){
         LookupOperation lookupOperation = LookupOperation.newLookup()
                 .from("t_cuisine")//Associated From the foreign Table
-                .localField(cuisineId)//Related fields in the main table (t_recipe)
-                .foreignField("_id")// Fields associated from the main table (t_recipe)
+                .localField("cuisineId")//Related fields in the main table (t_recipe)
+                .foreignField("_id")// Fields associated from the foreign table (t_recipe)
                 .as("cuisineRecipes");//Search result name
-        Aggregation aggregation = Aggregation.newAggregation(lookupOperation);
+
+        Criteria criteria = Criteria.where("cuisineId").is(cuisineId);
+
+        MatchOperation match = Aggregation.match(criteria);
+
+        Aggregation aggregation = Aggregation.newAggregation(lookupOperation, match);
 
         AggregationResults<RecipesCuisineVo> results1 = mongoTemplate.aggregate(aggregation,
                 "t_recipe", RecipesCuisineVo.class);

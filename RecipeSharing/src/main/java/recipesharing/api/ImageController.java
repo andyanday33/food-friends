@@ -21,6 +21,14 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+    /**
+     * upload an image in the client side
+     *  store the image in the database
+     * @param title image name
+     * @param image image
+     * @return the id of the image
+     * @throws IOException
+     */
     @PostMapping("/add")
     public Result addImage(@RequestParam("title") String title,
                            @RequestParam("image") MultipartFile image)
@@ -28,7 +36,12 @@ public class ImageController {
         String id = imageService.addImage(title, image);
         return Result.success(id);
     }
-    
+
+    /**
+     * find the image
+     * @param id image id
+     * @return image obj
+     */
     @GetMapping("/images/{id}")
     public Result getImage(@PathVariable String id) {
         Image image = imageService.getImage(id);

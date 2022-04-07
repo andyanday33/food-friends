@@ -17,9 +17,7 @@ import recipesharing.logic.User;
 
 import java.util.List;
 
-/**
- *
- */
+
 @Service
 public class UserService {
 
@@ -45,6 +43,12 @@ public class UserService {
         return userList;
     }
 
+    /**
+     *  find all users with page limit
+     * @param page the page number
+     * @param size the number of records shows up
+     * @return
+     */
     public List<User> findAllUsersWithPageLimit(int page, int size) {
 
 

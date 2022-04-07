@@ -32,6 +32,10 @@ public class UserController {
     LoginService loginService;
 
 
+    /**
+     * return the whole user list
+     * @return result message
+     */
     @GetMapping("/getAllUsers")
     public Result getAllUsers() {
         try {
@@ -40,6 +44,12 @@ public class UserController {
             return Result.fail(404, e.getMessage());
         }
     }
+
+    /**
+     *  find one user data by _id
+     * @param id _id of the user
+     * @return the result msg with the user obj if success
+     */
     @GetMapping("/getUserById")
     public Result getUserById (@RequestParam String id) {
         try {
@@ -49,6 +59,11 @@ public class UserController {
         }
     }
 
+    /**
+     *  find a user via its username
+     * @param name username
+     * @return user obj
+     */
     @GetMapping("/getUserByName")
     public Result getUserByName (@RequestParam String name) {
         try {
@@ -58,30 +73,57 @@ public class UserController {
         }
     }
 
+    /**
+     * find a user via its email
+     * @param email user email
+     * @return user obj
+     */
     @GetMapping("/getUserByEmail")
     public Result getUserByEmail (@RequestParam String email) {
         return Result.success(userService.findUserByEmail(email));
     }
 
+    /**
+     *  find a user via its email without token
+     * @param email user email
+     * @param password user obj
+     * @return
+     */
     @PostMapping("/login")
     public Result userLogin(@RequestParam String email, @RequestParam String password) {
         return loginService.userLogin(email, password);
     }
 
+    /**
+     * user log out
+     * @return result success msg
+     */
     @PostMapping("/logout")
     public Result userLogout(){
         return Result.success(null);
     }
 
+    /**
+     *  register a user
+     * @param userName user name
+     * @param email user email
+     * @param password user password
+     * @return
+     */
     @PostMapping("/register")
     public Result register(@RequestParam String userName,
                            @RequestParam String email,
                            @RequestParam String password) {
         User user = new User(userName, email, password, new ArrayList<>());
 
-        return loginService.register(user);
+        return Result.success(loginService.register(user));
     }
 
+    /**
+     * only for testing
+     * @param request
+     * @return
+     */
     @PostMapping("/jwttest")
     public Map<String, Object> test(HttpServletRequest request) {
         String token = request.getHeader("token");
@@ -138,9 +180,4 @@ public class UserController {
         return Result.success(null);
     }
 
-    @PutMapping("/updatePermissionsForRecipe")
-    public Result updatePermissionsForRecipe () {
-        // TODO add method body once db functionality is in place.
-        return null;
-    }
 }
