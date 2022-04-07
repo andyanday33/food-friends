@@ -88,6 +88,20 @@ public class RecipeController {
         }
     }
 
+
+    /**
+     * Return all recipes if they exist. Otherwise returns a 404 and error message.
+     * @return
+     */
+    @GetMapping("/getAllRecipes")
+    public Result getAllRecipes() {
+        try {
+            return Result.success(recipeService.findAllRecipe());
+        } catch (NotFoundDBException e) {
+            return Result.fail(404, e.getMessage());
+        }
+    }
+
     /**
      * Returns a list of recipes which have the same title as the one specified by the user.
      * @param title
@@ -143,6 +157,7 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
+
     @PutMapping("/updateRecipeById")
     public Result updateRecipe(
             @RequestParam String title,
@@ -173,6 +188,8 @@ public class RecipeController {
         }
 
     }
+
+
 
     /**
      * Change permissions for a recipe

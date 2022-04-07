@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -55,16 +56,16 @@ public class Recipe {
     /**
      *
      * @param recipeName
-     * @param recipeDescription
+     * @param description
      * @param ownerId
      * @param instructions
      * @param ingredients
      * @param cuisine
      */
-    public Recipe(String recipeName, String recipeDescription, String ownerId, ArrayList<String> instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine) {
+    public Recipe(String recipeName, String description, String authorId, ArrayList<String> instructions, ArrayList<IngredientItem> ingredients, Cuisine cuisine) {
         this.recipeName = recipeName;
-        this.description = recipeDescription;
-        this.authorId = ownerId;
+        this.description = description;
+        this.authorId = authorId;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.cuisine = cuisine;
@@ -96,6 +97,10 @@ public class Recipe {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
     }
+
+
+
+
 
     public boolean isWriteAccess() {
         return writeAccess;
