@@ -75,7 +75,13 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeById() {
-
+        client.get().uri("/getRecipeById?recipeId=624ed6763570fc64f5db9e70")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true")
+                .jsonPath("$.data.recipeId").isEqualTo("624ed6763570fc64f5db9e70");
     }
 
     /**
