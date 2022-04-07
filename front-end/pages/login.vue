@@ -6,7 +6,7 @@
       <div class="col-span-3 justify-self-center grid grid-cols-2 justify-items-center">
         <label class="py-5 px-4">Email:</label>
         <input class="text-black mt-4 border-2 border-gray-300 bg-gray-50 h-10 pl-2 pr-8 rounded-lg focus:outline-none" 
-        type="email" v-model="login.username" />
+        type="email" v-model="login.email" />
       </div>
       <div class="col-span-3 justify-self-center grid grid-cols-2 justify-items-center">
         <label class="py-2 px-4">Password:</label>
@@ -14,7 +14,7 @@
         type="password" v-model="login.password" />
       </div>
       <div v-if="login.incorrect" class="col-span-3 justify-self-center grid grid-cols-2 shadow">
-        <p class="col-span-2 rounded bg-red-900 py-2 px-8 mt-4">Incorrect username/password</p>
+        <p class="col-span-2 rounded bg-red-900 py-2 px-8 mt-4">Incorrect email/password</p>
       </div>
       <div class="col-span-3 justify-self-center grid grid-cols-2 shadow">
         <button class="col-span-2 rounded bg-green-900 py-2 px-8 mt-4 hover:bg-gray-900" type="submit">Login</button>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       login: {
-        username: '',
+        email: '',
         password: '',
         incorrect: false,
       }
@@ -45,7 +45,7 @@ export default {
       try {
         this.login.incorrect = false;
         // let response = await this.$auth.loginWith('local', { data: this.login });
-        const res = await this.$axios.$post(`${ process.env.baseUrl }:${ process.env.apiPort }/user/login?email=${this.login.username}&password=${this.login.password}`);
+        const res = await this.$axios.$post(`${ process.env.baseUrl }:${ process.env.apiPort }/user/login?email=${this.login.email}&password=${this.login.password}`);
         console.log(res);
         //Admin checking
         const admins = await this.$axios.$get(`${ process.env.baseUrl }:${ process.env.apiPort }/admin/getAllAdmins`);
