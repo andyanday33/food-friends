@@ -62,6 +62,12 @@ public class RecipeControllerTest {
     }
 
 
+    @Test
+    void getUserWritableAccess() {
+        String userId = "6249cadaa1f0c07dba837007";
+        String recipeId = "6249e0a345eefd38211decab";
 
-
+        RecipeController recipeController = new RecipeController();
+        recipeController.getUserWritableAccess(userId, recipeId);
+    }
 }

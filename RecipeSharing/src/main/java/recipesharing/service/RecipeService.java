@@ -5,9 +5,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.LookupOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -15,12 +12,7 @@ import recipesharing.customExceptions.NotFoundDBException;
 import recipesharing.db.AdminDao;
 import recipesharing.db.RecipeDao;
 import recipesharing.logic.Recipe;
-import recipesharing.logic.Cuisine;
-import recipesharing.logic.Recipe;
-import recipesharing.logic.User;
-import recipesharing.vo.RecipesCuisineVo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,8 +29,10 @@ public class RecipeService {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
     /**
-     *  find all recipes, 
+     * find all recipes,
+     *
      * @return recipe list
      */
     public List<Recipe> findAllRecipe() throws NotFoundDBException {
@@ -55,30 +49,34 @@ public class RecipeService {
         Query query = new Query();
         long count = mongoTemplate.count(query, Recipe.class);
 
-        Pageable pageable = PageRequest.of(page-1,size);
+        Pageable pageable = PageRequest.of(page - 1, size);
 
         return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC, "recipeName")), Recipe.class);
     }
 
     /**
-     * find admins with page limits and query
-     * the query can specify the name, id etc
+     * find admins with page limits and query the query can specify the name, id etc
+     *
      * @param query query condition
-     * @param page current
-     * @param size the number of records shows up
-     * @return admin list 
+     * @param page  current
+     * @param size  the number of records shows up
+     *
+     * @return admin list
      */
     public List<Recipe> findAllRecipesByQueryWithPageLimit(Query query, int page, int size) {
 
         long count = mongoTemplate.count(query, Recipe.class);
 
-        Pageable pageable = PageRequest.of(page-1,size);
+        Pageable pageable = PageRequest.of(page - 1, size);
 
-        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC,"recipeName")), Recipe.class);
+        return mongoTemplate.find(query.with(pageable).with(Sort.by(Sort.Direction.DESC, "recipeName")), Recipe.class);
     }
+
     /**
-     *  find a recipe by its _id
+     * find a recipe by its _id
+     *
      * @param id recipe _id
+     *
      * @return one recipe
      */
     public Recipe findRecipeById(String id) throws NotFoundDBException {
@@ -90,8 +88,10 @@ public class RecipeService {
     }
 
     /**
-     *  find recipes by its name, can not be unique
+     * find recipes by its name, can not be unique
+     *
      * @param name recipe's name/title
+     *
      * @return a list of recipes that have the same name
      */
     public List<Recipe> findRecipeByRecipeName(String name) throws NotFoundDBException {
@@ -103,8 +103,10 @@ public class RecipeService {
     }
 
     /**
-     *  find recipe list that created by a same author
+     * find recipe list that created by a same author
+     *
      * @param authorId the author's id
+     *
      * @return a list of recipes that created by the same user
      */
     public List<Recipe> findRecipeByAuthorId(String authorId) throws NotFoundDBException {
@@ -122,57 +124,89 @@ public class RecipeService {
 
     /**
      * add one recipe
+     *
      * @param recipe new recipe
      */
-    public void addRecipe(Recipe recipe){
+    public void addRecipe(Recipe recipe) {
         recipeDao.addRecipe(recipe);
     }
 
     /**
      * delete the recipe by the recipe _id
+     *
      * @param id recipe id
      */
-    public void deleteRecipeById(String id){
+    public void deleteRecipeById(String id) {
         recipeDao.deleteRecipeById(id);
     }
 
     /**
      * update the recipe by the recipe
+     *
      * @param newRecipe the updated recipe
      */
-    public void updateRecipeById(Recipe newRecipe){
+    public void updateRecipeById(Recipe newRecipe) {
         recipeDao.updateRecipeById(newRecipe);
     }
 
 
     /**
-     *  check if the person has writing access to the recipe
-     *  now: only author & invited users & admins have the write access
-     * @param userId author's id
+     * check if the person has writing access to the recipe now: only author & invited users & admins have the write
+     * access
+     *
+     * @param userId   userId from "t_recipe"/ _id from "t_admin"
+     *                 /group user id from "t_recipe"'s list
      * @param recipeId recipe's id
+     *
      * @return
      */
     public Boolean isWritable(String userId, String recipeId) {
         Recipe recipeById = recipeDao.findRecipeById(recipeId);
 
+        System.out.println(recipeById.toString());
         Query query = Query.query(Criteria.where("_id").is(userId));
-
-        //Author check
-        if (recipeById.getAuthorId().equals(userId)){
+        //Author check from "t_recipe"
+        if (recipeById.getAuthorId().equals(userId)) {
+            System.out.println("author!");
             return true;
-            // admin check
+            // admin check from "t_admin"
         } else if (mongoTemplate.exists(query, "t_admin")) {
+            System.out.println("admin!");
             return true;
         } else {
-            // group user check
-            List<User> groupUsers = recipeById.getGroupUsers();
-            for (User u: groupUsers
-                 ) {
-                if(u.getUserId().equals(userId)){
-                    return true;
-            }
+            // group user check from "t_recipe"'s group user list
+            List<String> groupUsers = recipeById.getGroupUserIds();
+            //            for (User u: groupUsers
+            //                 ) {
+            //                if (u.getUserId().equals(userId)) {
+            //                    return true;
+            //                }
 
-            }  return false;
+            return !groupUsers.isEmpty() && groupUsers.contains(userId);
         }
     }
+
+    public boolean changeReadAccess(String opt, String recipeId, String userId){
+        Boolean writable = this.isWritable(userId, recipeId);
+        if(writable){
+            if (opt.equals("private")){
+                Recipe recipeById = recipeDao.findRecipeById(recipeId);
+                recipeById.setReadAccess(false);
+                recipeDao.updateRecipeById(recipeById);
+                return true;
+            }
+            else if (opt.equals("public")){
+                Recipe recipeById = recipeDao.findRecipeById(recipeId);
+                recipeById.setReadAccess(true);
+                recipeDao.updateRecipeById(recipeById);
+                return true;
+            }
+        }
+        return false;
+    }
+
+//    public Object findRecipesByIngredient(String ingredientName) {;
+//
+//    }
 }
+

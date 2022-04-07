@@ -153,13 +153,13 @@ public class UserService {
      * @param invitedId id of the user being invited to edit the recipe
      */
     public void inviteUserById(String recipeId, String invitedId){
-        User invited = userDao.findUserById(invitedId);
         Recipe joined = recipeDao.findRecipeById(recipeId);
 
-        List<User> groupUsers = joined.getGroupUsers();
-        groupUsers.add(invited);
+        List<String> groupUsers = joined.getGroupUserIds();
+        groupUsers.add(invitedId);
 
-        joined.setGroupUsers(groupUsers);
+        joined.setGroupUserIds(groupUsers);
+
     }
 
 }
