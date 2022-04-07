@@ -174,20 +174,6 @@ public class RecipeController {
 
     }
 
-    /**
-     * Change permissions for a recipe
-     * @param name
-     * @param email
-     * @param recipeID
-     */
-    @PostMapping("/changePermissionsOnRecipe")
-    public void changeUserPermissionsOnRecipe(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String recipeID
-    ) {
-        // need to implement
-    }
 
     /**
      * Searches for all recipes with the given ingredient in them and returns a list of recipes.
@@ -217,7 +203,7 @@ public class RecipeController {
      * @return meal item list that contains the tags
      * @throws NotFoundDBException
      */
-    @PostMapping("/getmealtypebyrecipename")
+    @GetMapping("/getmealtypebyrecipename")
     public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
         Recipe recipe = recipeService.findRecipeById(recipeId);
 
@@ -247,7 +233,7 @@ public class RecipeController {
      *
      * @return boolean variable that shows if it is writable
      */
-    @PostMapping("/getUserWriteAccessById")
+    @GetMapping("/getUserWriteAccessById")
     public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId) {
         return Result.success(recipeService.isWritable(userId, recipeId));
     }
