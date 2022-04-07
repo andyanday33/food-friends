@@ -238,18 +238,30 @@ public class RecipeController {
         return Result.success(ingredients);
     }
 
-
     /**
-     *  check if the person has writing access to the recipe
-     *  now: only author & invited users & admins have the write access
-     * @param userId   user id
-     * @param recipeId   recipe id
+     * check if the person has writing access to the recipe now: [only author & invited users & admins] have the write
+     * access
+     *
+     * @param userId   userId from "t_recipe"/ _id from "t_admin" /group user id from "t_recipe"'s list
+     * @param recipeId recipe id
+     *
      * @return boolean variable that shows if it is writable
      */
-    @GetMapping("/getUserWriteAccessById")
-    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId){
-        Boolean writable = recipeService.isWritable(userId, recipeId);
-        return Result.success(writable);
+    @PostMapping("/getUserWriteAccessById")
+    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId) {
+        return Result.success(recipeService.isWritable(userId, recipeId));
+    }
+
+    /**
+     * change the read permission on one recipe
+     * @param opt "private'/'public'
+     * @param recipeId _id of the recipe
+     * @param userId _id of the user/admin
+     * @return boolean
+     */
+    @PostMapping("/changePermissionsOnRecipe")
+    public Result changeReadPermissionOnRecipe(@RequestParam String opt, @RequestParam String recipeId, @RequestParam String userId) {
+        return Result.success(recipeService.changeReadAccess(opt, recipeId, userId));
     }
 
 }
