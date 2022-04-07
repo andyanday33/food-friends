@@ -9,7 +9,7 @@
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
                 <h1 v-if="recipes.length == 0" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
                 <div v-for="(x,recipe) in recipes" :key="recipe" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
-                    <h2 class="m-auto text-3xl">{{ recipes[recipe].recipeName }}</h2>
+                    <NuxtLink :to="`/Recipes/${recipes[recipe].recipeName}`" class="m-auto text-3xl">{{ recipes[recipe].recipeName }}</NuxtLink>
                 </div>
             </div>
         </div>
@@ -52,7 +52,6 @@ export default {
             return cuisine.name == this.$route.params.type
         });
 
-        console.log(cuisine[0].id);
         await axios.get(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisineId`, { params : { cuisineId : cuisine[0].id }})
             .then((res) => {
                 console.log(res);

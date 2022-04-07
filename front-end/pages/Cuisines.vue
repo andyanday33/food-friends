@@ -26,7 +26,7 @@
                     <h2 class="m-auto text-3xl">Mediterranean</h2>
                 </NuxtLink> -->
                 <h1 v-if="!$store.state.cuisineData" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
-                <NuxtLink v-for="(x,cuisine) in $store.state.cuisineData" :key="cuisine" :to="`/Recipes/` + $store.state.cuisineData[cuisine].name"
+                <NuxtLink v-for="(x,cuisine) in $store.state.cuisineData" :key="cuisine" :to="`/Cuisine/` + $store.state.cuisineData[cuisine].name"
                  class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h2 class="m-auto text-3xl">{{ $store.state.cuisineData[cuisine].name }}</h2>
                 </NuxtLink>
