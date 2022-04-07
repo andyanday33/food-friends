@@ -53,7 +53,7 @@ export default {
         });
 
         console.log(cuisine[0].id);
-        await axios.post(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisine`, null, { params : { cuisineId : cuisine[0].id }})
+        await axios.get(`${ process.env.baseUrl }:${ process.env.apiPort }/getRecipesByCuisineId`, { params : { cuisineId : cuisine[0].id }})
             .then((res) => {
                 console.log(res);
                 this.recipes = res.data.data;
