@@ -111,7 +111,7 @@ class RecipeDaoTest {
         Recipe recipe = new Recipe("findName", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
         recipeDao.addRecipe(recipe);
         List<Recipe> recipes = recipeDao.findRecipeByRecipeName("findName");
-        assertEquals(recipe, recipes.get(0));
+        assertEquals(recipe.getRecipeName(), recipes.get(0).getRecipeName());
 
         String id = recipes.get(0).getRecipeId();
 
@@ -129,7 +129,15 @@ class RecipeDaoTest {
 
         recipeDao.addRecipe(recipe);
         List<Recipe> recipeName = recipeDao.findRecipeByAuthorId("authId49");
-        assertTrue(recipeName.contains(recipe));
+
+        boolean containsCheck = false;
+        for (Recipe rec : recipeName) {
+            if (rec.getRecipeName().equals("DELETE ME")) {
+                containsCheck = true;
+                break;
+            }
+        }
+        assertTrue(containsCheck);
 
         List<Recipe> returnedRecipes = recipeDao.findRecipeByRecipeName("DELETE ME");
         Recipe intermediate = returnedRecipes.get(0);
