@@ -17,6 +17,15 @@ $ npm run start
 $ npm run generate
 ```
 
+## Connecting to Backend
+
+To be able to connect to the backend, after installing dependencies and running the project with "$ npm run dev"
+you should add a .env file to this directory with following fiels:
+
+BASE_URL="https://example.url" if you are running locally, this should be "http://localhost"
+
+API_PORT="XXXX" where XXXX is a four digit number that represents the port.
+
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
 ## Special Directories
