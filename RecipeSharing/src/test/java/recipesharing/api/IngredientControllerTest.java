@@ -35,7 +35,13 @@ public class IngredientControllerTest {
      */
     @Test
     public void testAddIngredient() {
-
+        client.post().uri("/addIngredient?ingredientName=snails tails&quantityToDouble=4.0&unitName=grams")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true")
+                .jsonPath("$.data.title").isEqualTo("snails tails");
     }
 
     /**
