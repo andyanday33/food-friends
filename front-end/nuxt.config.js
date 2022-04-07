@@ -47,6 +47,7 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+    
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -54,33 +55,26 @@ export default {
 
   auth: {
     strategies: {
-      auth0: {
-        domain: 'dev-tys5d4fu.us.auth0.com',
-        clientId: 'zynW9dJqT1m4TguKMexnpkulEuBDRCyK',
-        audience: 'https://dev-tys5d4fu.us.auth0.com/api/v2/',
-        logoutRedirectUri: 'http://localhost:3000'
-      },
       local: {
         token: {
-          property: 'access_token',
+          property: 'data.userId',
           global: true,
           // type: 'Bearer'
         },
         user: {
-          property: 'user',
-         // autoFetch: true
+          property: 'data',
+          autoFetch: false
         },
         endpoints: {
-          login: { url: 'http:/localhost:8080/user/login', method: 'post' },
-          register: { url: 'http:/localhost:8080/user/register', method: 'post' },
-          user: { url: 'http:/localhost:8080/user', method: 'get' },
-          logout: { url: 'http:/localhost:8080/user/logout', method: 'post' }
+          login: { url: 'http://localhost:8080/user/login', method: 'post' },
+          register: { url: 'http://localhost:8080/user/register', method: 'post' },
+          logout: { url: 'http://localhost:8080/user/logout', method: 'post' }
         },
         // autoLogout: false
       }
     },
     redirect: {
-      login: '/Unauthorized',
+      login: '/unauthorized',
       home: '/'
     }
   },
@@ -93,7 +87,7 @@ export default {
   },
 
   env: {
-    clientId: process.env.CLIENT_ID,
-
+    baseUrl: process.env.BASE_URL,
+    apiPort: process.env.API_PORT
   }
 }
