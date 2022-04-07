@@ -11,6 +11,9 @@
                 <p v-if="author.id" class="text-center col-span-3">Author: {{ author.id }} </p>
                 <p v-if="description" class="text-center col-span-3">Description: {{ description }} </p>
                 <p v-if="instructions" class="text-center col-span-3">Instructions: {{ instructions }} </p>
+                <div v-for="(x,index) in ingredients" :key="index">
+                    <p>{{ index }}. {{ ingredients[index] }} , quantity: <span v-if="quantities[index]">{{ quantities[index] }}</span></p>
+                </div>
             </div>
         </div>
         
@@ -30,6 +33,7 @@ export default {
     data() {
         return {
             ingredients: [],
+            quantities: [],
             author: {},
             cuisine: {},
             description: "",
@@ -64,6 +68,8 @@ export default {
                     this.author.id = recipe.authorId;
                     this.description = recipe.description;
                     this.instructions = recipe.instructions;
+                    this.ingredients = recipe.ingredients;
+                    this.quantities = recipe.quantities;
                     this.loading = false;
                 }
                 
