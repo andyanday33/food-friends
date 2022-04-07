@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-800 text-gray-50 h-screen justify-center">
     <Navbar />
-    <h1 class="pt-5 text-5xl text-center">Login to Food Friends</h1>
+    <h1 class="mt-5 text-5xl text-center">Register to Food Friends!</h1>
     <form class="grid grid-cols-3 p-4 grow justify-start border rounded-2xl mx-6 mt-4" @submit.prevent="userLogin">
       <div class="col-span-3 justify-self-center grid grid-cols-2 justify-items-center">
         <label class="py-5 px-4">Email:</label>
@@ -17,12 +17,11 @@
         <p class="col-span-2 rounded bg-red-900 py-2 px-8 mt-4">Incorrect username/password</p>
       </div>
       <div class="col-span-3 justify-self-center grid grid-cols-2 shadow">
-        <button class="col-span-2 rounded bg-green-900 py-2 px-8 mt-4 hover:bg-gray-900" type="submit">Login</button>
+        <button class="col-span-2 rounded bg-green-900 py-2 px-8 mt-4 hover:bg-gray-900" type="submit">Register</button>
       </div>
       <div class="col-span-3 justify-self-center grid grid-cols-2">
-        <p class="col-span-2">Don't have an account? <NuxtLink to="/register" class="col-span-2 rounded mt-4 text-green-500 hover:text-gray-50" type="submit">register</NuxtLink> instead</p>
+        <p class="col-span-2">Have an account? <NuxtLink to="/login" class="col-span-2 rounded mt-4 text-green-500 hover:text-gray-50" type="submit">login</NuxtLink> instead</p>
       </div>
-      
     </form>
   </div>
 </template>

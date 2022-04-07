@@ -38,9 +38,13 @@
             <div class="flex ">
                 <NuxtLink to="/login" v-if="!$auth.loggedIn"
                    class="block text-md px-4 py-2 rounded text-green-600 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
-                   @click="userSignIn"
                    >
                    Login
+                </NuxtLink>
+                <NuxtLink to="/register" v-if="!$auth.loggedIn"
+                   class="block text-md px-4 py-2 rounded text-green-600 ml-2 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
+                   >
+                   Register
                 </NuxtLink>
                 <a href="#" v-if="$auth.loggedIn"
                    class=" block text-md px-4  ml-2 py-2 rounded text-green-600 font-bold hover:text-white mt-4 hover:bg-green-900 lg:mt-0"
