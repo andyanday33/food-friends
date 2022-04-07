@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import recipesharing.api.RecipeController;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
@@ -17,12 +17,22 @@ public class RecipeControllerTest {
 
     @Test
     public void testIndex() {
-
+        String apiDescription = client.get().uri("/").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+        assertEquals(apiDescription, "Use GET /api for information on how to use the API.");
     }
 
     @Test
     public void testApiDescription() {
-
+        String apiDescription = client.get().uri("/api").accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+        assertEquals(apiDescription, "description of api");
     }
 
     @Test
