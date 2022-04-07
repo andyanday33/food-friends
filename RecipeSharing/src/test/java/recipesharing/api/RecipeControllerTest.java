@@ -61,7 +61,13 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeByTitle() {
-
+        client.get().uri("getRecipeByTitle?title=stinky tofu")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo("true")
+                .jsonPath("$.data[0].recipeName").isEqualTo("stinky tofu");
     }
 
     @Test
