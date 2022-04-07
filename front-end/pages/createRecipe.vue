@@ -77,13 +77,14 @@ export default {
         const quantitites = this.recipe.ingredientQuantities.split("\n");
         console.log(quantitites);
         const userId = this.$store.state.user.userId;
+        console.log(userId);
 
         await axios.post(`${ process.env.baseUrl }:${ process.env.apiPort }/createNewRecipe`, null, {params : { 
             title: this.recipe.name,
             description: this.recipe.description,
             instructions : this.recipe.instructions,
-            ingredientNames: ingredients,
-            ingredientQuantities: quantitites,
+            ingredientNames: this.recipe.ingredientNames,
+            ingredientQuantities: this.recipe.ingredientQuantities,
             ownerId: userId,
             cuisineName: this.recipe.cuisineName
             }})
