@@ -10,6 +10,6 @@ public class NotFoundDBException extends Exception{
     }
 
     public String toString() {
-        return ("Not Found in Database Exception Occured : " + message);
+        return ("Not Found in Database Exception Occurred : " + message);
     }
 }

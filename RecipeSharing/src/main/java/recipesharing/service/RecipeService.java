@@ -115,7 +115,7 @@ public class RecipeService {
         return recipeList;
     }
 
-    // TODO need to throw exception here but not sure how to because it returns a boolean which is never null I think?
+
     public boolean findRecipeAccessById(String accessType, String recipeId) {
         return recipeDao.findRecipeAccessById(accessType, recipeId);
     }

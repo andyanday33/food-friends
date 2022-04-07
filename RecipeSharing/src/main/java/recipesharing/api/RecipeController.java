@@ -80,7 +80,8 @@ public class RecipeController {
             Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
             // Create a new recipe
             Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
-
+            // add the recipe
+            recipeService.addRecipe(recipe);
             return Result.success(recipe);
         } else {
             return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
@@ -142,13 +143,34 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
-
-
-// TODO  public String createRecipe
-    @GetMapping("/getRecipe/{user}")
-    public void getRecipesByUser(@PathVariable String userId) {
-        //change from String to User
-        // return list of recipes
+    @PutMapping("/updateRecipeById")
+    public Result updateRecipe(
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String ownerId,
+            @RequestParam ArrayList<String> instructions,
+            @RequestParam String[] ingredientNames,
+            @RequestParam String[] ingredientQuantities,
+            @RequestParam String cuisineName
+    ) {
+        // Create a new list to store each ingredient item.
+        ArrayList<IngredientItem> ingredients = new ArrayList<>();
+        // Loop through all ingredient names and add each ingredient and corresponding quantity to the list.
+        for (int i = 0; i < ingredientNames.length; i++) {
+            ingredients.add(new IngredientItem(title, new Ingredient(ingredientNames[i], Double.parseDouble(ingredientQuantities[i]))));
+        }
+        // if the database contains a cuisine with the given name then they may add the recipe
+        if (cuisineService.containsCuisineWithName(cuisineName)) {
+            // find the cuisine object associated with the cuisine title
+            Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
+            // Create a new recipe
+            Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
+            // update the recipe
+            recipeService.updateRecipeById(recipe);
+            return Result.success(recipe);
+        } else {
+            return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
+        }
 
     }
 
@@ -174,18 +196,9 @@ public class RecipeController {
     @GetMapping("/getRecipesWithIngredient")
     public void getRecipesWithIngredient(@RequestParam String ingredientName) {
         //TODO missing DB functionality
+
     }
 
-    /**
-     * todo still to be implemented.
-     * @param cuisineType
-     */
-    @GetMapping("/getRecipesByCuisine")
-    public void getRecipesByCuisine(@RequestParam String cuisineType) {
-        // Create new cuisine. TODO validate input.
-//        Cuisine cuisine = new Cuisine(cuisineType);
-        //todo needs to be implemented in db
-    }
 
     /**
      * Deletes a recipe from the database given a unique recipe ID.
