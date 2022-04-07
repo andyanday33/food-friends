@@ -52,6 +52,7 @@ export default {
         // let response = await this.$auth.loginWith('local', { data: this.login });
         const res = await this.$axios.$post(`${ process.env.baseUrl }:${ process.env.apiPort }/user/register?email=${this.register.email}&password=${this.register.password}&userName=${this.register.username}`);
         console.log(res);
+
         if(res.code == 200) {
             this.$router.push('/');
         } else {

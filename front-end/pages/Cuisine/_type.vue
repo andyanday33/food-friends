@@ -9,7 +9,7 @@
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
                 <h1 v-if="recipes.length == 0" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
                 <div v-for="(x,recipe) in recipes" :key="recipe" class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64">
-                    <NuxtLink :to="`/Recipes/${recipes[recipe].recipeName}`" class="m-auto text-3xl">{{ recipes[recipe].recipeName }}</NuxtLink>
+                    <NuxtLink :to="`/recipe/${recipes[recipe].recipeName}`" class="m-auto text-3xl">{{ recipes[recipe].recipeName }}</NuxtLink>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
    <div class="overflow-y-auto rounded">
       <ul class="space-y-2 text-gray-50">
          <li>
-            <NuxtLink to="/Cuisines" class="flex items-center p-3 text-base font-normal rounded-lg border-green-500 border-b hover:bg-gray-900 hover:text-gray-50">
+            <NuxtLink to="/cuisines" class="flex items-center p-3 text-base font-normal rounded-lg border-green-500 border-b hover:bg-gray-900 hover:text-gray-50">
                
                <span class="ml-3">Cuisines</span>
             </NuxtLink>

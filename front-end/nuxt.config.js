@@ -74,7 +74,7 @@ export default {
       }
     },
     redirect: {
-      login: '/Unauthorized',
+      login: '/unauthorized',
       home: '/'
     }
   },

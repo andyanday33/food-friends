@@ -8,7 +8,7 @@
             <h2 class="text-5xl text-center">Cuisines</h2>
             <div class="grid grid-cols-3 gap-8 p-8 text-center max-h-128">
                 <h1 v-if="!$store.state.cuisineData" class="col-span-3 text-5xl text-green-500"> Loading... </h1>
-                <NuxtLink v-for="(x,cuisine) in $store.state.cuisineData" :key="cuisine" :to="`/Cuisine/` + $store.state.cuisineData[cuisine].name"
+                <NuxtLink v-for="(x,cuisine) in $store.state.cuisineData" :key="cuisine" :to="`/cuisine/` + $store.state.cuisineData[cuisine].name"
                  class="container shadow hover:shadow-xl border-2 rounded-3xl border-gray-100 flex h-64 hover:bg-gray-700">
                     <h3 class="m-auto text-3xl">{{ $store.state.cuisineData[cuisine].name }}</h3>
                 </NuxtLink>
