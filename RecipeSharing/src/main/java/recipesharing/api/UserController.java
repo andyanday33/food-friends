@@ -56,10 +56,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Result userLogin( @RequestBody User user ) {
-            //@RequestParam String email, @RequestParam String password ){
-
-        return loginService.userLogin(user.getEmail(), user.getPassword());
+    public Result userLogin(@RequestParam String email, @RequestParam String password) {
+        return loginService.userLogin(email, password);
     }
 
     @PostMapping("/logout")
