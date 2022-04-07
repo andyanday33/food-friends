@@ -190,22 +190,6 @@ public class RecipeController {
     }
 
 
-
-    /**
-     * Change permissions for a recipe
-     * @param name
-     * @param email
-     * @param recipeID
-     */
-    @PostMapping("/changePermissionsOnRecipe")
-    public void changeUserPermissionsOnRecipe(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String recipeID
-    ) {
-        // need to implement
-    }
-
     /**
      * Searches for all recipes with the given ingredient in them and returns a list of recipes.
      * @param ingredientName
@@ -234,7 +218,7 @@ public class RecipeController {
      * @return meal item list that contains the tags
      * @throws NotFoundDBException
      */
-    @PostMapping("/getmealtypebyrecipename")
+    @GetMapping("/getmealtypebyrecipename")
     public Result getMealTypesByRecipeName(@RequestParam String recipeId) throws NotFoundDBException {
         Recipe recipe = recipeService.findRecipeById(recipeId);
 
@@ -255,18 +239,30 @@ public class RecipeController {
         return Result.success(ingredients);
     }
 
-
     /**
-     *  check if the person has writing access to the recipe
-     *  now: only author & invited users & admins have the write access
-     * @param userId   user id
-     * @param recipeId   recipe id
+     * check if the person has writing access to the recipe now: [only author & invited users & admins] have the write
+     * access
+     *
+     * @param userId   userId from "t_recipe"/ _id from "t_admin" /group user id from "t_recipe"'s list
+     * @param recipeId recipe id
+     *
      * @return boolean variable that shows if it is writable
      */
     @GetMapping("/getUserWriteAccessById")
-    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId){
-        Boolean writable = recipeService.isWritable(userId, recipeId);
-        return Result.success(writable);
+    public Result getUserWritableAccess(@RequestParam String userId, @RequestParam String recipeId) {
+        return Result.success(recipeService.isWritable(userId, recipeId));
+    }
+
+    /**
+     * change the read permission on one recipe
+     * @param opt "private'/'public'
+     * @param recipeId _id of the recipe
+     * @param userId _id of the user/admin
+     * @return boolean
+     */
+    @PostMapping("/changePermissionsOnRecipe")
+    public Result changeReadPermissionOnRecipe(@RequestParam String opt, @RequestParam String recipeId, @RequestParam String userId) {
+        return Result.success(recipeService.changeReadAccess(opt, recipeId, userId));
     }
 
 }

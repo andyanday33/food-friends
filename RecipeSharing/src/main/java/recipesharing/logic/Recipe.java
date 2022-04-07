@@ -28,7 +28,7 @@ public class Recipe {
     private String recipeName;
     private String authorId;
 
-//    @DBRef
+    //    @DBRef
     private User author;
 
     private LocalDateTime createdTime;
@@ -51,10 +51,10 @@ public class Recipe {
 
     private List<MealItem> mealItems;
 
+    private List<String> groupUserIds;
     private List<User> groupUsers;
 
     /**
-     *
      * @param recipeName
      * @param description
      * @param ownerId
@@ -69,9 +69,8 @@ public class Recipe {
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.cuisine = cuisine;
-        this.readAccess=true;
+        this.readAccess = true;
     }
-
 
 
     public Recipe(String recipeName, String authorId, LocalDateTime createdTime, LocalDateTime updatedTime, String description, boolean writeAccess, boolean readAccess, int thumpsUp, ArrayList<String> mealType, String cuisineId, ArrayList<IngredientItem> ingredients, ArrayList<MealItem> mealItems) {
@@ -87,7 +86,6 @@ public class Recipe {
         this.ingredients = ingredients;
         this.mealItems = mealItems;
     }
-
 
 
     public Recipe(String delete_me, String authorId1, User user, boolean b, boolean b1, int i) {
