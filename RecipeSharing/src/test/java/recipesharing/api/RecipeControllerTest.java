@@ -12,39 +12,13 @@ import recipesharing.api.RecipeController;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Tests the recipe API and it's methods.
+ * Tests the recipe API and its methods.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecipeControllerTest {
 
     @Autowired
     WebTestClient client;
-
-    /**
-     * Simple test of index method.
-     */
-    @Test
-    public void testIndex() {
-        String apiDescription = client.get().uri("/").accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectBody(String.class)
-                .returnResult()
-                .getResponseBody();
-        assertEquals(apiDescription, "Use GET /api for information on how to use the API.");
-    }
-
-    /**
-     * Simple test of api description.
-     */
-    @Test
-    public void testApiDescription() {
-        String apiDescription = client.get().uri("/api").accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectBody(String.class)
-                .returnResult()
-                .getResponseBody();
-        assertEquals(apiDescription, "description of api");
-    }
 
     /**
      * Tests that a new recipe can be created.
@@ -77,13 +51,13 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeById() {
-        client.get().uri("/getRecipeById?recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeById?recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.success").isEqualTo("true")
-                .jsonPath("$.data.recipeId").isEqualTo("624ed6763570fc64f5db9e70");
+                .jsonPath("$.data.recipeId").isEqualTo("624f1e08a78f7d53897fd2d2");
     }
 
     /**
@@ -105,7 +79,7 @@ public class RecipeControllerTest {
      */
     @Test
     public void getRecipeAccessById() {
-        client.get().uri("/getRecipeAccessById?accessType=read&recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeAccessById?accessType=read&recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -113,7 +87,7 @@ public class RecipeControllerTest {
                 .jsonPath("$.success").isEqualTo("true")
                 .jsonPath("$.data").isEqualTo("true");
 
-        client.get().uri("/getRecipeAccessById?accessType=write&recipeId=624ed6763570fc64f5db9e70")
+        client.get().uri("/getRecipeAccessById?accessType=write&recipeId=624f1e08a78f7d53897fd2d2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()

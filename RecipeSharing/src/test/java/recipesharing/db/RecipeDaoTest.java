@@ -96,7 +96,7 @@ class RecipeDaoTest {
      */
     @Test
     void findAllRecipe() {
-        Recipe recipe = new Recipe("CONTAINS ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null, null);
+        Recipe recipe = new Recipe("CONTAINS ME", "authId37", null, null, "half moon", true, true, 0, null, "cuis1", null , null);
         recipeDao.addRecipe(recipe);
         List<Recipe> allRecipe = recipeDao.findAllRecipe();
         assertTrue(allRecipe.size() > 0);
