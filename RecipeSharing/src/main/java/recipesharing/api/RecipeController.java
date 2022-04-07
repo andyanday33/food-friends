@@ -88,6 +88,7 @@ public class RecipeController {
         }
     }
 
+
     /**
      * Return all recipes if they exist. Otherwise returns a 404 and error message.
      * @return
@@ -156,6 +157,7 @@ public class RecipeController {
         return Result.success(hasAccess);
     }
 
+
     @PutMapping("/updateRecipeById")
     public Result updateRecipe(
             @RequestParam String title,
@@ -186,6 +188,8 @@ public class RecipeController {
         }
 
     }
+
+
 
     /**
      * Change permissions for a recipe
