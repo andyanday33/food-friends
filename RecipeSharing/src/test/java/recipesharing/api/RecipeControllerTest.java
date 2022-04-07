@@ -70,25 +70,41 @@ public class RecipeControllerTest {
                 .jsonPath("$.data[0].recipeName").isEqualTo("stinky tofu");
     }
 
+    /**
+     * Tests that recipes can be retrieved by their ID.
+     */
     @Test
     public void getRecipeById() {
 
     }
 
+    /**
+     * Tests that recipes can be retrieved by their author's ID.
+     */
     @Test
     public void getRecipeByAuthorId() {
 
     }
 
+    /**
+     * Used to test retrieving the read and write access on a recipe using the ID.
+     */
     @Test
     public void getRecipeAccessById() {
 
     }
 
+    /**
+     * Used to test that recipe permissions can be changed.
+     */
     @Test
     public void changeUserPermissionsOnRecipe() {
 
     }
+
+    /**
+     * Tests that recipes can be deleted using their ID.
+     */
     @Test
     public void testDeleteRecipeById() {
 
@@ -104,6 +120,9 @@ public class RecipeControllerTest {
                 .expectStatus().isNotFound();
     }
 
+    /**
+     * Test that all recipes with a given title can be retrieved.
+     */
     @Test
     public void findListOfRecipesByTitle() {
         client.get().uri("/getRecipeByTitle?title=pancake")
@@ -111,6 +130,5 @@ public class RecipeControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody();
-
     }
 }
