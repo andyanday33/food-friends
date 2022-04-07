@@ -80,8 +80,8 @@ public class UserControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("success").isEqualTo("false")
-                .jsonPath("code").isEqualTo("404");
+                .jsonPath("success").isEqualTo("true")
+                .jsonPath("data").isEqualTo(null);
     }
 
     /**
