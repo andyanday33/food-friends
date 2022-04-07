@@ -21,3 +21,6 @@ To run the application,
 3.  [click here to start the project](http://localhost:3000)
 
 
+4. To open the Command Line Interface, run the main method from CLI.java after starting the back end service.
+
+
