@@ -187,17 +187,14 @@ class RecipeDaoTest {
                 "t_recipe", RecipesCuisineVo.class);
 
         ArrayList<RecipesCuisineVo> recipesCuisineVos = new ArrayList<>();
-        for (RecipesCuisineVo result:results1
-        ) {
-            if(result.getCuisineId()!=null && result.get_id()!=null)
-            {
+        for (RecipesCuisineVo result:results1) {
+            if (result.getCuisineId() != null && result.get_id() != null) {
                 recipesCuisineVos.add(result);
             }
         }
         for (RecipesCuisineVo r : recipesCuisineVos) {
             System.out.println(r);
         }
-
     }
 
     @Test
@@ -215,17 +212,5 @@ class RecipeDaoTest {
         recipe.setIngredients(ingredients);
 
         recipeDao.addRecipe(recipe);
-    }
-
-    @Test
-    void testFindRecipeWithIngredientList(){
-        Recipe carrot_cake = recipeDao.findRecipeById("624d5c4556aa8979cdb6b60c");
-
-        List<IngredientItem> ingredients = carrot_cake.getIngredients();
-        for (IngredientItem i: ingredients
-        ) {
-            System.out.println(i.getIngredient());
-        }
-
     }
 }
