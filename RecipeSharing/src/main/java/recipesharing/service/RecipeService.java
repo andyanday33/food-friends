@@ -41,8 +41,8 @@ public class RecipeService {
      *  find all recipes, 
      * @return recipe list
      */
-    public List<Recipe> findAllRecipe() throws NotFoundDBException {
-        List<Recipe> recipeList = recipeDao.findAllRecipe();
+    public ArrayList<Recipe> findAllRecipe() throws NotFoundDBException {
+        ArrayList<Recipe> recipeList = (ArrayList<Recipe>) recipeDao.findAllRecipe();
         if (recipeList.isEmpty()) {
             throw new NotFoundDBException("There are currently no recipes in the database.");
         }
