@@ -1,5 +1,7 @@
 package recipesharing.api;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,7 +51,7 @@ public class RecipeControllerTest {
      */
     @Test
     public void testCreateNewRecipe() {
-        client.post().uri("/createNewRecipe?title=stinky tofu&description=tofu that really stinks&ownerId=auth78&instructions=let it ferment for 50 years&ingredientNames=Tofu&ingredientQuantities=1.0&cuisineName=Japanese")
+        client.post().uri("/createNewRecipe?title=stinky tofu&description=tofu that really stinks&ownerId=auth78&instructions=let it ferment for 50 years&ingredientNames=Tofu&ingredientQuantities=1.0&cuisineName=Spannish")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -125,15 +127,38 @@ public class RecipeControllerTest {
      */
     @Test
     public void changeUserPermissionsOnRecipe() {
-
+        //TODO add test when how method is to be implemented is decided. Or delete this test and the method.
     }
 
     /**
      * Tests that recipes can be deleted using their ID.
      */
     @Test
-    public void testDeleteRecipeById() {
+    public void testDeleteRecipeById() throws JSONException {
+        String response = client.post().uri("/createNewRecipe?title=spanneros&description=extra jumpy&ownerId=kermit&instructions=boil them&ingredientNames=frogLegs&ingredientQuantities=2.0&cuisineName=Spannish")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange().expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
 
+        //get id from created recipe
+        JSONObject json = new JSONObject(response);
+        JSONObject nestedJson = json.getJSONObject("data");
+        String id = (String) nestedJson.get("recipeId");
+
+        //delete created recipe
+        client.delete().uri("deleteRecipeByID?recipeID=" + id)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk();
+
+        //check deleted recipe no longer exists.
+        client.get().uri("/getRecipeById?recipeId=" + id)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("code").isEqualTo("404");
     }
 
     /**
