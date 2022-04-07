@@ -94,6 +94,7 @@ public class CuisineController {
         List<Recipe> recipes = new ArrayList<>();
         for (RecipesCuisineVo r : recipesByCuisineId) {
             Recipe recipeById = recipeService.findRecipeById(r.get_id());
+
             recipes.add(recipeById);
         }
 

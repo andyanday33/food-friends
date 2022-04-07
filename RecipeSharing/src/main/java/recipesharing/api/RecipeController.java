@@ -50,6 +50,7 @@ public class RecipeController {
             @RequestParam String cuisineName
     ) {
 
+        Recipe recipe = null;
         // Create a new list to store each ingredient item.
         ArrayList<IngredientItem> ingredients = new ArrayList<>();
         // Loop through all ingredient names and add each ingredient and corresponding quantity to the list.
@@ -61,13 +62,13 @@ public class RecipeController {
             // find the cuisine object associated with the cuisine title
             Cuisine cuisine = cuisineService.findCuisineWithName(cuisineName);
             // Create a new recipe
-            Recipe recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine);
+            recipe = new Recipe(title, description, ownerId, instructions, ingredients, cuisine, cuisine.getId());
             // add the recipe
             recipeService.addRecipe(recipe);
-            return Result.success(recipe);
         } else {
             return Result.fail(400, "the cuisine you are trying to add does not exist. Please choose a valid cuisine.");
         }
+        return Result.success(recipe);
     }
 
 
@@ -140,6 +141,17 @@ public class RecipeController {
     }
 
 
+    /**
+     *  update a recipe
+     * @param title
+     * @param description
+     * @param ownerId
+     * @param instructions
+     * @param ingredientNames
+     * @param ingredientQuantities
+     * @param cuisineName
+     * @return
+     */
     @PutMapping("/updateRecipeById")
     public Result updateRecipe(
             @RequestParam String title,

@@ -26,6 +26,11 @@ public class IngredientService {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    /**
+     * get all ingredients
+     * @return a list of ingredients
+     * @throws NotFoundDBException
+     */
     public List<Ingredient> findAllIngredients() throws NotFoundDBException {
         List<Ingredient> ingredientList = ingredientDao.findAllIngredients();
         if (ingredientList.isEmpty()) {
@@ -34,6 +39,12 @@ public class IngredientService {
         return ingredientList;
     }
 
+    /**
+     *  show the ingredients with page limit
+     * @param page page number
+     * @param size record number
+     * @return a list of ingredients
+     */
     public List<Ingredient> findAllIngredientsWithPageLimit(int page, int size) {
 
 
@@ -69,14 +80,28 @@ public class IngredientService {
         return ingredient;
     }
 
+    /**
+     * add one ingredient
+     * @param ingredient ingredient
+     */
     public void addOneIngredient(Ingredient ingredient)  {
         ingredientDao.addOneIngredient(ingredient);
     }
 
+    /**
+     * delete one ingredient via its title
+     * @param title title
+     */
     public void deleteIngredientByTitle(String title){
         ingredientDao.deleteIngredientByTitle(title);
     }
 
+    /**
+     * update the ingredient info via its title
+     * @param ingredient ingredient obj
+     * @param newTitle new title
+     * @param newQuantity new quantity
+     */
     public void updateIngredientByTitle(Ingredient ingredient, String newTitle, Double newQuantity){
         ingredientDao.updateIngredientByTitle(ingredient, newTitle, newQuantity);
     }

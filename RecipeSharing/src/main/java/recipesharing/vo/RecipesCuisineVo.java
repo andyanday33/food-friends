@@ -6,7 +6,7 @@ import recipesharing.logic.Recipe;
 import java.util.List;
 
 /**
- *
+ * view obj for recipe table and cuisine table
  */
 @Data
 public class RecipesCuisineVo {
